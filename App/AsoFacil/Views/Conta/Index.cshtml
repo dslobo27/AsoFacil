@@ -1,0 +1,46 @@
+﻿@model AsoFacil.Models.Conta.LoginViewModel;
+@{
+    Layout = "_LayoutNaoAutenticado";
+    ViewData["Title"] = "Acesso";
+}
+
+<main id="main-login">
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="login-form" class="form" asp-action="Login" asp-controller="Conta" method="post">
+                                    <h3 class="text-center text-success">Acesso</h3>
+                                    <div class="form-group">
+                                        <label for="username" class="text-success">Usuário</label><br>
+                                        <input type="text" asp-for="Login" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="text-success">Senha</label><br>
+                                        <input type="password" asp-for="Senha" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <span><input id="remember-me" name="remember-me" type="checkbox"></span>
+                                        <label for="remember-me" class="text-success"><span>Lembre-se de mim</span> </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" name="submit" class="btn btn-success btn-block" value="Entrar">
+
+                                    </div>
+                                    <div class="form-group text-center">
+                                        Não possui conta? <a class="text-success" asp-controller="Empresa" asp-action="Cadastro">Cadastre-se</a><br />
+                                        <a class="text-success text-center">Esqueci minha senha</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

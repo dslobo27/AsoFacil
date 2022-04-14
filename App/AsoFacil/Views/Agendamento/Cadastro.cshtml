@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Agendamentos";
+    Layout = "_LayoutAutenticado";
+}
+
+<main id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Filtros</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nome">Paciente</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nome">RG</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="data">Data</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success" value="Buscar" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <a class="btn btn-success" href="#">Novo agendamento</a>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Agendamentos cadastrados</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Editar</th>
+                                    <th>Paciente</th>
+                                    <th>Data</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="bx bx-edit"></span></td>
+                                    <td>Denilson Silva Lobo</td>
+                                    <td>15/04/2022 09:00</td>
+                                    <td><span class="bx bx-trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="bx bx-edit"></span></td>
+                                    <td>Marcelo</td>
+                                    <td>15/04/2022 09:00</td>
+                                    <td><span class="bx bx-trash"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

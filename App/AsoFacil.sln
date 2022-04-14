@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsoFacil", "AsoFacil\AsoFacil.csproj", "{9F0BA4C7-FF88-4F0F-99A6-44BF67612CC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsoFacil.Domain", "AsoFacil.Domain\AsoFacil.Domain.csproj", "{7B2309EE-4C9A-4FA7-ADF3-08F8CC2141D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F0BA4C7-FF88-4F0F-99A6-44BF67612CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0BA4C7-FF88-4F0F-99A6-44BF67612CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0BA4C7-FF88-4F0F-99A6-44BF67612CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0BA4C7-FF88-4F0F-99A6-44BF67612CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2309EE-4C9A-4FA7-ADF3-08F8CC2141D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2309EE-4C9A-4FA7-ADF3-08F8CC2141D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2309EE-4C9A-4FA7-ADF3-08F8CC2141D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2309EE-4C9A-4FA7-ADF3-08F8CC2141D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8C885FE1-DD1E-462B-A071-9CDBC2E1D3C0}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Cadastro de Candidato";
+    Layout = "_LayoutAutenticado";
+}
+
+<main id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Filtros</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nome">Nome</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nome">RG</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nome">Email</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>                 
+                            <div class="col-md-3">
+                                <input type="submit" class="btn btn-success" value="Buscar" />
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <a class="btn btn-success" href="#">Novo paciente</a>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Pacientes cadastrados</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Editar</th>
+                                    <th>Nome</th>
+                                    <th>RG</th>
+                                    <th>Email</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="bx bx-edit"></span></td>
+                                    <td>Denilson Silva Lobo</td>
+                                    <td>38.XXX.XXX-6</td>
+                                    <td>denilson.pucminas@gmail.com</td>
+                                    <td><span class="bx bx-trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="bx bx-edit"></span></td>
+                                    <td>Marcelo</td>
+                                    <td>39.XXX.XXX-3</td>
+                                    <td>marcelo.pucminas@gmail.com</td>
+                                    <td><span class="bx bx-trash"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

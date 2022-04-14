@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASO FÁCIL - @ViewData["Title"]</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/lib/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/lib/aos/aos.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/lib/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/lib/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/lib/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            <h1 class="logo me-auto"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASO FÁCIL</a></h1>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-mask/dist/jquery.mask.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Vendor JS Files -->
+    <script src="~/lib/purecounter/purecounter.js"></script>
+    <script src="~/lib/aos/aos.js"></script>
+    <script src="~/lib/swiper/swiper-bundle.min.js"></script>
+    <script src="~/lib/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
