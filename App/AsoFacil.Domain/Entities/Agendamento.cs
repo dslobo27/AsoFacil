@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsoFacil.Domain.Entidades
+namespace AsoFacil.Domain.Entities
 {
     public class Agendamento
     {

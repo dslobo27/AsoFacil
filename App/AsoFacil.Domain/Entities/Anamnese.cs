@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsoFacil.Domain.Entidades
+namespace AsoFacil.Domain.Entities
 {
     public class Anamnese
     {
@@ -59,5 +59,7 @@ namespace AsoFacil.Domain.Entidades
         public DateTime Data { get; set; }
 
         public Medico Medico { get; set; }
+
+        public Candidato Candidato { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsoFacil.Domain.Entidades
+namespace AsoFacil.Domain.Entities
 {
     public class Candidato
     {
@@ -26,6 +26,8 @@ namespace AsoFacil.Domain.Entidades
         public Documento Documento { get; set; }
         public Anamnese Anamnese { get; set; }
         public Empresa Empresa { get; set; }
+
+        public Agendamento Agendamento { get; set; }
 
         #endregion Navegação
     }
