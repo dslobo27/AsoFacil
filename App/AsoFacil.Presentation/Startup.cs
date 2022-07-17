@@ -1,17 +1,15 @@
 using AsoFacil.InfraStructure.DataContext;
 using AsoFacil.IoC;
+using AsoFacil.Presentation.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AsoFacil.Presentation
 {
@@ -23,6 +21,7 @@ namespace AsoFacil.Presentation
         }
 
         public IConfiguration Configuration { get; }
+        public object AuthConfiguration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +33,26 @@ namespace AsoFacil.Presentation
                     .EnableSensitiveDataLogging(true), ServiceLifetime.Transient);
 
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ApiPolicy",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            });
+
+            services.AddTransient<TokenService>();
+
+            var key = Encoding.ASCII.GetBytes(Config.JwtKey);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +65,9 @@ namespace AsoFacil.Presentation
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("ApiPolicy");
 
             app.UseEndpoints(endpoints =>
             {

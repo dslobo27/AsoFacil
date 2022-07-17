@@ -1,15 +1,19 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Empresa;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Presentation.Controllers
 {
-    public class EmpresaController : Controller
+    [Authorize]
+    [ApiController]
+    [Route("api/empresas")]
+    public class EmpresasController : Controller
     {
-        [HttpPost]
+        [HttpPost("/v1/create")]
         public async Task<IActionResult> Post([FromServices] IEmpresaApplicationService service, [FromBody] CriarEmpresaModel model)
         {
             if (!ModelState.IsValid)
@@ -18,7 +22,7 @@ namespace AsoFacil.Presentation.Controllers
             try
             {
                 var taskResult = await service.CriarAsync(model);
-                if(taskResult)
+                if (taskResult)
                     return Ok(new TaskResult<string>("Empresa cadastrada com sucesso!", null));
 
                 throw new Exception("Erro inesperado.");

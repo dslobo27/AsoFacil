@@ -15,11 +15,13 @@ namespace AsoFacil.IoC
             #region ApplicationServices
 
             services.AddTransient<IEmpresaApplicationService, EmpresaApplicationService>();
+            services.AddTransient<IUsuarioApplicationService, UsuarioApplicationService>();
 
             #endregion ApplicationServices
 
             #region DomainServices
 
+            services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
             services.AddTransient<IEmpresaDomainService, EmpresaDomainService>();
             services.AddTransient<IStatusSolicitacaoAtivacaoEmpresaDomainService, StatusSolicitacaoAtivacaoEmpresaDomainService>();
 
@@ -27,6 +29,7 @@ namespace AsoFacil.IoC
 
             #region Repositories
 
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IEmpresaRepository, EmpresaRepository>();
             services.AddTransient<ISolicitacaoAtivacaoEmpresaRepository, SolicitacaoAtivacaoEmpresaRepository>();
             services.AddTransient<IStatusSolicitacaoAtivacaoEmpresaRepository, StatusSolicitacaoAtivacaoEmpresaRepository>();

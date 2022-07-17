@@ -4,10 +4,6 @@ using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
 using AsoFacil.Domain.Enums;
 using AsoFacil.Domain.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Application.Impl.Services
@@ -22,7 +18,6 @@ namespace AsoFacil.Application.Impl.Services
             _empresaDomainService = empresaDomainService;
             _statusSolicitacaoAtivacaoEmpresaDomainService = statusSolicitacaoAtivacaoEmpresaDomainService;
         }
-
 
         public async Task<bool> CriarAsync(CriarEmpresaModel model)
         {
