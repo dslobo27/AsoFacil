@@ -6,6 +6,8 @@ namespace AsoFacil.Domain.Entities
     public class TipoUsuario
     {
         public Guid Id { get; set; }
+
+        public string Codigo { get; set; }
         public string Descricao { get; set; }
         public string MenuSistema { get; set; }
 

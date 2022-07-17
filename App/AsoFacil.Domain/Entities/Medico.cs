@@ -9,6 +9,11 @@ namespace AsoFacil.Domain.Entities
         public string Nome { get; set; }
         public string CRM { get; set; }
 
+        public Guid UsuarioId { get; set; }
+
         public List<Anamnese> Anamneses { get; set; }
+
+        public Usuario Usuario { get; set; }
+
     }
 }

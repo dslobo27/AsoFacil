@@ -19,6 +19,8 @@ namespace AsoFacil.InfraStructure.Configurations
                 .HasColumnType("varchar")
                 .HasMaxLength(15);
 
+            builder.Property(x => x.UsuarioId);
+
             builder.HasMany(x => x.Anamneses)
                 .WithOne(x => x.Medico)
                 .HasForeignKey(x => x.MedicoId);

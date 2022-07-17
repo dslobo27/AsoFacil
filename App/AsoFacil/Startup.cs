@@ -15,6 +15,7 @@ namespace AsoFacil
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Config.base_uri = "http://localhost:5000";
         }
 
         public IConfiguration Configuration { get; }

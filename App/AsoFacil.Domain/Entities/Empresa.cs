@@ -23,7 +23,11 @@ namespace AsoFacil.Domain.Entities
         public List<Agendamento> Agendamentos { get; set; }
         public List<Usuario> Usuarios { get; set; }
 
-        #endregion Navegação
+        #endregion 
+
+        public Empresa()
+        {
+        }
 
         public Empresa(string cnpj, string razaoSocial, string email)
         {

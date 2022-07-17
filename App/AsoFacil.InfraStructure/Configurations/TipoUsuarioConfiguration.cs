@@ -11,6 +11,10 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id);
 
+            builder.Property(x => x.Codigo)
+                .HasColumnType("varchar")
+                .HasMaxLength(255);
+
             builder.Property(x => x.Descricao)
                 .HasColumnType("varchar")
                 .HasMaxLength(255);

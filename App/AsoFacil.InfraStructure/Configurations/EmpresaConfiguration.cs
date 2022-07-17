@@ -27,14 +27,12 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.Property(x => x.SolicitacaoAtivacaoEmpresaId);
 
             builder.HasOne(x => x.SolicitacaoAtivacaoEmpresa)
-                .WithOne(x => x.Empresa);
+                .WithMany(x => x.Empresas)
+                .HasForeignKey(x => x.SolicitacaoAtivacaoEmpresaId);
 
             builder.HasMany(x => x.Candidatos)
                 .WithOne(x => x.Empresa)
                 .HasForeignKey(x => x.EmpresaId);
-
-            builder.HasMany(x => x.Agendamentos)
-                .WithOne(x => x.Empresa);
         }
     }
 }

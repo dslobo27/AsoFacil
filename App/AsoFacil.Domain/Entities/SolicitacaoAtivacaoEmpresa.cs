@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AsoFacil.Domain.Entities
 {
@@ -14,7 +15,7 @@ namespace AsoFacil.Domain.Entities
 
         #region
 
-        public Empresa Empresa { get; set; }
+        public List<Empresa> Empresas { get; set; }
         public StatusSolicitacaoAtivacaoEmpresa StatusSolicitacaoAtivacaoEmpresa { get; set; }
 
         #endregion
