@@ -10,10 +10,9 @@ namespace AsoFacil.Presentation.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/empresas")]
     public class EmpresasController : Controller
     {
-        [HttpPost("/v1/create")]
+        [HttpPost("api/empresas/v1/create")]
         public async Task<IActionResult> Post([FromServices] IEmpresaApplicationService service, [FromBody] CriarEmpresaModel model)
         {
             if (!ModelState.IsValid)

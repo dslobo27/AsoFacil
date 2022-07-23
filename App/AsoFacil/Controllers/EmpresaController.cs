@@ -1,9 +1,11 @@
 ﻿using AsoFacil.Models.Empresa;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace AsoFacil.Controllers
 {
+    [Authorize]
     public class EmpresaController : Controller
     {
         public IActionResult Cadastro()

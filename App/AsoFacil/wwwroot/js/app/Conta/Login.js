@@ -16,8 +16,12 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (ret) {
+                if (ret) {
+                    console.log('teste');
+                }                
             },
             error: function (e) {
+                alert(e);
             }
         });
     });

@@ -1,22 +1,32 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
-using AsoFacil.Application.Models.Empresa;
 using AsoFacil.Application.Models.Usuario;
 using AsoFacil.Presentation.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Presentation.Controllers
 {
-    [Authorize]
     [ApiController]
-    [Route("api/usuarios")]
     public class UsuariosController : Controller
     {
-        [HttpPost("/v1/login")]
-        public async Task<IActionResult> PostAsync([FromServices] TokenService tokenService, 
+        /// <summary>
+        /// Endpoint de autenticação de usuário
+        /// </summary>
+        /// <param name="tokenService"></param>
+        /// <param name="usuarioApplicationService"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("api/usuarios/v1/login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> PostAsync([FromServices] TokenService tokenService,
             [FromServices] IUsuarioApplicationService usuarioApplicationService, [FromBody] UsuarioLoginModel model)
         {
             if (!ModelState.IsValid)

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading;
 
 namespace AsoFacil.Helpers
 {
@@ -9,7 +12,10 @@ namespace AsoFacil.Helpers
         public static HttpClient GetHttpClient(this HttpContext context)
         {
             var client = new HttpClient();
-            string token = context.Session.GetString("token");
+
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var token = identity.Claims.Where(c => c.Type == ClaimTypes.Sid)
+                   .Select(c => c.Value).SingleOrDefault();
 
             if (token == null)
                 throw new ArgumentNullException(nameof(token));

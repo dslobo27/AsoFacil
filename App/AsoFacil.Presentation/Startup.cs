@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace AsoFacil.Presentation
@@ -53,6 +54,16 @@ namespace AsoFacil.Presentation
                 ValidateIssuer = false,
                 ValidateAudience = false
             });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "AsoFacil API",
+                    Description = "[Projeto backend] API do Projeto AsoFacil"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +79,12 @@ namespace AsoFacil.Presentation
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("ApiPolicy");
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,46 +1,70 @@
 ﻿using AsoFacil.Models.Conta;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
-using System.Net.Http;
-using System.Text;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Controllers
 {
-    public class ContaController : Controller
+    public class ContaController : BaseController
     {
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Cadastro", "Agendamento");
+            }
+
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] LoginViewModel model)
+        public async Task<ActionResult> Login([FromBody] UsuarioLoginModel model)
         {
             try
             {
-                var client = new HttpClient();
-                var uri = new Uri($"{Config.base_uri}/api/usuarios/v1/login");
-
-                var content = new StringContent(JsonConvert.SerializeObject(model), 
-                                    Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync(uri, content);
+                var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    var token = await response.Content.ReadAsStringAsync();
-                    HttpContext.Session.SetString("token", token);
-                    return RedirectToAction("Index", "Home");
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Sid, taskResult.Data.ToString())
+                    };
+
+                    var id = new ClaimsIdentity(claims, "Login");
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(id);
+                    Thread.CurrentPrincipal = claimsPrincipal;
+
+                    var authenticationProperties = new AuthenticationProperties
+                    {
+                        AllowRefresh = true,
+                        ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(2),
+                        IsPersistent = true
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+
+                    return Json(taskResult.IsSuccess);
                 }
 
-                return Json(response);
+                return Json(taskResult.Errors);
             }
             catch (Exception ex)
             {
                 return Json(ex.Message);
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Conta");
         }
     }
 }
