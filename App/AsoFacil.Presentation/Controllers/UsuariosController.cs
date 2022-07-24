@@ -36,7 +36,7 @@ namespace AsoFacil.Presentation.Controllers
             {
                 var user = await usuarioApplicationService.Login(model.Login, model.Senha);
 
-                if (user == null)
+                if (user.Id.Equals(Guid.Empty))
                     return StatusCode(401, new TaskResult<string>("Usuário ou senha inválidos."));
 
                 var token = tokenService.GerarToken(user);

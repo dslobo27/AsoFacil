@@ -2,3 +2,11 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+function showLoading() {
+    $('#preloader').removeClass('hidden');
+}
+
+function hideLoading() {
+    $('#preloader').addClass('hidden');
+    $('#preloader').css('display', 'none');
+}

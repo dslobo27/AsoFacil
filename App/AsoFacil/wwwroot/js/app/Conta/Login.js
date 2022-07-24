@@ -1,6 +1,15 @@
 ﻿$(document).ready(function () {
+    let preloader = $('#preloader');
+
     $('#btnLogin').click(function (e) {
-        e.preventDefault();
+        e.preventDefault();        
+        var formValid = $('#login-form').valid();
+        if (!formValid) {
+            return false;
+        }
+
+        preloader.show();
+
         let usuario = $('#usuario').val();
         let senha = $('#senha').val();
 
@@ -11,17 +20,24 @@
 
         $.ajax({
             type: 'POST',
-            url: 'Conta/Login',
+            url: '/Conta/Login',
             data: JSON.stringify(model),
+            async: true,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (ret) {
-                if (ret) {
-                    console.log('teste');
-                }                
+            beforeSend: function () {
+                showLoading();
+            },
+            success: function (taskResult) {
+                hideLoading();
+                if (taskResult.isSuccess) {
+                    window.location.href = '/Candidato/Cadastro';
+                    return;
+                }
+                alert(taskResult.errors);
             },
             error: function (e) {
-                alert(e);
+                console.error(e);
             }
         });
     });

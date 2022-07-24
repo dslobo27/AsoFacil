@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AsoFacil.Models
 {
@@ -6,7 +7,7 @@ namespace AsoFacil.Models
     {
         public bool IsSuccess { get
             {
-                return Errors == null;
+                return !Errors.Any();
             } 
         }
 

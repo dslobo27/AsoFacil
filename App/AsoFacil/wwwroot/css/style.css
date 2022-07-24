@@ -60,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
+.hidden {
+    display: none;
+}
+
 #preloader {
   position: fixed;
   top: 0;
@@ -71,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
 }
 
-#preloader:before {
+#preloader:after {
   content: "";
   position: fixed;
   top: calc(50% - 30px);

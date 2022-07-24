@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AsoFacil.Models.Conta.UsuarioLoginModel
+@{
     Layout = "_LayoutNaoAutenticado";
     ViewData["Title"] = "Acesso";
 }
@@ -12,22 +13,24 @@
                     <div id="login-box" class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <form id="login-form" class="form" method="post">
+                                <form id="login-form" name="login-form" class="form" method="post" asp-action="Login" asp-controller="Conta">
                                     <h3 class="text-center text-success">Acesso</h3>
                                     <div class="form-group">
-                                        <label for="usuario" class="text-success">Usuário</label><br>
-                                        <input type="text" id="usuario" name="usuario" class="form-control">
+                                        <label for="usuario" class="text-success">Email</label><br>
+                                        <input type="text" asp-for="Login" id="usuario" class="form-control">
+                                        <span asp-validation-for="Login" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="senha" class="text-success">Senha</label><br>
-                                        <input type="password" id="senha" name="senha" class="form-control">
+                                        <input type="password" asp-for="Senha" id="senha" class="form-control">
+                                        <span asp-validation-for="Senha" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <span><input id="remember-me" name="remember-me" type="checkbox"></span>
                                         <label for="remember-me" class="text-success"><span>Lembre-se de mim</span> </label>
                                     </div>
                                     <div class="form-group">
-                                        <a href="" class="btn btn-success btn-block" id="btnLogin">Entrar</a>
+                                        <input type="submit" class="btn btn-success btn-block" id="btnLogin" value="Entrar" />
                                     </div>
                                     <div class="form-group text-center">
                                         Não possui conta? <a class="text-success" asp-controller="Empresa" asp-action="Cadastro">Cadastre-se</a><br />

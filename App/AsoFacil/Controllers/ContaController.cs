@@ -26,38 +26,29 @@ namespace AsoFacil.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UsuarioLoginModel model)
         {
-            try
+            var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model);
+            if (response.IsSuccessStatusCode && taskResult.IsSuccess)
             {
-                var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model);
-                if (response.IsSuccessStatusCode)
-                {
-                    var claims = new List<Claim>
+                var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Sid, taskResult.Data.ToString())
                     };
 
-                    var id = new ClaimsIdentity(claims, "Login");
-                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(id);
-                    Thread.CurrentPrincipal = claimsPrincipal;
+                var id = new ClaimsIdentity(claims, "Login");
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(id);
+                Thread.CurrentPrincipal = claimsPrincipal;
 
-                    var authenticationProperties = new AuthenticationProperties
-                    {
-                        AllowRefresh = true,
-                        ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(2),
-                        IsPersistent = true
-                    };
+                var authenticationProperties = new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(2),
+                    IsPersistent = true
+                };
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
-
-                    return Json(taskResult.IsSuccess);
-                }
-
-                return Json(taskResult.Errors);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
             }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
+
+            return Json(taskResult);
         }
 
         [HttpGet]

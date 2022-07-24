@@ -53,8 +53,9 @@ namespace AsoFacil
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
