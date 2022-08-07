@@ -18,8 +18,10 @@ namespace AsoFacil.InfraStructure.Repositories
         public async Task<Usuario> Login(string login, string senha)
         {
             return await _context.Usuarios
+                .Include(x => x.TipoUsuario)
+                .Include(x => x.Empresa)
                 .FirstOrDefaultAsync(x => x.Login.Equals(login)
-                && x.Senha.Equals(senha));
+                    && x.Senha.Equals(senha));
         }
     }
 }

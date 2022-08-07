@@ -1,26 +1,28 @@
-﻿using AsoFacil.Application.Models.Empresa;
-using AsoFacil.Application.Models.TipoUsuario;
+﻿using AsoFacil.Models.Empresa;
+using AsoFacil.Models.TipoUsuario;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AsoFacil.Application.Models.Usuario
+namespace AsoFacil.Models.Conta
 {
     public class UsuarioModel
     {
         public Guid Id { get; set; }
 
-        public TipoUsuarioModel TipoUsuario { get; set; }
-        public EmpresaModel Empresa { get; set; }
+        public TipoUsuarioViewModel TipoUsuario { get; set; }
+        public EmpresaViewModel Empresa { get; set; }
 
         public string Token { get; set; }
     }
 
-    public class UsuarioLoginModel
+    public class UsuarioViewModel
     {
         [Required(ErrorMessage = "Por favor, informe o usuário.")]
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe a senha.")]
         public string Senha { get; set; }
+
+        public bool LembrarDeMim { get; set; }
     }
 }

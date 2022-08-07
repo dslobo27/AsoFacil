@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AsoFacil.Application.Models.Empresa
 {
@@ -12,5 +13,15 @@ namespace AsoFacil.Application.Models.Empresa
 
         [Required(ErrorMessage = "Por favor, informe um email de contato.")]
         public string Email { get; set; }
+    }
+
+    public class EmpresaModel
+    {
+        public Guid Id { get; set; }
+        public string CNPJ { get; set; }
+        public string RazaoSocial { get; set; }
+        public string Email { get; set; }
+        public bool Ativa { get; set; }
+        public Guid SolicitacaoAtivacaoEmpresaId { get; set; }
     }
 }

@@ -12,10 +12,14 @@
 
         let usuario = $('#usuario').val();
         let senha = $('#senha').val();
+        let lembrarDeMim = $('#remember-me').is(':checked');
+
+        console.log(lembrarDeMim);
 
         let model = {
             Login: usuario,
-            Senha: senha
+            Senha: senha,
+            LembrarDeMim: lembrarDeMim
         };
 
         $.ajax({
@@ -31,7 +35,7 @@
             success: function (taskResult) {
                 hideLoading();
                 if (taskResult.isSuccess) {
-                    window.location.href = '/Candidato/Cadastro';
+                    window.location.href = taskResult.urlRedirect;
                     return;
                 }
                 alert(taskResult.errors);

@@ -11,6 +11,7 @@ namespace AsoFacil.Models
             } 
         }
 
+        public string UrlRedirect { get; set; }
         public object Data { get; set; }
         public List<string> Errors { get; private set; } = new List<string>();
     }

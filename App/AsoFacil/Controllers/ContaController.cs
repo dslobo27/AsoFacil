@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,32 +19,44 @@ namespace AsoFacil.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Cadastro", "Agendamento");
+                var identity = (ClaimsIdentity)User.Identity;
+                var codigoTipoUsuario = identity.Claims.FirstOrDefault(x => x.Type.Equals("CodigoTipoUsuario")).Value;
+                return Redirect(ObterUrlRedirecionamento(codigoTipoUsuario));
             }
 
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] UsuarioLoginModel model)
+        public async Task<ActionResult> Login([FromBody] UsuarioViewModel model)
         {
             var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model);
             if (response.IsSuccessStatusCode && taskResult.IsSuccess)
             {
-                var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Sid, taskResult.Data.ToString())
-                    };
+                var user = JsonConvert.DeserializeObject<UsuarioModel>(taskResult.Data.ToString());
 
-                var id = new ClaimsIdentity(claims, "Login");
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(id);
+                var claims = new List<Claim>
+                {
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Token", user.Token),
+                    new Claim("CodigoTipoUsuario", user.TipoUsuario.Codigo),
+                    new Claim("MenuSistema", user.TipoUsuario.MenuSistema),
+                    new Claim("EmpresaId", user.Empresa.Id.ToString()),
+                    new Claim("CNPJ", user.Empresa.CNPJ),
+                    new Claim("Email", user.Empresa.Email)
+                };
+
+                taskResult.UrlRedirect = ObterUrlRedirecionamento(user.TipoUsuario.Codigo);
+
+                ClaimsIdentity identity = new ClaimsIdentity(claims, "AsoFacil");
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
                 Thread.CurrentPrincipal = claimsPrincipal;
 
                 var authenticationProperties = new AuthenticationProperties
                 {
                     AllowRefresh = true,
-                    ExpiresUtc = DateTime.Now.ToLocalTime().AddHours(2),
-                    IsPersistent = true
+                    ExpiresUtc = model.LembrarDeMim ? null : DateTime.Now.ToLocalTime().AddMinutes(15),
+                    IsPersistent = model.LembrarDeMim
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
@@ -57,5 +71,24 @@ namespace AsoFacil.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Conta");
         }
+
+        #region private
+
+        private string ObterUrlRedirecionamento(string codigoTipoUsuario)
+        {
+            string urlRedirecionamento = codigoTipoUsuario switch
+            {
+                "EMPRESA_ADMIN" => "/Agendamento/Cadastro",
+                "ASOFACIL_ADMIN" => "/Home/Dashboard",
+                "EMPRESA_OPR" => "/Agendamento/Cadastro",
+                "CLINICA_ADMIN" => "/Agendamento/Cadastro",
+                "CLINICA_OPR" => "/Agendamento/Cadastro",
+                "CLINICA_MED" => "/Agendamento/Cadastro",
+                _ => "/Conta/Index",
+            };
+            return urlRedirecionamento;
+        }
+
+        #endregion private
     }
 }

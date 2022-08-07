@@ -30,21 +30,21 @@ namespace AsoFacil.Presentation.Controllers
             [FromServices] IUsuarioApplicationService usuarioApplicationService, [FromBody] UsuarioLoginModel model)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
+                return BadRequest(new TaskResult<UsuarioModel>(ModelState.GetErrors()));
 
             try
             {
                 var user = await usuarioApplicationService.Login(model.Login, model.Senha);
 
                 if (user.Id.Equals(Guid.Empty))
-                    return StatusCode(401, new TaskResult<string>("Usuário ou senha inválidos."));
+                    return StatusCode(401, new TaskResult<UsuarioModel>("Usuário ou senha inválidos."));
 
-                var token = tokenService.GerarToken(user);
-                return Ok(new TaskResult<string>(token, null));
+                user.Token = tokenService.GerarToken(user);                
+                return Ok(new TaskResult<UsuarioModel>(user));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new TaskResult<string>($"Ocorreu um erro ao realizar login no sistema! {ex.Message}"));
+                return StatusCode(500, new TaskResult<UsuarioModel>($"Ocorreu um erro ao realizar login no sistema! {ex.Message}"));
             }
         }
     }

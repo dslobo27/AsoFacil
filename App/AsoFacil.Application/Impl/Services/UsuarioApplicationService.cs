@@ -1,4 +1,6 @@
 ﻿using AsoFacil.Application.Contracts;
+using AsoFacil.Application.Models.Empresa;
+using AsoFacil.Application.Models.TipoUsuario;
 using AsoFacil.Application.Models.Usuario;
 using AsoFacil.Domain.Contracts.Services;
 using System.Threading.Tasks;
@@ -16,11 +18,33 @@ namespace AsoFacil.Application.Impl.Services
 
         public async Task<UsuarioModel> Login(string login, string senha)
         {
-            var model = new UsuarioModel();
+            UsuarioModel model = null;
+
             var usuario = await _usuarioDomainService.Login(login, senha);
 
             if (usuario != null)
-                model.Id = usuario.Id;
+            {
+                model = new UsuarioModel
+                {
+                    Id = usuario.Id,
+                    TipoUsuario = new TipoUsuarioModel
+                    {
+                        Id = usuario.TipoUsuario.Id,
+                        Codigo = usuario.TipoUsuario.Codigo,
+                        Descricao = usuario.TipoUsuario.Descricao,
+                        MenuSistema = usuario.TipoUsuario.MenuSistema
+                    },
+                    Empresa = new EmpresaModel
+                    {
+                        Id = usuario.Empresa.Id,
+                        Ativa = usuario.Empresa.Ativa,
+                        CNPJ = usuario.Empresa.CNPJ,
+                        Email = usuario.Empresa.Email,
+                        RazaoSocial = usuario.Empresa.RazaoSocial,
+                        SolicitacaoAtivacaoEmpresaId = usuario.Empresa.SolicitacaoAtivacaoEmpresaId
+                    }
+                };
+            }                
 
             return model;
         }

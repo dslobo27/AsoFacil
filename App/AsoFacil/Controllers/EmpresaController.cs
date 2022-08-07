@@ -15,7 +15,7 @@ namespace AsoFacil.Controllers
 
         public IActionResult EditarCadastro()
         {
-            var model = new EditarEmpresaViewModel
+            var model = new EmpresaViewModel
             {
                 CNPJ = "70.918.873/0001-63",
                 RazaoSocial = "IBLUE CONSULTING LTDA",
