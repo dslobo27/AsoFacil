@@ -1,13 +1,17 @@
-﻿using AsoFacil.Models.Empresa;
+﻿using AsoFacil.Models;
+using AsoFacil.Models.Empresa;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 
 namespace AsoFacil.Controllers
 {
     [Authorize]
-    public class EmpresaController : Controller
+    public class EmpresaController : BaseController
     {
+        [AllowAnonymous]
         public IActionResult Cadastro()
         {
             return View();
@@ -24,6 +28,14 @@ namespace AsoFacil.Controllers
             };
 
             return View("EditarCadastro", model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Post([FromBody] CriarEmpresaViewModel model)
+        {
+            var (_, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/empresas/v1/create", model);
+            return Json(taskResult);                        
         }
     }
 }

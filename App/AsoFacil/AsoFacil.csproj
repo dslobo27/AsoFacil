@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\alertifyjs\alertify.js" />
+    <None Include="wwwroot\lib\alertifyjs\alertify.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AlertifyJS" Version="1.13.1" />
     <PackageReference Include="jQuery.Validation" Version="1.19.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>

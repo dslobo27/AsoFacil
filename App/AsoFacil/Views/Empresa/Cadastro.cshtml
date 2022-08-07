@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AsoFacil.Models.Empresa.CriarEmpresaViewModel
+
+@{
     Layout = "_LayoutNaoAutenticado";
     ViewData["Title"] = "Cadastro de Empresa";
 }
@@ -19,20 +21,23 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post" id="cadastroEmpresaForm" name="cadastroEmpresaForm">
+                        <form id="form-cadastro" name="form-cadastro" class="form" method="post" asp-action="Post" asp-controller="Empresa">
                             <div class="form-group">
                                 <label for="cnpj" class="text-success">CNPJ</label><br>
-                                <input type="text" name="cnpj" id="cnpj" class="form-control" data-mask="00.000.000/0000-00">
+                                <input type="text" asp-for="CNPJ" id="cnpj" class="form-control" data-mask="00.000.000/0000-00">
+                                <span asp-validation-for="CNPJ" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="razao-social" class="text-success">Razão Social</label><br>
-                                <input type="text" name="razao-social" id="razao-social" class="form-control">
+                                <input type="text" asp-for="RazaoSocial" id="razao-social" class="form-control">
+                                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="text-success">Email</label><br>
-                                <input type="email" name="email" id="email" class="form-control">
+                                <input type="email" asp-for="Email" id="email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
-                            <input type="submit" value="Salvar" name="submit" class="btn btn-success">
+                            <input type="submit" value="Salvar" name="submit" id="btn-cadastro" class="btn btn-success">
                         </form>
                     </div>
                 </div>
@@ -40,3 +45,7 @@
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script src="~/js/app/Empresa/Cadastro.js"></script>
+}

@@ -22,7 +22,7 @@ namespace AsoFacil.Domain.Entities
 
         public SolicitacaoAtivacaoEmpresa(Guid empresaId, Guid statusSolicitacaoAtivacaoEmpresaId)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             EmpresaId = empresaId;
             StatusSolicitacaoAtivacaoEmpresaId = statusSolicitacaoAtivacaoEmpresaId;
         }

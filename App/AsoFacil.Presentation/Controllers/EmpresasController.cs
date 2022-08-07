@@ -13,6 +13,7 @@ namespace AsoFacil.Presentation.Controllers
     public class EmpresasController : Controller
     {
         [HttpPost("api/empresas/v1/create")]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromServices] IEmpresaApplicationService service, [FromBody] CriarEmpresaModel model)
         {
             if (!ModelState.IsValid)

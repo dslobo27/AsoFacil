@@ -23,10 +23,16 @@ namespace AsoFacil.Domain.Services
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    await _empresaRepository.Create(empresa);
-                    await _solicitacaoAtivacaoEmpresaRepository.Create(solicitacaoAtivacaoEmpresa);
+                    await _solicitacaoAtivacaoEmpresaRepository.Create(solicitacaoAtivacaoEmpresa)
+                        .ConfigureAwait(false);
+
+                    empresa.SolicitacaoAtivacaoEmpresa = null;
+
+                    await _empresaRepository.Create(empresa)
+                        .ConfigureAwait(false);                    
+
                     scope.Complete();
                 }
 

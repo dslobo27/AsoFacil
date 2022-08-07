@@ -1,28 +1,27 @@
 ﻿$(document).ready(function () {
     let preloader = $('#preloader');
-
-    $('#btnLogin').click(function (e) {
-        e.preventDefault();        
-        var formValid = $('#login-form').valid();
+    $('#btn-cadastro').click(function (e) {
+        e.preventDefault();
+        var formValid = $('#form-cadastro').valid();
         if (!formValid) {
             return false;
         }
 
         preloader.show();
 
-        let usuario = $('#usuario').val();
-        let senha = $('#senha').val();
-        let lembrarDeMim = $('#remember-me').is(':checked');
+        let cnpj = $('#cnpj').val();
+        let razaoSocial = $('#razao-social').val();
+        let email = $('#email').val();
 
         let model = {
-            Login: usuario,
-            Senha: senha,
-            LembrarDeMim: lembrarDeMim
+            CNPJ: cnpj,
+            RazaoSocial: razaoSocial,
+            Email: email
         };
 
         $.ajax({
             type: 'POST',
-            url: '/Conta/Login',
+            url: '/Empresa/Post',
             data: JSON.stringify(model),
             async: true,
             dataType: "json",
@@ -32,8 +31,12 @@
             },
             success: function (taskResult) {
                 hideLoading();
+                console.log(taskResult);
                 if (taskResult.isSuccess) {
-                    window.location.href = taskResult.urlRedirect;
+                    alertify.success('Empresa cadastrada com sucesso!');
+                    $('#cnpj').val('');
+                    $('#razao-social').val('');
+                    $('#email').val('');
                     return;
                 }
                 alertify.error(taskResult.errors);

@@ -31,7 +31,7 @@ namespace AsoFacil.Domain.Entities
 
         public Empresa(string cnpj, string razaoSocial, string email)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             CNPJ = cnpj;
             RazaoSocial = razaoSocial;
             Email = email;
@@ -40,6 +40,12 @@ namespace AsoFacil.Domain.Entities
         public void SetAtiva(bool value)
         {
             Ativa = value;
+        }
+
+        public void SetSolicitacaoAtivacaoEmpresa(SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
+        {
+            SolicitacaoAtivacaoEmpresaId = solicitacaoAtivacaoEmpresa.Id;
+            SolicitacaoAtivacaoEmpresa = solicitacaoAtivacaoEmpresa;
         }
     }
 }

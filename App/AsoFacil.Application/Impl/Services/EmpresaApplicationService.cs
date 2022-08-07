@@ -29,6 +29,8 @@ namespace AsoFacil.Application.Impl.Services
 
             var solicitacaoAtivacaoEmpresa = new SolicitacaoAtivacaoEmpresa(empresa.Id, statusSolicitacaoAtivacaoEmpresa.Id);
 
+            empresa.SetSolicitacaoAtivacaoEmpresa(solicitacaoAtivacaoEmpresa);
+
             return await _empresaDomainService.CreateAsync(empresa, solicitacaoAtivacaoEmpresa);
         }
     }
