@@ -31,7 +31,7 @@ namespace AsoFacil.Application.Impl.Services
 
             empresa.SetSolicitacaoAtivacaoEmpresa(solicitacaoAtivacaoEmpresa);
 
-            return await _empresaDomainService.CreateAsync(empresa, solicitacaoAtivacaoEmpresa);
+            return await _empresaDomainService.InsertAsync(empresa, solicitacaoAtivacaoEmpresa);
         }
     }
 }

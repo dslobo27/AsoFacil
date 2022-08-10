@@ -6,5 +6,6 @@ namespace AsoFacil.Domain.Contracts.Repositories
     public interface IUsuarioRepository
     {
         Task<Usuario> Login(string login, string senha);
+        Task InsertAsync(Usuario usuario);
     }
 }

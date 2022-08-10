@@ -21,6 +21,35 @@ namespace AsoFacil.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var codigoTipoUsuario = identity.Claims.FirstOrDefault(x => x.Type.Equals("CodigoTipoUsuario")).Value;
+                var tokenExpirado = identity.Claims.FirstOrDefault(x => x.Type.Equals("Token"));
+
+                if (tokenExpirado != null)
+                    identity.RemoveClaim(tokenExpirado);
+
+                var model = new UsuarioViewModel()
+                {
+                    Login = identity.Claims.FirstOrDefault(x => x.Type.Equals("Login")).Value,
+                    Senha = identity.Claims.FirstOrDefault(x => x.Type.Equals("Senha")).Value
+                };
+
+                var (response, taskResult) = CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model, TypeRequest.PostAsync).Result;
+                var user = JsonConvert.DeserializeObject<UsuarioModel>(taskResult.Data.ToString());
+
+                identity.AddClaim(new Claim("Token", user.Token));
+
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+                Thread.CurrentPrincipal = claimsPrincipal;
+
+                var authenticationProperties = new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    ExpiresUtc = null,
+                    IsPersistent = true
+                };
+
+                HttpContext.SignOutAsync();
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+
                 return Redirect(ObterUrlRedirecionamento(codigoTipoUsuario));
             }
 
@@ -30,7 +59,7 @@ namespace AsoFacil.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UsuarioViewModel model)
         {
-            var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model);
+            var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model, TypeRequest.PostAsync);
             if (response.IsSuccessStatusCode && taskResult.IsSuccess)
             {
                 var user = JsonConvert.DeserializeObject<UsuarioModel>(taskResult.Data.ToString());
@@ -45,6 +74,12 @@ namespace AsoFacil.Controllers
                     new Claim("CNPJ", user.Empresa.CNPJ),
                     new Claim("Email", user.Empresa.Email)
                 };
+
+                if (model.LembrarDeMim)
+                {
+                    claims.Add(new Claim("Login", model.Login));
+                    claims.Add(new Claim("Senha", model.Senha));
+                }
 
                 taskResult.UrlRedirect = ObterUrlRedirecionamento(user.TipoUsuario.Codigo);
 
@@ -79,7 +114,7 @@ namespace AsoFacil.Controllers
             string urlRedirecionamento = codigoTipoUsuario switch
             {
                 "EMPRESA_ADMIN" => "/Agendamento/Cadastro",
-                "ASOFACIL_ADMIN" => "/Home/Dashboard",
+                "ASOFACIL_ADMIN" => "/Dashboard/Index",
                 "EMPRESA_OPR" => "/Agendamento/Cadastro",
                 "CLINICA_ADMIN" => "/Agendamento/Cadastro",
                 "CLINICA_OPR" => "/Agendamento/Cadastro",

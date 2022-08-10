@@ -19,18 +19,18 @@ namespace AsoFacil.Domain.Services
             _solicitacaoAtivacaoEmpresaRepository = solicitacaoAtivacaoEmpresaRepository;
         }
 
-        public async Task<bool> CreateAsync(Empresa empresa, SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
+        public async Task<bool> InsertAsync(Empresa empresa, SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
         {
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    await _solicitacaoAtivacaoEmpresaRepository.Create(solicitacaoAtivacaoEmpresa)
+                    await _solicitacaoAtivacaoEmpresaRepository.InsertAsync(solicitacaoAtivacaoEmpresa)
                         .ConfigureAwait(false);
 
-                    empresa.SolicitacaoAtivacaoEmpresa = null;
+                    empresa.SolicitacoesAtivacaoEmpresa = null;
 
-                    await _empresaRepository.Create(empresa)
+                    await _empresaRepository.InsertAsync(empresa)
                         .ConfigureAwait(false);                    
 
                     scope.Complete();

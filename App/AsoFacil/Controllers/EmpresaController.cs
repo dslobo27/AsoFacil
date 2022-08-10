@@ -1,8 +1,6 @@
-﻿using AsoFacil.Models;
-using AsoFacil.Models.Empresa;
+﻿using AsoFacil.Models.Empresa;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -32,10 +30,10 @@ namespace AsoFacil.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Post([FromBody] CriarEmpresaViewModel model)
+        public async Task<ActionResult> PostAsync([FromBody] CriarEmpresaViewModel model)
         {
-            var (_, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/empresas/v1/create", model);
-            return Json(taskResult);                        
+            var (_, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/empresas/v1/postasync", model, TypeRequest.PostAsync);
+            return Json(taskResult);
         }
     }
 }

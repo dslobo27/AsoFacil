@@ -15,6 +15,12 @@ namespace AsoFacil.InfraStructure.Repositories
             _context = context;
         }
 
+        public async Task InsertAsync(Usuario usuario)
+        {
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Usuario> Login(string login, string senha)
         {
             return await _context.Usuarios

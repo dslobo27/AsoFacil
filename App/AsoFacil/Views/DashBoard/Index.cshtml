@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "_LayoutAutenticado";
+    ViewData["Title"] = "Dashboard";
+}
+
+<main id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Solicitações de ativação pendentes</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover" id="table-solicitacao-ativacao-empresa">
+                            <thead>
+                                <tr>
+                                    <th>CNPJ</th>
+                                    <th>Razão Social</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script src="~/js/app/Dashboard/SolicitacaoAtivacaoEmpresa.js"></script>
+}

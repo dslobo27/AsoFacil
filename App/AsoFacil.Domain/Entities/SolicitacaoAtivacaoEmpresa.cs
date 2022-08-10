@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsoFacil.Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace AsoFacil.Domain.Entities
@@ -15,7 +16,7 @@ namespace AsoFacil.Domain.Entities
 
         #region
 
-        public List<Empresa> Empresas { get; set; }
+        public Empresa Empresa { get; set; }
         public StatusSolicitacaoAtivacaoEmpresa StatusSolicitacaoAtivacaoEmpresa { get; set; }
 
         #endregion
@@ -24,6 +25,11 @@ namespace AsoFacil.Domain.Entities
         {
             Id = Guid.NewGuid();
             EmpresaId = empresaId;
+            StatusSolicitacaoAtivacaoEmpresaId = statusSolicitacaoAtivacaoEmpresaId;
+        }
+
+        public void SetStatus(Guid statusSolicitacaoAtivacaoEmpresaId)
+        {
             StatusSolicitacaoAtivacaoEmpresaId = statusSolicitacaoAtivacaoEmpresaId;
         }
     }

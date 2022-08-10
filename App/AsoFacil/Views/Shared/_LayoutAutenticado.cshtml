@@ -23,6 +23,7 @@
     <link href="~/lib/remixicon/remixicon.css" rel="stylesheet">
     <link href="~/lib/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="~/lib/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet">
     <link href="~/lib/alertifyjs/css/alertify.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -44,8 +45,38 @@
                         var claim = User.Claims.Where(x => x.Type.Equals("MenuSistema")).FirstOrDefault();
                         var menu = claim.Value.Split(';');
 
+                        var listaCadastrosBasicos = new string[] { "Cargos", "Tipos de Usuários", "Status de Agendamento", "Status de Solicitação de Ativação" };
+                        var menuCadastrosBasicos = new List<string>();
+
                         foreach (var item in menu)
                         {
+                            if (listaCadastrosBasicos.Contains(item))
+                            {
+                                menuCadastrosBasicos.Add(item);
+                                continue;
+                            }
+                        }
+
+                        if (menuCadastrosBasicos.Any())
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cadastros
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:320px!important">
+                                    @foreach (var item in menuCadastrosBasicos)
+                                    {
+                                        <a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á','a').Replace('é', 'e')" asp-action="Cadastro">@item</a>
+                                    }
+                                </div>
+                            </li>
+                        }
+
+                        foreach (var item in menu)
+                        {
+                            if (listaCadastrosBasicos.Contains(item))
+                                continue;
+
                             <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á','a').Replace('é', 'e')" asp-action="Cadastro">@item</a></li>
                         }
                     }
@@ -73,6 +104,7 @@
     <script src="~/lib/php-email-form/validate.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/DataTables/datatables.min.js"></script>
     <script src="~/lib/alertifyjs/alertify.min.js"></script>
 
     <!-- Template Main JS File -->

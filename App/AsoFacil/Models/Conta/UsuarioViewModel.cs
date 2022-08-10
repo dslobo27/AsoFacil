@@ -25,4 +25,14 @@ namespace AsoFacil.Models.Conta
 
         public bool LembrarDeMim { get; set; }
     }
+
+    public class CriarUsuarioViewModel
+    {
+        public string Login { get; set; }
+        public string Senha { get; set; }
+
+        public Guid TipoUsuarioId { get; set; }
+        public Guid EmpresaId { get; set; }
+
+    }
 }

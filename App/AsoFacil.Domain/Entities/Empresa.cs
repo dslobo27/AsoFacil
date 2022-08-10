@@ -18,7 +18,7 @@ namespace AsoFacil.Domain.Entities
 
         #region Navegação
 
-        public SolicitacaoAtivacaoEmpresa SolicitacaoAtivacaoEmpresa { get; set; }
+        public List<SolicitacaoAtivacaoEmpresa> SolicitacoesAtivacaoEmpresa { get; set; }
         public List<Candidato> Candidatos { get; set; }
         public List<Agendamento> Agendamentos { get; set; }
         public List<Usuario> Usuarios { get; set; }
@@ -45,7 +45,6 @@ namespace AsoFacil.Domain.Entities
         public void SetSolicitacaoAtivacaoEmpresa(SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
         {
             SolicitacaoAtivacaoEmpresaId = solicitacaoAtivacaoEmpresa.Id;
-            SolicitacaoAtivacaoEmpresa = solicitacaoAtivacaoEmpresa;
         }
     }
 }

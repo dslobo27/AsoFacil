@@ -3,6 +3,7 @@ using AsoFacil.Application.Models.Empresa;
 using AsoFacil.Application.Models.TipoUsuario;
 using AsoFacil.Application.Models.Usuario;
 using AsoFacil.Domain.Contracts.Services;
+using AsoFacil.Domain.Entities;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Application.Impl.Services
@@ -14,6 +15,12 @@ namespace AsoFacil.Application.Impl.Services
         public UsuarioApplicationService(IUsuarioDomainService usuarioDomainService)
         {
             _usuarioDomainService = usuarioDomainService;
+        }
+
+        public async Task<bool> CriarAsync(CriarUsuarioModel model)
+        {
+            var usuario = new Usuario(model.Login, model.Senha, model.TipoUsuarioId, model.EmpresaId);
+            return await _usuarioDomainService.InsertAsync(usuario);
         }
 
         public async Task<UsuarioModel> Login(string login, string senha)

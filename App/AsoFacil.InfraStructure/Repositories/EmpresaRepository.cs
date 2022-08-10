@@ -14,7 +14,7 @@ namespace AsoFacil.InfraStructure.Repositories
             _context = context;
         }
 
-        public async Task Create(Empresa empresa)
+        public async Task InsertAsync(Empresa empresa)
         {
             _context.Empresas.Add(empresa);
             await _context.SaveChangesAsync();

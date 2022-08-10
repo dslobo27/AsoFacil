@@ -2,6 +2,7 @@
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Empresa;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -12,9 +13,19 @@ namespace AsoFacil.Presentation.Controllers
     [ApiController]
     public class EmpresasController : Controller
     {
-        [HttpPost("api/empresas/v1/create")]
+        /// <summary>
+        /// Endpoint para cadastrar uma empresa
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("api/empresas/v1/postasync")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromServices] IEmpresaApplicationService service, [FromBody] CriarEmpresaModel model)
+        public async Task<IActionResult> PostAsync([FromServices] IEmpresaApplicationService service, [FromBody] CriarEmpresaModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));

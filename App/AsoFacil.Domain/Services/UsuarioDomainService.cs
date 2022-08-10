@@ -14,6 +14,12 @@ namespace AsoFacil.Domain.Services
             _usuarioRepository = usuarioRepository;
         }
 
+        public async Task<bool> InsertAsync(Usuario usuario)
+        {
+            await _usuarioRepository.InsertAsync(usuario);
+            return true;
+        }
+
         public async Task<Usuario> Login(string login, string senha)
         {
             return await _usuarioRepository.Login(login, senha);

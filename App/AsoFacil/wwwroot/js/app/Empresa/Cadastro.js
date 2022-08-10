@@ -21,7 +21,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Empresa/Post',
+            url: '/Empresa/PostAsync',
             data: JSON.stringify(model),
             async: true,
             dataType: "json",

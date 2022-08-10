@@ -5,6 +5,6 @@ namespace AsoFacil.Domain.Contracts.Repositories
 {
     public interface IEmpresaRepository
     {
-        Task Create(Empresa empresa);
+        Task InsertAsync(Empresa empresa);
     }
 }

@@ -6,5 +6,6 @@ namespace AsoFacil.Application.Contracts
     public interface IUsuarioApplicationService
     {
         Task<UsuarioModel> Login(string login, string senha);
+        Task<bool> CriarAsync(CriarUsuarioModel model);
     }
 }

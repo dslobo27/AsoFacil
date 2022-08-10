@@ -26,9 +26,9 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.Property(x => x.Ativa);
             builder.Property(x => x.SolicitacaoAtivacaoEmpresaId);
 
-            builder.HasOne(x => x.SolicitacaoAtivacaoEmpresa)
-                .WithMany(x => x.Empresas)
-                .HasForeignKey(x => x.SolicitacaoAtivacaoEmpresaId);
+            builder.HasMany(x => x.SolicitacoesAtivacaoEmpresa)
+                .WithOne(x => x.Empresa)
+                .HasForeignKey(x => x.StatusSolicitacaoAtivacaoEmpresaId);
 
             builder.HasMany(x => x.Candidatos)
                 .WithOne(x => x.Empresa)

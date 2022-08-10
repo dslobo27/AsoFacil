@@ -3,7 +3,7 @@
 namespace AsoFacil.Domain.Entities
 {
     public class Usuario
-    {
+    {        
         #region Propriedades
 
         public Guid Id { get; set; }
@@ -21,5 +21,14 @@ namespace AsoFacil.Domain.Entities
         public Empresa Empresa { get; set; }
 
         #endregion Navegação
+
+        public Usuario(string login, string senha, Guid tipoUsuarioId, Guid empresaId)
+        {
+            Id = Guid.NewGuid();
+            Login = login;
+            Senha = senha;
+            TipoUsuarioId = tipoUsuarioId;
+            EmpresaId = empresaId;
+        }
     }
 }

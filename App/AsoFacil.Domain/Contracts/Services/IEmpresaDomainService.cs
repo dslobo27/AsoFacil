@@ -5,6 +5,6 @@ namespace AsoFacil.Domain.Contracts.Services
 {
     public interface IEmpresaDomainService
     {
-        Task<bool> CreateAsync(Empresa empresa, SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa);
+        Task<bool> InsertAsync(Empresa empresa, SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa);
     }
 }
