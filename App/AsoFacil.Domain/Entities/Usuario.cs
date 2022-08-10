@@ -22,6 +22,10 @@ namespace AsoFacil.Domain.Entities
 
         #endregion Navegação
 
+        public Usuario()
+        {
+        }
+
         public Usuario(string login, string senha, Guid tipoUsuarioId, Guid empresaId)
         {
             Id = Guid.NewGuid();

@@ -20,7 +20,7 @@ namespace AsoFacil.Presentation.Controllers
         /// <param name="usuarioApplicationService"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("api/usuarios/v1/login")]
+        [HttpPost("api/usuarios/v1/loginasync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -59,7 +59,7 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostAsync(IUsuarioApplicationService usuarioApplicationService, [FromBody] CriarUsuarioModel model)
+        public async Task<IActionResult> PostAsync([FromServices] IUsuarioApplicationService usuarioApplicationService, [FromBody] CriarUsuarioModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));

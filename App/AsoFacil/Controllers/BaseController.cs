@@ -16,7 +16,7 @@ namespace AsoFacil.Controllers
         {
             var uri = new Uri($"{Config.base_uri}{url}");
 
-            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var content = model != null ? new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json") : null;
 
             HttpResponseMessage response = null;
 

@@ -32,7 +32,7 @@ namespace AsoFacil.Controllers
                     Senha = identity.Claims.FirstOrDefault(x => x.Type.Equals("Senha")).Value
                 };
 
-                var (response, taskResult) = CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model, TypeRequest.PostAsync).Result;
+                var (response, taskResult) = CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/loginasync", model, TypeRequest.PostAsync).Result;
                 var user = JsonConvert.DeserializeObject<UsuarioModel>(taskResult.Data.ToString());
 
                 identity.AddClaim(new Claim("Token", user.Token));
@@ -59,7 +59,7 @@ namespace AsoFacil.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UsuarioViewModel model)
         {
-            var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/login", model, TypeRequest.PostAsync);
+            var (response, taskResult) = await CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/loginasync", model, TypeRequest.PostAsync);
             if (response.IsSuccessStatusCode && taskResult.IsSuccess)
             {
                 var user = JsonConvert.DeserializeObject<UsuarioModel>(taskResult.Data.ToString());

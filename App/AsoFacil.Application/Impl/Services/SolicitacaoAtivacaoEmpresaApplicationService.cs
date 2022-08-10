@@ -40,6 +40,7 @@ namespace AsoFacil.Application.Impl.Services
             solicitacaoAtivacaoEmpresa.Empresa.SetAtiva(true);
 
             await _solicitacaoAtivacaoEmpresaDomainService.UpdateAsync(solicitacaoAtivacaoEmpresa);
+            solicitacaoAtivacaoEmpresa.StatusSolicitacaoAtivacaoEmpresa = statusSolicitacaoAtivacaoEmpresa;
 
             return ConvertToDto(solicitacaoAtivacaoEmpresa);
         }

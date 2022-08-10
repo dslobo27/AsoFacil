@@ -42,10 +42,37 @@
             {
                 data: "id",
                 render: function (data, type, full) {
-                    let url = "/dashboard/ativarempresa/" + data;
-                    return '<a title="Ativar empresa" class="bi bi-check-circle" href=' + url +'></a>';
+                    return '<a title="Ativar empresa" class="bi bi-check-circle btn-ativar-empresa" data-id='+ data +' href=""></a>';
                 }
             }
         ]
+    });
+
+    oTable.on('click', '.btn-ativar-empresa', function (e) {
+        e.preventDefault();
+        let solicitacaoAtivacaoEmpresaId = $(this).data("id");
+        console.log(solicitacaoAtivacaoEmpresaId);
+
+        $.ajax({
+            type: 'PUT',
+            url: '/dashboard/ativarempresa/' + solicitacaoAtivacaoEmpresaId,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                showLoading();
+            },
+            success: function (taskResult) {
+                if (taskResult.isSuccess) {
+                    alertify.success('Empresa cadastrada com sucesso!');
+                    window.location.reload();
+                    return;
+                }
+                alertify.error(taskResult.errors);
+            },
+            error: function (e) {
+                console.error(e);
+            }
+        });
     });
 });

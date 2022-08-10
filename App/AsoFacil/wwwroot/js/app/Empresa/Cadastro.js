@@ -21,7 +21,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Empresa/PostAsync',
+            url: '/empresa/postasync',
             data: JSON.stringify(model),
             async: true,
             dataType: "json",
@@ -31,7 +31,6 @@
             },
             success: function (taskResult) {
                 hideLoading();
-                console.log(taskResult);
                 if (taskResult.isSuccess) {
                     alertify.success('Empresa cadastrada com sucesso!');
                     $('#cnpj').val('');

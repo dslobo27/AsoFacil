@@ -28,7 +28,7 @@ namespace AsoFacil.Controllers
             return View("EditarCadastro", model);
         }
 
-        [HttpPost]
+        [HttpPost("empresa/postasync")]
         [AllowAnonymous]
         public async Task<ActionResult> PostAsync([FromBody] CriarEmpresaViewModel model)
         {
