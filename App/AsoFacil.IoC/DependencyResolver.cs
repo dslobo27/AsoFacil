@@ -18,6 +18,7 @@ namespace AsoFacil.IoC
             services.AddTransient<IUsuarioApplicationService, UsuarioApplicationService>();
             services.AddTransient<ISolicitacaoAtivacaoEmpresaApplicationService, SolicitacaoAtivacaoEmpresaApplicationService>();
             services.AddTransient<ITipoUsuarioApplicationService, TipoUsuarioApplicationService>();
+            services.AddTransient<ICargoApplicationService, CargoApplicationService>();
 
             #endregion ApplicationServices
 
@@ -28,6 +29,7 @@ namespace AsoFacil.IoC
             services.AddTransient<IStatusSolicitacaoAtivacaoEmpresaDomainService, StatusSolicitacaoAtivacaoEmpresaDomainService>();
             services.AddTransient<ISolicitacaoAtivacaoEmpresaDomainService, SolicitacaoAtivacaoEmpresaDomainService>();
             services.AddTransient<ITipoUsuarioDomainService, TipoUsuarioDomainService>();
+            services.AddTransient<ICargoDomainService, CargoDomainService>();
 
             #endregion DomainServices
 
@@ -38,6 +40,7 @@ namespace AsoFacil.IoC
             services.AddTransient<ISolicitacaoAtivacaoEmpresaRepository, SolicitacaoAtivacaoEmpresaRepository>();
             services.AddTransient<IStatusSolicitacaoAtivacaoEmpresaRepository, StatusSolicitacaoAtivacaoEmpresaRepository>();
             services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
+            services.AddTransient<ICargoRepository, CargoRepository>();
 
             #endregion Repositories
         }

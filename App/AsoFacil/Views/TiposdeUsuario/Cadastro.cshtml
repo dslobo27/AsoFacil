@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Candidatos";
+    ViewData["Title"] = "Tipos de Usuário";
     Layout = "_LayoutAutenticado";
 }
 
@@ -15,48 +15,46 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nome">Nome</label><br>
+                                    <label for="nome">Código</label><br>
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nome">RG</label><br>
+                                    <label for="nome">Descrição</label><br>
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="nome">Email</label><br>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>                 
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
-                                <input type="submit" class="btn btn-success" value="Buscar" />
-                            </div>                            
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success" value="Buscar" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <br />
-        <a class="btn btn-success" href="#">Novo candidato</a>
+        <a class="btn btn-success" href="#">Novo tipo de usuário</a>
         <br />
         <br />
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Candidatos cadastrados</h6>
+                        <h6>Tipos de usuário cadastrados</h6>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Editar</th>
-                                    <th>Nome</th>
-                                    <th>RG</th>
-                                    <th>Email</th>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Menu</th>
                                     <th>Excluir</th>
                                 </tr>
                             </thead>

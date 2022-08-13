@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Candidatos";
+    ViewData["Title"] = "Médicos";
     Layout = "_LayoutAutenticado";
 }
 
@@ -15,48 +15,45 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="nome">CRM</label><br>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="nome">Nome</label><br>
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="nome">RG</label><br>
-                                    <input type="text" class="form-control">
+                                    <input type="submit" class="btn btn-success" value="Buscar" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="nome">Email</label><br>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>                 
-                            <div class="col-md-3">
-                                <input type="submit" class="btn btn-success" value="Buscar" />
-                            </div>                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <br />
-        <a class="btn btn-success" href="#">Novo candidato</a>
+        <a class="btn btn-success" href="#">Novo médico</a>
         <br />
         <br />
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Candidatos cadastrados</h6>
+                        <h6>Médicos cadastrados</h6>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Editar</th>
+                                    <th>CRM</th>
                                     <th>Nome</th>
-                                    <th>RG</th>
-                                    <th>Email</th>
                                     <th>Excluir</th>
                                 </tr>
                             </thead>

@@ -30,13 +30,13 @@
             beforeSend: function () {
                 showLoading();
             },
-            success: function (taskResult) {
-                hideLoading();
+            success: function (taskResult) {                
                 if (taskResult.isSuccess) {
                     window.location.href = taskResult.urlRedirect;
                     return;
                 }
-                alertify.error(taskResult.errors);
+                hideLoading();
+                alertify.error(taskResult.errors[0]);                
             },
             error: function (e) {
                 console.error(e);

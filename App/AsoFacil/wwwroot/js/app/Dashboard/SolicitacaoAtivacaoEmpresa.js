@@ -51,7 +51,6 @@
     oTable.on('click', '.btn-ativar-empresa', function (e) {
         e.preventDefault();
         let solicitacaoAtivacaoEmpresaId = $(this).data("id");
-        console.log(solicitacaoAtivacaoEmpresaId);
 
         $.ajax({
             type: 'PUT',

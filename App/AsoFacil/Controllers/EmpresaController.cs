@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Controllers
@@ -9,23 +11,30 @@ namespace AsoFacil.Controllers
     [Authorize]
     public class EmpresaController : BaseController
     {
+        private const string ASOFACIL_ADMIN = "ASOFACIL_ADMIN";
+
         [AllowAnonymous]
         public IActionResult Cadastro()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var codigoTipoUsuario = identity.Claims.FirstOrDefault(x => x.Type.Equals("CodigoTipoUsuario")).Value;
+
+                return codigoTipoUsuario.Equals(ASOFACIL_ADMIN) ? RedirectToAction("ListarCadastro")  : RedirectToAction("EditarCadastro");
+            }                
+
             return View();
         }
 
         public IActionResult EditarCadastro()
         {
-            var model = new EmpresaViewModel
-            {
-                CNPJ = "70.918.873/0001-63",
-                RazaoSocial = "IBLUE CONSULTING LTDA",
-                Email = "rh@iblueconsulting.com.br",
-                Id = Guid.NewGuid()
-            };
+            return View("EditarCadastro");
+        }
 
-            return View("EditarCadastro", model);
+        public IActionResult ListarCadastro()
+        {
+            return View("ListarCadastro");
         }
 
         [HttpPost("empresa/postasync")]

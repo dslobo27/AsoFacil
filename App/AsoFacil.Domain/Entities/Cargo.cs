@@ -9,5 +9,15 @@ namespace AsoFacil.Domain.Entities
         public string Descricao { get; set; }
 
         public List<Candidato> Candidatos { get; set; }
+
+        public Cargo(string descricao)
+        {
+            Descricao = descricao;
+        }
+
+        public void Alterar(string descricao)
+        {
+            Descricao = descricao;
+        }
     }
 }

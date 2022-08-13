@@ -12,7 +12,7 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.Property(x => x.Id);
 
             builder.Property(x => x.NomeArquivo)
-                .HasColumnName("varchar")
+                .HasColumnType("varchar")
                 .HasMaxLength(4000);
 
             builder.HasOne(x => x.Candidato)
