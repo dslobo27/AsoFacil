@@ -1,0 +1,41 @@
+﻿@model AsoFacil.Models.TipoUsuario.ManterTipoUsuarioViewModel
+
+<form id="form-cadastro" name="form-cadastro" class="form">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" id="id" />
+        <label for="codigo">Código</label><br>
+        <input type="text" asp-for="Codigo" id="codigo" class="form-control">
+        <span asp-validation-for="Codigo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="descricao">Descrição</label><br>
+        <input type="text" asp-for="Descricao" id="descricao" class="form-control">
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="menuSistema">Menus</label><br>
+        <select id="menuSistema" multiple="multiple">
+            <option>Agendamentos</option>
+            <option>Cargos</option>
+            <option>Candidatos</option>
+            <option>Documentos</option>
+            <option>Empresas</option>
+            <option>Médicos</option>
+            <option>Tipos de Usuário</option>
+            <option>Status de Agendamento</option>
+            <option>Status de Solicitação de Ativação</option>
+            <option>Usuários</option>
+        </select>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#menuSistema').multiselect({
+            buttonWidth: '470px',
+            buttonText: function (options, select) {
+                return 'Selecione os menus de acesso!';
+            }
+        });
+    });
+</script>

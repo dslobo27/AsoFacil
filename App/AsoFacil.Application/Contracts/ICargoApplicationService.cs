@@ -1,4 +1,4 @@
-﻿using AsoFacil.Application.Models;
+﻿using AsoFacil.Application.Models.Cargo;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace AsoFacil.Application.Contracts
 
         Task<CargoModel> ObterPorIdAsync(Guid cargoId);
 
-        Task<bool> AlterarAsync(AlterarCargoModel model);
+        Task<bool> AlterarAsync(ManterCargoModel model);
 
-        Task<bool> CriarAsync(CriarCargoModel model);
+        Task<bool> CriarAsync(ManterCargoModel model);
 
         Task<bool> ExcluirAsync(Guid cargoId);
     }

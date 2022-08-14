@@ -1,4 +1,5 @@
 ﻿using AsoFacil.Models.Empresa;
+using AsoFacil.Models.StatusSolicitacaoAtivacaoEmpresa;
 using System;
 
 namespace AsoFacil.Models.SolicitacaoAtivacaoEmpresa

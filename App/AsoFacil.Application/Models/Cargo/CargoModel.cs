@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsoFacil.Application.Models
+namespace AsoFacil.Application.Models.Cargo
 {
     public class CargoModel
     {
@@ -8,14 +8,9 @@ namespace AsoFacil.Application.Models
         public string Descricao { get; set; }
     }
 
-    public class CriarCargoModel
+    public class ManterCargoModel
     {
-        public string Descricao { get; set; }
-    }
-
-    public class AlterarCargoModel
-    {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Descricao { get; set; }
     }
 }

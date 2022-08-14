@@ -1,6 +1,6 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
-using AsoFacil.Application.Models;
+using AsoFacil.Application.Models.Cargo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -79,7 +79,7 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PutAsync([FromServices] ICargoApplicationService service, [FromBody] AlterarCargoModel model)
+        public async Task<IActionResult> PutAsync([FromServices] ICargoApplicationService service, [FromBody] ManterCargoModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
@@ -106,7 +106,7 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostAsync([FromServices] ICargoApplicationService service, [FromBody] CriarCargoModel model)
+        public async Task<IActionResult> PostAsync([FromServices] ICargoApplicationService service, [FromBody] ManterCargoModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));

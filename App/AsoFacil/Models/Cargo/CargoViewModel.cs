@@ -11,7 +11,7 @@ namespace AsoFacil.Models.Cargo
 
     public class ManterCargoViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; } 
 
         [Required(ErrorMessage = "Informe a descrição!")]
         public string Descricao { get; set; }

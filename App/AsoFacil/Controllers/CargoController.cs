@@ -21,9 +21,9 @@ namespace AsoFacil.Controllers
         [HttpPost("cargo/modal")]
         public IActionResult Modal([FromBody] ManterCargoViewModel model)
         {
-            if(model != null && model.Id != null)
+            if(model != null && model.Id != Guid.Empty)
             {   
-                var cargo = GetByIdAsync(model.Id.Value).Result;
+                var cargo = GetByIdAsync(model.Id).Result;
                 model.Descricao = cargo.Descricao;
             }
 

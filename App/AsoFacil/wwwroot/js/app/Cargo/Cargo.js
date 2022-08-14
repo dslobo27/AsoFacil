@@ -39,6 +39,7 @@
         },
         columns: [
             {
+                orderable: false,
                 data: "id",
                 render: function (data, type, full) {
                     return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-descricao=' + full.descricao + ' data-id=' + data + ' href=""></a>';
@@ -46,6 +47,7 @@
             },
             { data: "descricao", "autowidth": true },
             {
+                orderable: false,
                 data: "id",
                 render: function (data, type, full) {
                     return '<a title="Excluir" class="bi bi-trash btn-excluir text-dark" data-id=' + data + ' href=""></a>';
@@ -131,11 +133,11 @@
         let id = $('#id').val();
         let descricao = $('#descricao').val();
 
-        let type = id == null ? 'POST' : 'PUT';
-        let action = id == null ? 'postasync' : 'putasync';
+        let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
+        let action = (id == null || id == '' || id == undefined) ? 'postasync' : 'putasync';
 
         let model = {
-            Id: id,
+            Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
             Descricao: descricao
         };
 
@@ -143,7 +145,6 @@
             type: type,
             url: '/cargo/' + action,
             data: JSON.stringify(model),
-            async: true,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             beforeSend: function () {
@@ -179,13 +180,13 @@
             beforeSend: function () {
                 showLoading();
             },
-            success: function (taskResult) {
-                hideLoading();
+            success: function (taskResult) {                
                 if (taskResult.isSuccess) {
                     $('#id-exclusao').val('');
                     window.location.reload();
                     return;
                 }
+                hideLoading();
                 alertify.error(taskResult.errors);
             },
             error: function (e) {

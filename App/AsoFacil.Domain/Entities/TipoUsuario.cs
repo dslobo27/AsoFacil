@@ -12,5 +12,20 @@ namespace AsoFacil.Domain.Entities
         public string MenuSistema { get; set; }
 
         public List<Usuario> Usuarios { get; set; }
+
+        public TipoUsuario(string codigo, string descricao, string menuSistema)
+        {
+            Id = Guid.NewGuid();
+            Codigo = codigo;
+            Descricao = descricao;
+            MenuSistema = menuSistema;
+        }
+
+        public void Alterar(string codigo, string descricao, string menuSistema)
+        {
+            Codigo = codigo;
+            Descricao = descricao;
+            MenuSistema = menuSistema;
+        }
     }
 }

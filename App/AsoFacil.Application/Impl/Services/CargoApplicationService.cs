@@ -1,5 +1,5 @@
 ﻿using AsoFacil.Application.Contracts;
-using AsoFacil.Application.Models;
+using AsoFacil.Application.Models.Cargo;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
 using System;
@@ -17,15 +17,15 @@ namespace AsoFacil.Application.Impl.Services
             _cargoDomainService = cargoDomainService;
         }
 
-        public async Task<bool> AlterarAsync(AlterarCargoModel model)
+        public async Task<bool> AlterarAsync(ManterCargoModel model)
         {
-            var cargo = await _cargoDomainService.GetByIdAsync(model.Id);
+            var cargo = await _cargoDomainService.GetByIdAsync(model.Id.Value);
             cargo.Alterar(model.Descricao);
 
             return await _cargoDomainService.UpdateAsync(cargo);
         }
 
-        public async Task<bool> CriarAsync(CriarCargoModel model)
+        public async Task<bool> CriarAsync(ManterCargoModel model)
         {
             var cargo = new Cargo(model.Descricao);
             return await _cargoDomainService.InsertAsync(cargo);

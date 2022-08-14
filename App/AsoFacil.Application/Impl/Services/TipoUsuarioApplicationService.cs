@@ -2,6 +2,8 @@
 using AsoFacil.Application.Models.TipoUsuario;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Application.Impl.Services
@@ -15,15 +17,57 @@ namespace AsoFacil.Application.Impl.Services
             _tipoUsuarioDomainService = tipoUsuarioDomainService;
         }
 
+        public async Task<bool> AlterarAsync(ManterTipoUsuarioModel model)
+        {
+            var tipoUsuario = await _tipoUsuarioDomainService.GetByIdAsync(model.Id.Value);
+            tipoUsuario.Alterar(model.Codigo, model.Descricao, model.MenuSistema);
+
+            return await _tipoUsuarioDomainService.UpdateAsync(tipoUsuario);
+        }
+
+        public async Task<bool> CriarAsync(ManterTipoUsuarioModel model)
+        {
+            var tipoUsuario = new TipoUsuario(model.Codigo, model.Descricao, model.MenuSistema);
+            return await _tipoUsuarioDomainService.InsertAsync(tipoUsuario);
+        }
+
+        public async Task<bool> ExcluirAsync(Guid tipoUsuarioId)
+        {
+            var tipoUsuario = await _tipoUsuarioDomainService.GetByIdAsync(tipoUsuarioId);
+            return await _tipoUsuarioDomainService.DeleteAsync(tipoUsuario);
+        }
+
+        public async Task<IEnumerable<TipoUsuarioModel>> ObterAsync(string codigo, string descricao)
+        {
+            var tiposUsuarios = await _tipoUsuarioDomainService.GetAllAsync(codigo, descricao);
+            return ConvertToDto(tiposUsuarios);
+        }
+
         public async Task<TipoUsuarioModel> ObterPorCodigo(string code)
         {
             var tipoUsuario = await _tipoUsuarioDomainService.GetByCodeAsync(code);
             return ConvertToDto(tipoUsuario);
         }
 
+        public async Task<TipoUsuarioModel> ObterPorIdAsync(Guid tipoUsuarioId)
+        {
+            var tipoUsuario = await _tipoUsuarioDomainService.GetByIdAsync(tipoUsuarioId);
+            return ConvertToDto(tipoUsuario);
+        }
+
         #region private
 
-        private TipoUsuarioModel ConvertToDto(TipoUsuario tipoUsuario)
+        private static List<TipoUsuarioModel> ConvertToDto(IEnumerable<TipoUsuario> tiposUsuarios)
+        {
+            var tiposUsuariosModels = new List<TipoUsuarioModel>();
+            foreach (var t in tiposUsuarios)
+            {
+                tiposUsuariosModels.Add(ConvertToDto(t));
+            }
+            return tiposUsuariosModels;
+        }
+
+        private static TipoUsuarioModel ConvertToDto(TipoUsuario tipoUsuario)
         {
             return new TipoUsuarioModel
             {

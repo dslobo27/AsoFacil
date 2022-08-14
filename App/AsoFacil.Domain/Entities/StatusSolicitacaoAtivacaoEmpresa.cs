@@ -12,5 +12,18 @@ namespace AsoFacil.Domain.Entities
         public string Descricao { get; set; }
 
         public List<SolicitacaoAtivacaoEmpresa> SolicitacoesAtivacoesEmpresas { get; set; }
+
+        public StatusSolicitacaoAtivacaoEmpresa(string codigo, string descricao)
+        {
+            Id = Guid.NewGuid();
+            Codigo = codigo;
+            Descricao = descricao;
+        }
+
+        public void Alterar(string codigo, string descricao)
+        {
+            Codigo = codigo;
+            Descricao = descricao;
+        }
     }
 }

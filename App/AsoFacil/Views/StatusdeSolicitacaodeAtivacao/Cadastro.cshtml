@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Status de solicitações de ativação";
+    ViewData["Title"] = "Status de solicitações de ativação de empresa";
     Layout = "_LayoutAutenticado";
 }
 
@@ -16,20 +16,20 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nome">Código</label><br>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="filtro-codigo">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nome">Descrição</label><br>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="filtro-descricao">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-success" value="Buscar" />
+                                    <input type="submit" class="btn btn-success" id="btn-filtro" value="Buscar" />
                                 </div>
                             </div>
                         </div>
@@ -38,17 +38,17 @@
             </div>
         </div>
         <br />
-        <a class="btn btn-success" href="#">Novo status de solicitação de ativação</a>
+        <a class="btn btn-success" id="btn-criar" href="#">Novo status de solicitação de ativação de empresa</a>
         <br />
         <br />
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Status de solicitação de ativação cadastrados</h6>
+                        <h6>Status de solicitação de ativação de empresa cadastrados</h6>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="table-status-solicitacoes-ativacao">
                             <thead>
                                 <tr>
                                     <th>Editar</th>
@@ -63,5 +63,46 @@
                 </div>
             </div>
         </div>
+        <div id="partial-modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Status de solicitação de ativação de empresa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="btn-salvar">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-excluir" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Status de solicitação de ativação de empresa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="id-exclusao" />
+                        <p>Deseja realmente excluir esse registro?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btn-confirmar">Excluir</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
+
+@section Scripts {
+    <script src="~/js/app/StatusSolicitacaoAtivacao/StatusSolicitacaoAtivacao.js"></script>
+}

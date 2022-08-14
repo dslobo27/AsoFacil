@@ -10,4 +10,13 @@ namespace AsoFacil.Application.Models.StatusSolicitacaoAtivacaoEmpresa
 
         public string Descricao { get; set; }
     }
+
+    public class ManterStatusSolicitacaoAtivacaoEmpresaModel
+    {
+        public Guid? Id { get; set; }
+
+        public string Codigo { get; set; }
+
+        public string Descricao { get; set; }
+    }
 }

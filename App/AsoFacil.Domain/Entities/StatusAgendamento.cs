@@ -9,5 +9,16 @@ namespace AsoFacil.Domain.Entities
         public string Descricao { get; set; }
 
         public List<Agendamento> Agendamentos { get; set; }
+
+        public StatusAgendamento(string descricao)
+        {
+            Id = Guid.NewGuid();
+            Descricao = descricao;
+        }
+
+        public void Alterar(string descricao)
+        {
+            Descricao = descricao;
+        }
     }
 }
