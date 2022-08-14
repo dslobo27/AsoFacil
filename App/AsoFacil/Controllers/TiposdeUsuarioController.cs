@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Controllers
@@ -26,7 +27,23 @@ namespace AsoFacil.Controllers
                 var tipoUsuario = GetByIdAsync(model.Id).Result;
                 model.Codigo = tipoUsuario.Codigo;
                 model.Descricao = tipoUsuario.Descricao;
-                model.MenuSistema = tipoUsuario.MenuSistema;
+
+                var listaMenusSistema = new List<string>
+                {
+                    "Agendamentos",
+                    "Cargos",
+                    "Candidatos",
+                    "Documentos",
+                    "Empresas",
+                    "Médicos",
+                    "Tipos de Usuário",
+                    "Status de Agendamento",
+                    "Status de Solicitação de Ativação",
+                    "Usuários"
+                };
+
+                ViewBag.MenusSistema = listaMenusSistema;
+                ViewBag.MenuSistema = tipoUsuario.MenuSistema.Split(';').ToList(); ;
             }
 
             return PartialView("_Modal", model);

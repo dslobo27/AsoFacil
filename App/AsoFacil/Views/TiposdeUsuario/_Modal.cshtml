@@ -14,28 +14,27 @@
     </div>
     <div class="form-group">
         <label for="menuSistema">Menus</label><br>
-        <select id="menuSistema" multiple="multiple">
-            <option>Agendamentos</option>
-            <option>Cargos</option>
-            <option>Candidatos</option>
-            <option>Documentos</option>
-            <option>Empresas</option>
-            <option>Médicos</option>
-            <option>Tipos de Usuário</option>
-            <option>Status de Agendamento</option>
-            <option>Status de Solicitação de Ativação</option>
-            <option>Usuários</option>
-        </select>
+        @if (ViewBag.MenusSistema != null)
+        {
+            <select id="menuSistema" multiple="multiple">
+                @foreach (var item in ViewBag.MenusSistema)
+                {
+                    @if (ViewBag.MenuSistema != null && ViewBag.MenuSistema.Contains(item))
+                    {
+                        <option value="@item" selected>@item</option>
+                        continue;
+                    }
+                    <option value="@item">@item</option>
+                }
+            </select>
+        }
     </div>
 </form>
 
 <script>
     $(document).ready(function () {
         $('#menuSistema').multiselect({
-            buttonWidth: '470px',
-            buttonText: function (options, select) {
-                return 'Selecione os menus de acesso!';
-            }
+            buttonWidth: '470px'
         });
     });
 </script>

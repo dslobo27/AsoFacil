@@ -64,13 +64,11 @@
         let id = $(this).data("id");
         let codigo = $(this).data("codigo");
         let descricao = $(this).data("descricao");
-        let menuSistema = $(this).data("menuSistema");
 
         let model = {
             Id: id,
             Codigo: codigo,
-            Descricao: descricao,
-            MenuSistema: menuSistema
+            Descricao: descricao
         };
 
         $.ajax({

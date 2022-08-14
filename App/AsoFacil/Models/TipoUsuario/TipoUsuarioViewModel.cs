@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AsoFacil.Models.TipoUsuario
@@ -21,7 +22,6 @@ namespace AsoFacil.Models.TipoUsuario
         [Required(ErrorMessage = "Informe a descrição!")]
         public string Descricao { get; set; }
 
-        [Required(ErrorMessage = "Informe o menu sistema!")]
-        public string MenuSistema { get; set; }
+        public List<string> MenuSistema { get; set; }
     }
 }

@@ -19,15 +19,19 @@ namespace AsoFacil.Application.Impl.Services
 
         public async Task<bool> AlterarAsync(ManterTipoUsuarioModel model)
         {
+            var menusSistema = string.Join(";", model.MenuSistema);
+
             var tipoUsuario = await _tipoUsuarioDomainService.GetByIdAsync(model.Id.Value);
-            tipoUsuario.Alterar(model.Codigo, model.Descricao, model.MenuSistema);
+            tipoUsuario.Alterar(model.Codigo, model.Descricao, menusSistema);
 
             return await _tipoUsuarioDomainService.UpdateAsync(tipoUsuario);
         }
 
         public async Task<bool> CriarAsync(ManterTipoUsuarioModel model)
         {
-            var tipoUsuario = new TipoUsuario(model.Codigo, model.Descricao, model.MenuSistema);
+            var menusSistema = string.Join(";", model.MenuSistema);
+
+            var tipoUsuario = new TipoUsuario(model.Codigo, model.Descricao, menusSistema);
             return await _tipoUsuarioDomainService.InsertAsync(tipoUsuario);
         }
 
