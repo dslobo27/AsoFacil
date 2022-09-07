@@ -1,6 +1,8 @@
 ﻿using AsoFacil.Domain.Contracts.Repositories;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Domain.Services
@@ -14,6 +16,21 @@ namespace AsoFacil.Domain.Services
             _usuarioRepository = usuarioRepository;
         }
 
+        public async Task<bool> DeleteAsync(Usuario usuario)
+        {
+            return await _usuarioRepository.DeleteAsync(usuario);
+        }
+
+        public async Task<IEnumerable<Usuario>> GetAllAsync(string email)
+        {
+            return await _usuarioRepository.GetAllAsync(email);
+        }
+
+        public async Task<Usuario> GetByIdAsync(Guid usuarioId)
+        {
+            return await _usuarioRepository.GetByIdAsync(usuarioId);
+        }
+
         public async Task<bool> InsertAsync(Usuario usuario)
         {
             await _usuarioRepository.InsertAsync(usuario);
@@ -23,6 +40,11 @@ namespace AsoFacil.Domain.Services
         public async Task<Usuario> Login(string login, string senha)
         {
             return await _usuarioRepository.Login(login, senha);
+        }
+
+        public async Task<bool> UpdateAsync(Usuario usuario)
+        {
+            return await _usuarioRepository.UpdateAsync(usuario);
         }
     }
 }

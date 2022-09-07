@@ -3,7 +3,7 @@
 namespace AsoFacil.Domain.Entities
 {
     public class Usuario
-    {        
+    {
         #region Propriedades
 
         public Guid Id { get; set; }
@@ -30,6 +30,13 @@ namespace AsoFacil.Domain.Entities
         {
             Id = Guid.NewGuid();
             Login = login;
+            Senha = senha;
+            TipoUsuarioId = tipoUsuarioId;
+            EmpresaId = empresaId;
+        }
+
+        public void Alterar(string senha, Guid tipoUsuarioId, Guid empresaId)
+        {
             Senha = senha;
             TipoUsuarioId = tipoUsuarioId;
             EmpresaId = empresaId;

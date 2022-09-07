@@ -4,6 +4,8 @@ using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
 using AsoFacil.Domain.Enums;
 using AsoFacil.Domain.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Application.Impl.Services
@@ -19,7 +21,15 @@ namespace AsoFacil.Application.Impl.Services
             _statusSolicitacaoAtivacaoEmpresaDomainService = statusSolicitacaoAtivacaoEmpresaDomainService;
         }
 
-        public async Task<bool> CriarAsync(CriarEmpresaModel model)
+        public async Task<bool> AlterarAsync(ManterEmpresaModel model)
+        {
+            var empresa = await _empresaDomainService.GetByIdAsync(model.Id.Value);
+            empresa.Alterar(model.Email, model.Ativa);
+
+            return await _empresaDomainService.UpdateAsync(empresa);
+        }
+
+        public async Task<bool> CriarAsync(ManterEmpresaModel model)
         {
             var empresa = new Empresa(model.CNPJ, model.RazaoSocial, model.Email);
             empresa.SetAtiva(false);
@@ -33,5 +43,50 @@ namespace AsoFacil.Application.Impl.Services
 
             return await _empresaDomainService.InsertAsync(empresa, solicitacaoAtivacaoEmpresa);
         }
+
+        public async Task<bool> ExcluirAsync(Guid empresaId)
+        {
+            var empresa = await _empresaDomainService.GetByIdAsync(empresaId);
+            return await _empresaDomainService.DeleteAsync(empresa);
+        }
+
+        public async Task<IEnumerable<EmpresaModel>> ObterAsync(string cnpj, string razaoSocial)
+        {
+            var empresas = await _empresaDomainService.GetAllAsync(cnpj, razaoSocial);
+            return ConvertToDto(empresas);
+        }
+
+        public async Task<EmpresaModel> ObterPorIdAsync(Guid empresaId)
+        {
+            var empresa = await _empresaDomainService.GetByIdAsync(empresaId);
+            return ConvertToDto(empresa);
+        }
+
+        #region private
+
+        private static List<EmpresaModel> ConvertToDto(IEnumerable<Empresa> empresas)
+        {
+            var empresasModels = new List<EmpresaModel>();
+            foreach (var e in empresas)
+            {
+                empresasModels.Add(ConvertToDto(e));
+            }
+            return empresasModels;
+        }
+
+        private static EmpresaModel ConvertToDto(Empresa e)
+        {
+            return new EmpresaModel
+            {
+                Id = e.Id,
+                CNPJ = e.CNPJ,
+                RazaoSocial = e.RazaoSocial,
+                Email = e.Email,
+                Ativa = e.Ativa,
+                SolicitacaoAtivacaoEmpresaId = e.SolicitacaoAtivacaoEmpresaId
+            };
+        }
+
+        #endregion private
     }
 }

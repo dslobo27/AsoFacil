@@ -24,11 +24,20 @@ namespace AsoFacil.Application.Models.Usuario
         public string Senha { get; set; }
     }
 
-    public class CriarUsuarioModel
+    public class ManterUsuarioModel
     {
+        public Guid? Id { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o tipo de usuário.")]
         public Guid TipoUsuarioId { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe a empresa.")]
         public Guid EmpresaId { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o usuário.")]
         public string Login { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe a senha.")]
         public string Senha { get; set; }
     }
 }

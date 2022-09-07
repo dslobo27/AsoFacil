@@ -42,6 +42,12 @@ namespace AsoFacil.Domain.Entities
             Ativa = value;
         }
 
+        public void Alterar(string email, bool ativa)
+        {   
+            Email = email;
+            Ativa = ativa;
+        }
+
         public void SetSolicitacaoAtivacaoEmpresa(SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
         {
             SolicitacaoAtivacaoEmpresaId = solicitacaoAtivacaoEmpresa.Id;

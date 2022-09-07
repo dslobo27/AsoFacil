@@ -4,6 +4,8 @@ using AsoFacil.Application.Models.TipoUsuario;
 using AsoFacil.Application.Models.Usuario;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Application.Impl.Services
@@ -17,10 +19,24 @@ namespace AsoFacil.Application.Impl.Services
             _usuarioDomainService = usuarioDomainService;
         }
 
-        public async Task<bool> CriarAsync(CriarUsuarioModel model)
+        public async Task<bool> AlterarAsync(ManterUsuarioModel model)
+        {
+            var usuario = await _usuarioDomainService.GetByIdAsync(model.Id.Value);
+            usuario.Alterar(model.Senha, model.TipoUsuarioId, model.EmpresaId);
+
+            return await _usuarioDomainService.UpdateAsync(usuario);
+        }
+
+        public async Task<bool> CriarAsync(ManterUsuarioModel model)
         {
             var usuario = new Usuario(model.Login, model.Senha, model.TipoUsuarioId, model.EmpresaId);
             return await _usuarioDomainService.InsertAsync(usuario);
+        }
+
+        public async Task<bool> ExcluirAsync(Guid usuarioId)
+        {
+            var usuario = await _usuarioDomainService.GetByIdAsync(usuarioId);
+            return await _usuarioDomainService.DeleteAsync(usuario);
         }
 
         public async Task<UsuarioModel> Login(string login, string senha)
@@ -55,5 +71,41 @@ namespace AsoFacil.Application.Impl.Services
 
             return model;
         }
+
+        public async Task<IEnumerable<UsuarioModel>> ObterAsync(string email)
+        {
+            var usuarios = await _usuarioDomainService.GetAllAsync(email);
+            return ConvertToDto(usuarios);
+        }
+
+        public async Task<UsuarioModel> ObterPorIdAsync(Guid usuarioId)
+        {
+            var usuario = await _usuarioDomainService.GetByIdAsync(usuarioId);
+            return ConvertToDto(usuario);
+        }
+
+        #region private
+
+        private static List<UsuarioModel> ConvertToDto(IEnumerable<Usuario> usuarios)
+        {
+            var usuariosModels = new List<UsuarioModel>();
+            foreach (var u in usuarios)
+            {
+                usuariosModels.Add(ConvertToDto(u));
+            }
+            return usuariosModels;
+        }
+
+        private static UsuarioModel ConvertToDto(Usuario u)
+        {
+            return new UsuarioModel
+            {
+                Id = u.Id,
+                Empresa = new EmpresaModel(),
+                TipoUsuario = new TipoUsuarioModel()
+            };
+        }
+
+        #endregion private
     }
 }

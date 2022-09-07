@@ -2,6 +2,9 @@
 using AsoFacil.Domain.Entities;
 using AsoFacil.InfraStructure.DataContext;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AsoFacil.InfraStructure.Repositories
@@ -13,6 +16,27 @@ namespace AsoFacil.InfraStructure.Repositories
         public UsuarioRepository(Context context)
         {
             _context = context;
+        }
+
+        public async Task<bool> DeleteAsync(Usuario usuario)
+        {
+            _context.Usuarios.Remove(usuario);
+            return await Commit();
+        }
+
+        public async Task<IEnumerable<Usuario>> GetAllAsync(string email)
+        {
+            var query = _context.Usuarios.AsQueryable();
+
+            if (!string.IsNullOrEmpty(email))
+                query = query.Where(x => x.Login.Contains(email));
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Usuario> GetByIdAsync(Guid usuarioId)
+        {
+            return await _context.Usuarios.FindAsync(usuarioId);
         }
 
         public async Task InsertAsync(Usuario usuario)
@@ -28,6 +52,18 @@ namespace AsoFacil.InfraStructure.Repositories
                 .Include(x => x.Empresa)
                 .FirstOrDefaultAsync(x => x.Login.Equals(login)
                     && x.Senha.Equals(senha));
+        }
+
+        public async Task<bool> UpdateAsync(Usuario usuario)
+        {
+            _context.Usuarios.Update(usuario);
+            return await Commit();
+        }
+
+        private async Task<bool> Commit()
+        {
+            var rowsAffected = await _context.SaveChangesAsync();
+            return rowsAffected > 0;
         }
     }
 }

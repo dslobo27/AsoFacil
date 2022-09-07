@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsoFacil.Presentation.Controllers
@@ -13,6 +14,8 @@ namespace AsoFacil.Presentation.Controllers
     [ApiController]
     public class UsuariosController : Controller
     {
+        private const string entity = "Usuário";
+
         /// <summary>
         /// Endpoint de autenticação de usuário
         /// </summary>
@@ -20,7 +23,7 @@ namespace AsoFacil.Presentation.Controllers
         /// <param name="usuarioApplicationService"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("api/usuarios/v1/loginasync")]
+        [HttpPost(Routes.LOGIN)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -54,24 +57,141 @@ namespace AsoFacil.Presentation.Controllers
         /// <param name="usuarioApplicationService"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("/api/usuarios/v1/postasync")]
+        [HttpPost(Routes.POST_USUARIOS)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostAsync([FromServices] IUsuarioApplicationService usuarioApplicationService, [FromBody] CriarUsuarioModel model)
+        public async Task<IActionResult> PostAsync([FromServices] IUsuarioApplicationService usuarioApplicationService, [FromBody] ManterUsuarioModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
 
             try
             {
-                var user = await usuarioApplicationService.CriarAsync(model);
-                return Ok(new TaskResult<string>("Usuário cadastrado com sucesso!", null));
+                var result = await usuarioApplicationService.CriarAsync(model);
+                return Ok(new TaskResult<string>(
+                    result ? MessagesApi.Sucess(entity, Routes.POST_USUARIOS)
+                           : MessagesApi.Error(entity, Routes.POST_USUARIOS), null)
+                    );
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new TaskResult<string>($"Ocorreu um erro ao criar usuário! {ex.Message}"));
+                return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.POST_USUARIOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para obter todos os usuários
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet(Routes.GET_USUARIOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAsync([FromServices] IUsuarioApplicationService service, [FromQuery] string email)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<List<UsuarioModel>>(ModelState.GetErrors()));
+
+            try
+            {
+                var usuarios = await service.ObterAsync(email);
+                return Ok(new TaskResult<IEnumerable<UsuarioModel>>(usuarios));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<List<UsuarioModel>>($"{MessagesApi.Exception(string.Format("{0}{1}", entity, "s"), Routes.GET_USUARIOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para obter um usuário
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="usuarioId"></param>
+        /// <returns></returns>
+        [HttpGet(Routes.GETBYID_USUARIOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetByIdAsync([FromServices] IUsuarioApplicationService service, Guid usuarioId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<UsuarioModel>(ModelState.GetErrors()));
+
+            try
+            {
+                var usuario = await service.ObterPorIdAsync(usuarioId);
+                return Ok(new TaskResult<UsuarioModel>(usuario));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<UsuarioModel>($"{MessagesApi.Exception(entity, Routes.GETBYID_USUARIOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para alterar um usuário
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut(Routes.PUT_USUARIOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PutAsync([FromServices] IUsuarioApplicationService service, [FromBody] ManterUsuarioModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.AlterarAsync(model);
+                return Ok(new TaskResult<string>(
+                    result ? MessagesApi.Sucess(entity, Routes.PUT_USUARIOS)
+                           : MessagesApi.Error(entity, Routes.PUT_USUARIOS), null)
+                    );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.PUT_EMPRESAS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para excluir um usuário
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="usuarioId"></param>
+        /// <returns></returns>
+        [HttpDelete(Routes.DELETE_USUARIOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteAsync([FromServices] IUsuarioApplicationService service, Guid usuarioId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.ExcluirAsync(usuarioId);
+                return Ok(new TaskResult<string>(
+                   result ? MessagesApi.Sucess(entity, Routes.DELETE_USUARIOS, EntityGender.Feminino)
+                          : MessagesApi.Error(entity, Routes.DELETE_USUARIOS, EntityGender.Feminino), null)
+                   );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.DELETE_USUARIOS)} {ex.Message}"));
             }
         }
     }

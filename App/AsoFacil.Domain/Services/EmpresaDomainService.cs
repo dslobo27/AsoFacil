@@ -2,6 +2,7 @@
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -19,6 +20,21 @@ namespace AsoFacil.Domain.Services
             _solicitacaoAtivacaoEmpresaRepository = solicitacaoAtivacaoEmpresaRepository;
         }
 
+        public async Task<bool> DeleteAsync(Empresa empresa)
+        {
+            return await _empresaRepository.DeleteAsync(empresa);
+        }
+
+        public async Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial)
+        {
+            return await _empresaRepository.GetAllAsync(cnpj, razaoSocial);
+        }
+
+        public async Task<Empresa> GetByIdAsync(Guid empresaId)
+        {
+            return await _empresaRepository.GetByIdAsync(empresaId);
+        }
+
         public async Task<bool> InsertAsync(Empresa empresa, SolicitacaoAtivacaoEmpresa solicitacaoAtivacaoEmpresa)
         {
             try
@@ -31,7 +47,7 @@ namespace AsoFacil.Domain.Services
                     empresa.SolicitacoesAtivacaoEmpresa = null;
 
                     await _empresaRepository.InsertAsync(empresa)
-                        .ConfigureAwait(false);                    
+                        .ConfigureAwait(false);
 
                     scope.Complete();
                 }
@@ -42,6 +58,11 @@ namespace AsoFacil.Domain.Services
             {
                 return false;
             }
+        }
+
+        public async Task<bool> UpdateAsync(Empresa empresa)
+        {
+            return await _empresaRepository.UpdateAsync(empresa);
         }
     }
 }
