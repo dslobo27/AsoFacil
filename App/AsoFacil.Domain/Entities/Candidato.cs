@@ -3,7 +3,7 @@
 namespace AsoFacil.Domain.Entities
 {
     public class Candidato
-    {
+    {           
         #region Propriedades
 
         public Guid Id { get; set; }
@@ -24,11 +24,43 @@ namespace AsoFacil.Domain.Entities
 
         public Cargo Cargo { get; set; }
         public Documento Documento { get; set; }
+
         public Anamnese Anamnese { get; set; }
         public Empresa Empresa { get; set; }
 
         public Agendamento Agendamento { get; set; }
 
         #endregion Navegação
+
+        public Candidato(Guid? cargoId, DateTime? dataNascimento, string email, Guid empresaId, string nome)
+        {
+            CargoId = cargoId.GetValueOrDefault();
+            DataNascimento = dataNascimento.GetValueOrDefault();
+            Email = email;
+            EmpresaId = empresaId;
+            Nome = nome;
+        }
+
+        public void Alterar(Guid? anamneseId, Guid? cargoId, DateTime? dataNascimento, Guid? documentoId, 
+            string email, Guid empresaId, string nome, string orgaoEmissor, string rg, string uf)
+        {
+            AnamneseId = anamneseId.GetValueOrDefault();
+            CargoId = cargoId.GetValueOrDefault();
+            DataNascimento = dataNascimento.GetValueOrDefault();
+            DocumentoId = documentoId.GetValueOrDefault();
+            Email = email;
+            EmpresaId = empresaId;
+            Nome = nome;
+            OrgaoEmissor = orgaoEmissor;
+            RG = rg;
+            UF = uf;
+        }
+
+        public void SetRG(string rg, string uf, string orgaoEmissor)
+        {
+            RG = rg;
+            UF = uf;
+            OrgaoEmissor = orgaoEmissor;
+        }
     }
 }
