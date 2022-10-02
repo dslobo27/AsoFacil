@@ -22,14 +22,18 @@ namespace AsoFacil.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var codigoTipoUsuario = identity.Claims.FirstOrDefault(x => x.Type.Equals("CodigoTipoUsuario")).Value;
                 var tokenExpirado = identity.Claims.FirstOrDefault(x => x.Type.Equals("Token"));
+                var lembrarDeMim = identity.Claims.FirstOrDefault(x => x.Type.Equals("LembrarDeMim"));
+
+                if (lembrarDeMim.Value.Equals("N"))
+                    return View();
 
                 if (tokenExpirado != null)
-                    identity.RemoveClaim(tokenExpirado);
+                    identity.RemoveClaim(tokenExpirado);                
 
                 var model = new UsuarioViewModel()
                 {
-                    Login = identity.Claims.FirstOrDefault(x => x.Type.Equals("Login")).Value,
-                    Senha = identity.Claims.FirstOrDefault(x => x.Type.Equals("Senha")).Value
+                    Login = identity.Claims.FirstOrDefault(x => x.Type.Equals("Login"))?.Value,
+                    Senha = identity.Claims.FirstOrDefault(x => x.Type.Equals("Senha"))?.Value
                 };
 
                 var (response, taskResult) = CreateAndMakeAnonymousRequestToApi("/api/usuarios/v1/loginasync", model, TypeRequest.PostAsync).Result;
@@ -72,7 +76,8 @@ namespace AsoFacil.Controllers
                     new Claim("MenuSistema", user.TipoUsuario.MenuSistema),
                     new Claim("EmpresaId", user.Empresa.Id.ToString()),
                     new Claim("CNPJ", user.Empresa.CNPJ),
-                    new Claim("Email", user.Empresa.Email)
+                    new Claim("Email", user.Empresa.Email),
+                    new Claim("LembrarDeMim", model.LembrarDeMim ? "S" : "F")
                 };
 
                 if (model.LembrarDeMim)

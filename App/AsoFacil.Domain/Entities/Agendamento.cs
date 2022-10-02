@@ -19,6 +19,10 @@ namespace AsoFacil.Domain.Entities
         public Candidato Candidato { get; set; }
         public StatusAgendamento StatusAgendamento { get; set; }
 
+        protected Agendamento()
+        {
+        }
+
         public Agendamento(Guid? candidatoId, DateTime dataHora)
         {
             CandidatoId = candidatoId.GetValueOrDefault();

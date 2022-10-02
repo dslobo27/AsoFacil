@@ -10,6 +10,10 @@ namespace AsoFacil.Domain.Entities
 
         public List<Agendamento> Agendamentos { get; set; }
 
+        protected StatusAgendamento()
+        {
+        }
+
         public StatusAgendamento(string descricao)
         {
             Id = Guid.NewGuid();

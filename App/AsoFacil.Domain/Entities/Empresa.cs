@@ -25,7 +25,7 @@ namespace AsoFacil.Domain.Entities
 
         #endregion 
 
-        public Empresa()
+        protected Empresa()
         {
         }
 

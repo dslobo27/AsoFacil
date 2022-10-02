@@ -3,7 +3,7 @@
 namespace AsoFacil.Domain.Entities
 {
     public class Candidato
-    {           
+    {
         #region Propriedades
 
         public Guid Id { get; set; }
@@ -29,6 +29,10 @@ namespace AsoFacil.Domain.Entities
         public Empresa Empresa { get; set; }
 
         public Agendamento Agendamento { get; set; }
+
+        protected Candidato() 
+        {
+        }
 
         #endregion Navegação
 

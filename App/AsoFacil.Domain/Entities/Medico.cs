@@ -15,6 +15,10 @@ namespace AsoFacil.Domain.Entities
 
         public Usuario Usuario { get; set; }
 
+        protected Medico()
+        {
+        }
+
         public Medico(string crm, string nome, Guid? usuarioId)
         {
             CRM = crm;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AsoFacil.Models.Empresa
 {
@@ -12,10 +13,15 @@ namespace AsoFacil.Models.Empresa
         public Guid SolicitacaoAtivacaoEmpresaId { get; set; }
     }
 
-    public class CriarEmpresaViewModel
+    public class ManterEmpresaViewModel
     {
+        [Required(ErrorMessage = "Informe o CNPJ!")]
         public string CNPJ { get; set; }
+
+        [Required(ErrorMessage = "Informe a Razão Social!")]
         public string RazaoSocial { get; set; }
+
+        [Required(ErrorMessage = "Informe o Email!")]
         public string Email { get; set; }
         public bool Ativa { get; set; } = false;
     }

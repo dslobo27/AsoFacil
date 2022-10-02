@@ -21,6 +21,10 @@ namespace AsoFacil.Domain.Entities
 
         #endregion
 
+        protected SolicitacaoAtivacaoEmpresa()
+        {
+        }
+
         public SolicitacaoAtivacaoEmpresa(Guid empresaId, Guid statusSolicitacaoAtivacaoEmpresaId)
         {
             Id = Guid.NewGuid();

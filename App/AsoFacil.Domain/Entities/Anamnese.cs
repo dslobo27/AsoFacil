@@ -61,5 +61,9 @@ namespace AsoFacil.Domain.Entities
         public Medico Medico { get; set; }
 
         public Candidato Candidato { get; set; }
+
+        protected Anamnese()
+        {
+        }
     }
 }

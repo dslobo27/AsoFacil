@@ -10,6 +10,10 @@ namespace AsoFacil.Domain.Entities
 
         public List<Candidato> Candidatos { get; set; }
 
+        protected Cargo()
+        {
+        }
+
         public Cargo(string descricao)
         {
             Descricao = descricao;

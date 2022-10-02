@@ -9,5 +9,9 @@ namespace AsoFacil.Domain.Entities
 
 
         public Candidato Candidato { get; set; }
+
+        protected Documento()
+        {
+        }
     }
 }

@@ -13,6 +13,10 @@ namespace AsoFacil.Domain.Entities
 
         public List<Usuario> Usuarios { get; set; }
 
+        protected TipoUsuario()
+        {
+        }
+
         public TipoUsuario(string codigo, string descricao, string menuSistema)
         {
             Id = Guid.NewGuid();

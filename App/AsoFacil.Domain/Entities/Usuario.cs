@@ -22,7 +22,7 @@ namespace AsoFacil.Domain.Entities
 
         #endregion Navegação
 
-        public Usuario()
+        protected Usuario()
         {
         }
 
