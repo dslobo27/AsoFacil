@@ -48,7 +48,12 @@
             },
             { data: "cnpj", "autowidth": true },
             { data: "razaoSocial", "autowidth": true },
-            { data: "ehClinica", "autowidth": true },
+            {
+                data: "flagClinica",
+                render: function (data, type, full) {
+                    return data ? 'Sim' : 'Não';
+                }
+            },
             {
                 orderable: false,
                 data: "id",
@@ -62,15 +67,9 @@
     oTable.on('click', '.btn-editar', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let cnpj = $(this).data("cnpj");
-        let razaoSocial = $(this).data("razaoSocial");
-        let email = $(this).data("email");
-
+        
         let model = {
-            Id: id,
-            CNPJ: cnpj,
-            RazaoSocial: razaoSocial,
-            Email: email
+            Id: id
         };
 
         $.ajax({
@@ -141,8 +140,10 @@
 
         let id = $('#id').val();
         let cnpj = $('#cnpj').val();
-        let razaoSocial = $('#razaoSocial').val();
+        let razaoSocial = $('#razao-social').val();
         let email = $('#email').val();
+        let ativa = $("#ativa").is(':checked');
+        let flagClinica = $("#flagClinica").is(':checked');
 
 
         let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
@@ -152,7 +153,9 @@
             Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
             CNPJ: cnpj,
             RazaoSocial: razaoSocial,
-            Email: email
+            Email: email,
+            Ativa: ativa,
+            FlagClinica: flagClinica
         };
 
         $.ajax({

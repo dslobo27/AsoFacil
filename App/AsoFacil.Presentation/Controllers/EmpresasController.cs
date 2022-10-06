@@ -86,14 +86,14 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetByIdAsync([FromServices] IEmpresaApplicationService service, Guid empresaId)
+        public async Task<IActionResult> GetByIdAsync([FromServices] IEmpresaApplicationService service, Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<EmpresaModel>(ModelState.GetErrors()));
 
             try
             {
-                var empresa = await service.ObterPorIdAsync(empresaId);
+                var empresa = await service.ObterPorIdAsync(id);
                 return Ok(new TaskResult<EmpresaModel>(empresa));
             }
             catch (Exception ex)
@@ -143,14 +143,14 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteAsync([FromServices] IEmpresaApplicationService service, Guid empresaId)
+        public async Task<IActionResult> DeleteAsync([FromServices] IEmpresaApplicationService service, Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
 
             try
             {
-                var result = await service.ExcluirAsync(empresaId);
+                var result = await service.ExcluirAsync(id);
                 return Ok(new TaskResult<string>(
                     result ? MessagesApi.Sucess(entity, Routes.DELETE_EMPRESAS, EntityGender.Feminino) 
                            : MessagesApi.Error(entity, Routes.DELETE_EMPRESAS, EntityGender.Feminino), null)

@@ -10,6 +10,7 @@ namespace AsoFacil.Application.Models.Empresa
         public string RazaoSocial { get; set; }
         public string Email { get; set; }
         public bool Ativa { get; set; }
+        public bool FlagClinica { get; set; }
         public Guid SolicitacaoAtivacaoEmpresaId { get; set; }
     }
 
@@ -27,6 +28,7 @@ namespace AsoFacil.Application.Models.Empresa
         public string Email { get; set; }
 
         public bool Ativa { get; set; } 
+        public bool FlagClinica { get; set; }  
 
         public Guid? SolicitacaoAtivacaoEmpresaId { get; set; }
     }

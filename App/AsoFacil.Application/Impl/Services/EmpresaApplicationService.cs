@@ -24,14 +24,14 @@ namespace AsoFacil.Application.Impl.Services
         public async Task<bool> AlterarAsync(ManterEmpresaModel model)
         {
             var empresa = await _empresaDomainService.GetByIdAsync(model.Id.Value);
-            empresa.Alterar(model.Email, model.Ativa);
+            empresa.Alterar(model.CNPJ, model.RazaoSocial, model.Email, model.FlagClinica, model.Ativa);
 
             return await _empresaDomainService.UpdateAsync(empresa);
         }
 
         public async Task<bool> CriarAsync(ManterEmpresaModel model)
         {
-            var empresa = new Empresa(model.CNPJ, model.RazaoSocial, model.Email);
+            var empresa = new Empresa(model.CNPJ, model.RazaoSocial, model.Email, model.FlagClinica);
             empresa.SetAtiva(false);
 
             var statusSolicitacaoAtivacaoEmpresa = await _statusSolicitacaoAtivacaoEmpresaDomainService.GetByDescription(
@@ -83,7 +83,8 @@ namespace AsoFacil.Application.Impl.Services
                 RazaoSocial = e.RazaoSocial,
                 Email = e.Email,
                 Ativa = e.Ativa,
-                SolicitacaoAtivacaoEmpresaId = e.SolicitacaoAtivacaoEmpresaId
+                SolicitacaoAtivacaoEmpresaId = e.SolicitacaoAtivacaoEmpresaId,
+                FlagClinica = e.FlagClinica
             };
         }
 

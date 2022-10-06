@@ -100,9 +100,25 @@ namespace AsoFacil.Application.Impl.Services
         {
             return new UsuarioModel
             {
-                Id = u.Id,
-                Empresa = new EmpresaModel(),
-                TipoUsuario = new TipoUsuarioModel()
+                Id = u.Id,      
+                Login = u.Login,
+                Empresa = new EmpresaModel
+                {
+                    Id = u.Empresa.Id,
+                    Ativa = u.Empresa.Ativa,
+                    CNPJ = u.Empresa.CNPJ,
+                    Email = u.Empresa.Email,
+                    FlagClinica = u.Empresa.FlagClinica,
+                    RazaoSocial = u.Empresa.RazaoSocial,
+                    SolicitacaoAtivacaoEmpresaId = u.Empresa.SolicitacaoAtivacaoEmpresaId
+                },
+                TipoUsuario = new TipoUsuarioModel
+                {
+                    Id = u.TipoUsuario.Id,
+                    Codigo = u.TipoUsuario.Codigo,
+                    Descricao = u.TipoUsuario.Descricao,
+                    MenuSistema = u.TipoUsuario.MenuSistema
+                }
             };
         }
 

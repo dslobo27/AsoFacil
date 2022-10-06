@@ -46,7 +46,7 @@
                 }
             },
             { data: "login", "autowidth": true },
-            { data: "tipoUsuarioId", "autowidth": true },
+            { data: "tipoUsuario.descricao", "autowidth": true },
             {
                 orderable: false,
                 data: "id",

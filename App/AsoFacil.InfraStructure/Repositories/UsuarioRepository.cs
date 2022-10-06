@@ -26,7 +26,10 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<IEnumerable<Usuario>> GetAllAsync(string email)
         {
-            var query = _context.Usuarios.AsQueryable();
+            var query = _context.Usuarios
+                .Include(u => u.Empresa)
+                .Include(u => u.TipoUsuario)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(x => x.Login.Contains(email));
@@ -36,7 +39,10 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<Usuario> GetByIdAsync(Guid usuarioId)
         {
-            return await _context.Usuarios.FindAsync(usuarioId);
+            return await _context.Usuarios
+                .Include(u => u.Empresa)
+                .Include(u => u.TipoUsuario)
+                .FirstOrDefaultAsync(x => x.Id == usuarioId);
         }
 
         public async Task InsertAsync(Usuario usuario)

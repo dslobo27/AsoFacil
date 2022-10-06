@@ -8,6 +8,7 @@ namespace AsoFacil.Application.Models.Usuario
     public class UsuarioModel
     {
         public Guid Id { get; set; }
+        public string Login { get; set; }
 
         public TipoUsuarioModel TipoUsuario { get; set; }
         public EmpresaModel Empresa { get; set; }

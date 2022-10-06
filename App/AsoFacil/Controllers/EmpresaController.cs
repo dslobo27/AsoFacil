@@ -25,8 +25,8 @@ namespace AsoFacil.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var codigoTipoUsuario = identity.Claims.FirstOrDefault(x => x.Type.Equals("CodigoTipoUsuario")).Value;
 
-                return codigoTipoUsuario.Equals(ASOFACIL_ADMIN) ? RedirectToAction("ListarCadastro")  : RedirectToAction("EditarCadastro");
-            }                
+                return codigoTipoUsuario.Equals(ASOFACIL_ADMIN) ? RedirectToAction("ListarCadastro") : RedirectToAction("EditarCadastro");
+            }
 
             return View();
         }
@@ -41,7 +41,23 @@ namespace AsoFacil.Controllers
             return View("ListarCadastro");
         }
 
-        #endregion
+        [HttpPost("empresa/modal")]
+        public IActionResult Modal([FromBody] ManterEmpresaViewModel model)
+        {
+            if (model != null && model.Id != Guid.Empty)
+            {
+                var empresa = GetByIdAsync(model.Id).Result;
+                model.CNPJ = empresa.CNPJ;
+                model.RazaoSocial = empresa.RazaoSocial;
+                model.Email = empresa.Email;
+                model.Ativa = empresa.Ativa;
+                model.FlagClinica = empresa.FlagClinica;
+            }
+
+            return PartialView("_Modal", model);
+        }
+
+        #endregion Views
 
         #region Actions
 
@@ -79,10 +95,10 @@ namespace AsoFacil.Controllers
         [HttpDelete("empresa/deleteasync/{empresaId}")]
         public async Task<ActionResult> DeleteAsync(Guid empresaId)
         {
-            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/cargos/v1/deleteasync/{empresaId}", null, TypeRequest.DeleteAsync, User);
+            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/empresas/v1/deleteasync/{empresaId}", null, TypeRequest.DeleteAsync, User);
             return Json(taskResult);
         }
 
-        #endregion
+        #endregion Actions
     }
 }
