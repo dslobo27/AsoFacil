@@ -35,8 +35,9 @@ namespace AsoFacil.Domain.Entities
             EmpresaId = empresaId;
         }
 
-        public void Alterar(string senha, Guid tipoUsuarioId, Guid empresaId)
+        public void Alterar(string login, string senha, Guid tipoUsuarioId, Guid empresaId)
         {
+            Login = login;
             Senha = senha;
             TipoUsuarioId = tipoUsuarioId;
             EmpresaId = empresaId;

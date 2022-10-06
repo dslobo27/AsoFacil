@@ -27,6 +27,7 @@ namespace AsoFacil.Controllers
                 model.Descricao = cargo.Descricao;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 

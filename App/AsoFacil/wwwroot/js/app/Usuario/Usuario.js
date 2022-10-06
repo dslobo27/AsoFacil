@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var empresaSelecionada = '';
+    var tipoUsuarioSelecionado = '';
+
     var oTable = $("#table-usuarios").DataTable({
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -42,7 +45,7 @@
                 orderable: false,
                 data: "id",
                 render: function (data, type, full) {
-                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-login=' + full.login + ' data-id=' + data + ' href=""></a>';
+                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-empresaId=' + full.empresa.id + ' data-tipoUsuarioId=' + full.tipoUsuario.id + ' data-id=' + data + ' href=""></a>';
                 }
             },
             { data: "login", "autowidth": true },
@@ -60,11 +63,12 @@
     oTable.on('click', '.btn-editar', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let login = $(this).data("login");
+        tipoUsuarioSelecionado = $(this).data('tipousuarioid');
+        empresaSelecionada = $(this).data('empresaid');
 
         let model = {
             Id: id,
-            Login: login
+            Login: ''     
         };
 
         $.ajax({
@@ -124,6 +128,23 @@
         });
     });
 
+    $("#partial-modal").on('shown.bs.modal', function () {
+        $.get("/tipousuario/getasync/", function (data) {
+            console.log(tipoUsuarioSelecionado);
+            $("#tipo-usuario").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#tipo-usuario").append('<option value=' + obj.id + ' ' + (obj.id == tipoUsuarioSelecionado ? 'selected' : '') + '>' + obj.codigo + ' - ' + obj.descricao + '</option > ');
+            });
+        });
+        $.get("/empresa/getasync/", function (data) {
+            console.log(empresaSelecionada);
+            $("#empresa").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#empresa").append('<option value=' + obj.id + ' ' + (obj.id == empresaSelecionada ? 'selected' : '') + '>' + obj.cnpj + ' - ' + obj.razaoSocial + '</option>');
+            });
+        });
+    })
+
     $('#btn-salvar').click(function (e) {
         e.preventDefault();
         var formValid = $('#form-cadastro').valid();
@@ -133,13 +154,19 @@
 
         let id = $('#id').val();
         let login = $('#login').val();
+        let senha = $('#senha').val();
+        let tipoUsuarioId = $('#tipo-usuario').val();
+        let empresaId = $('#empresa').val();
 
         let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
         let action = (id == null || id == '' || id == undefined) ? 'postasync' : 'putasync';
 
         let model = {
             Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
-            Login: login
+            Login: login,
+            Senha: senha,
+            TipoUsuarioId: tipoUsuarioId,
+            EmpresaId: empresaId
         };
 
         $.ajax({

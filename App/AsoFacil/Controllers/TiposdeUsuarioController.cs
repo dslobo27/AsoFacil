@@ -22,13 +22,7 @@ namespace AsoFacil.Controllers
         [HttpPost("tipousuario/modal")]
         public IActionResult Modal([FromBody] ManterTipoUsuarioViewModel model)
         {
-            if (model != null && model.Id != Guid.Empty)
-            {
-                var tipoUsuario = GetByIdAsync(model.Id).Result;
-                model.Codigo = tipoUsuario.Codigo;
-                model.Descricao = tipoUsuario.Descricao;
-
-                var listaMenusSistema = new List<string>
+            var listaMenusSistema = new List<string>
                 {
                     "Agendamentos",
                     "Cargos",
@@ -42,10 +36,18 @@ namespace AsoFacil.Controllers
                     "Usuários"
                 };
 
-                ViewBag.MenusSistema = listaMenusSistema;
+            ViewBag.MenusSistema = listaMenusSistema;
+
+            if (model != null && model.Id != Guid.Empty)
+            {
+                var tipoUsuario = GetByIdAsync(model.Id).Result;
+                model.Codigo = tipoUsuario.Codigo;
+                model.Descricao = tipoUsuario.Descricao;
+
                 ViewBag.MenuSistema = tipoUsuario.MenuSistema.Split(';').ToList(); ;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 

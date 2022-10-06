@@ -28,6 +28,7 @@ namespace AsoFacil.Controllers
                 model.Descricao = statusSolicitacaoAtivacao.Descricao;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 

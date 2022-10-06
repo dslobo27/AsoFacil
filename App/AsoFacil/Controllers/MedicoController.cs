@@ -28,6 +28,7 @@ namespace AsoFacil.Controllers
                 model.Nome = medico.Nome;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 

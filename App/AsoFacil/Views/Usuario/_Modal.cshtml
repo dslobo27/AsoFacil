@@ -1,0 +1,27 @@
+﻿@model AsoFacil.Models.Usuario.ManterUsuarioViewModel
+
+<form id="form-cadastro" name="form-cadastro" class="form">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" id="id" />
+    </div>
+    <div class="form-group">
+        <label for="login" class="text-success">Email</label><br>
+        <input type="email" asp-for="Login" id="login" class="form-control">
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="senha" class="text-success">Senha</label><br>
+        <input type="text" asp-for="Senha" id="senha" class="form-control" style="-webkit-text-security: disc;">
+        <span asp-validation-for="Senha" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="tipo-usuario" class="text-success">Tipo de usuário</label><br>
+        <select asp-for="TipoUsuarioId" id="tipo-usuario" class="form-control"></select>
+        <span asp-validation-for="TipoUsuarioId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="empresa" class="text-success">Empresa</label><br>
+        <select asp-for="EmpresaId" id="empresa" class="form-control"></select>
+        <span asp-validation-for="EmpresaId" class="text-danger"></span>
+    </div>
+</form>

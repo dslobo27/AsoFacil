@@ -77,7 +77,7 @@ namespace AsoFacil.Controllers
                     new Claim("EmpresaId", user.Empresa.Id.ToString()),
                     new Claim("CNPJ", user.Empresa.CNPJ),
                     new Claim("Email", user.Empresa.Email),
-                    new Claim("LembrarDeMim", model.LembrarDeMim ? "S" : "F")
+                    new Claim("LembrarDeMim", model.LembrarDeMim ? "S" : "N")
                 };
 
                 if (model.LembrarDeMim)

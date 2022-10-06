@@ -25,8 +25,12 @@ namespace AsoFacil.Controllers
             {
                 var usuario = GetByIdAsync(model.Id).Result;
                 model.Login = usuario.Login;
+                model.Senha = usuario.Senha;
+                model.TipoUsuarioId = usuario.TipoUsuario.Id;
+                model.EmpresaId = usuario.Empresa.Id;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 
@@ -37,7 +41,7 @@ namespace AsoFacil.Controllers
         [HttpGet("usuario/getasync")]
         public async Task<IEnumerable<UsuarioViewModel>> GetAsync([FromQuery] string email)
         {
-            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/usuarios/v1/getasync?login={email}", null, TypeRequest.GetAsync, User);
+            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/usuarios/v1/getasync?email={email}", null, TypeRequest.GetAsync, User);
             var usuarios = JsonConvert.DeserializeObject<List<UsuarioViewModel>>(taskResult?.Data.ToString());
             return usuarios;
         }

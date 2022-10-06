@@ -22,7 +22,7 @@ namespace AsoFacil.Application.Impl.Services
         public async Task<bool> AlterarAsync(ManterUsuarioModel model)
         {
             var usuario = await _usuarioDomainService.GetByIdAsync(model.Id.Value);
-            usuario.Alterar(model.Senha, model.TipoUsuarioId, model.EmpresaId);
+            usuario.Alterar(model.Login, model.Senha, model.TipoUsuarioId, model.EmpresaId);
 
             return await _usuarioDomainService.UpdateAsync(usuario);
         }
@@ -102,6 +102,7 @@ namespace AsoFacil.Application.Impl.Services
             {
                 Id = u.Id,      
                 Login = u.Login,
+                Senha = u.Senha,
                 Empresa = new EmpresaModel
                 {
                     Id = u.Empresa.Id,

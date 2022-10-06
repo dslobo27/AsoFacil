@@ -54,6 +54,7 @@ namespace AsoFacil.Controllers
                 model.FlagClinica = empresa.FlagClinica;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 
