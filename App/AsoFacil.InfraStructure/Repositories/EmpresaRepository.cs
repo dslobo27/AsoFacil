@@ -34,6 +34,8 @@ namespace AsoFacil.InfraStructure.Repositories
             if (!string.IsNullOrEmpty(razaoSocial))
                 query = query.Where(x => x.RazaoSocial.Contains(razaoSocial));
 
+            query = query.Where(x => x.Ativa == true);
+
             return await query.ToListAsync();
         }
 

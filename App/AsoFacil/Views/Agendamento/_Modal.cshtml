@@ -1,0 +1,33 @@
+﻿@model AsoFacil.Models.Agendamento.ManterAgendamentoViewModel
+
+<form id="form-cadastro" name="form-cadastro" class="form">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" id="id" />        
+    </div>
+    <div class="form-group">
+        <table>
+            <tr>
+                <td>
+                    <label for="data" class="text-success">Data</label><br>
+                    <input type="date" asp-for="DataHora" id="data" class="form-control">
+                    <span asp-validation-for="DataHora" class="text-danger"></span>
+                </td>
+                <td>
+                    <label for="hora" class="text-success">Hora</label><br>
+                    <input type="time" asp-for="DataHora" id="hora" class="form-control">
+                    <span asp-validation-for="DataHora" class="text-danger"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <label for="candidato" class="text-success">Candidato</label><br>
+        <select asp-for="CandidatoId" id="candidato" class="form-control"></select>
+        <span asp-validation-for="CandidatoId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="status" class="text-success">Status</label><br>
+        <select asp-for="StatusAgendamentoId" id="status" class="form-control"></select>
+        <span asp-validation-for="StatusAgendamentoId" class="text-danger"></span>
+    </div>
+</form>

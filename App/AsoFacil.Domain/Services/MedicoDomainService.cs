@@ -10,10 +10,12 @@ namespace AsoFacil.Domain.Services
     public class MedicoDomainService : IMedicoDomainService
     {
         private readonly IMedicoRepository _repository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public MedicoDomainService(IMedicoRepository repository)
+        public MedicoDomainService(IMedicoRepository repository, IUsuarioRepository usuarioRepository)
         {
             _repository = repository;
+            _usuarioRepository = usuarioRepository;
         }
 
         public async Task<bool> DeleteAsync(Medico entity)
@@ -33,6 +35,9 @@ namespace AsoFacil.Domain.Services
 
         public async Task<bool> InsertAsync(Medico entity)
         {
+            var usuarioId = await _usuarioRepository.GetByEmailAsync(entity.Email);
+            entity.UsuarioId = usuarioId;
+
             return await _repository.InsertAsync(entity);
         }
 

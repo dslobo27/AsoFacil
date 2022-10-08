@@ -32,10 +32,10 @@ namespace AsoFacil.Application.Impl.Services
         public async Task<bool> CriarAsync(ManterEmpresaModel model)
         {
             var empresa = new Empresa(model.CNPJ, model.RazaoSocial, model.Email, model.FlagClinica);
-            empresa.SetAtiva(false);
+            empresa.SetAtiva(model.Ativa);
 
             var statusSolicitacaoAtivacaoEmpresa = await _statusSolicitacaoAtivacaoEmpresaDomainService.GetByDescription(
-                EnumExtensions.GetDescription(StatusSolicitacaoAtivacaoEmpresaEnum.Solicitada));
+                EnumExtensions.GetDescription(model.Ativa ? StatusSolicitacaoAtivacaoEmpresaEnum.Aprovada : StatusSolicitacaoAtivacaoEmpresaEnum.Solicitada));
 
             var solicitacaoAtivacaoEmpresa = new SolicitacaoAtivacaoEmpresa(empresa.Id, statusSolicitacaoAtivacaoEmpresa.Id);
 

@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    var empresaSelecionada = '';
+
     var oTable = $("#table-medicos").DataTable({
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -43,7 +45,7 @@
                 orderable: false,
                 data: "id",
                 render: function (data, type, full) {
-                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-crm=' + full.crm + ' data-id=' + data + ' href=""></a>';
+                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-empresaId=' + full.empresa.id  + '  data-crm=' + full.crm + ' data-id=' + data + ' href=""></a>';
                 }
             },
             { data: "crm", "autowidth": true },
@@ -61,13 +63,12 @@
     oTable.on('click', '.btn-editar', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let crm = $(this).data("crm");
-        let nome = $(this).data("nome");
+        empresaSelecionada = $(this).data('empresaid');
 
         let model = {
             Id: id,
-            CRM: crm,
-            Nome: nome
+            CRM: '',
+            Nome: ''
         };
 
         $.ajax({
@@ -128,6 +129,17 @@
         });
     });
 
+    $("#partial-modal").on('shown.bs.modal', function () {
+        $.get("/empresa/getasync/", function (data) {
+            $("#empresa").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                if (obj.flagClinica) {
+                    $("#empresa").append('<option value=' + obj.id + ' ' + (obj.id == empresaSelecionada ? 'selected' : '') + '>' + obj.cnpj + ' - ' + obj.razaoSocial + '</option>');
+                }
+            });
+        });
+    });
+
     $('#btn-salvar').click(function (e) {
         e.preventDefault();
         var formValid = $('#form-cadastro').valid();
@@ -138,6 +150,8 @@
         let id = $('#id').val();
         let crm = $('#crm').val();
         let nome = $('#nome').val();
+        let email = $('#email').val();
+        let empresa = $('#empresa').val();
 
         let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
         let action = (id == null || id == '' || id == undefined) ? 'postasync' : 'putasync';
@@ -145,7 +159,9 @@
         let model = {
             Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
             CRM: crm,
-            Nome: nome
+            Nome: nome,
+            Email: email,
+            EmpresaId: empresa
         };
 
         $.ajax({

@@ -13,24 +13,24 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nome">Paciente</label><br>
                                     <input type="text" class="form-control" id="filtro-nome">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="nome">RG</label><br>
                                     <input type="text" class="form-control" id="filtro-rg">
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="data">Data</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="filtro-dtInicio">
-                                        <input type="text" class="form-control" id="filtro-dtFim">
+                                        <input type="date" class="form-control" id="filtro-dtInicio">
+                                        <input type="date" class="form-control" id="filtro-dtFim">
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <br />
-        <a class="btn btn-success" href="#">Novo agendamento</a>
+        <a class="btn btn-success" id="btn-criar" href="#">Novo agendamento</a>
         <br />
         <br />
         <div class="row">
@@ -57,9 +57,11 @@
                             <thead>
                                 <tr>
                                     <th>Editar</th>
-                                    <th>Paciente</th>
+                                    <th>Status</th>
+                                    <th>RG</th>
+                                    <th>Candidato</th>
+                                    <th>Empresa</th>
                                     <th>Data</th>
-                                    <th>Excluir</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>

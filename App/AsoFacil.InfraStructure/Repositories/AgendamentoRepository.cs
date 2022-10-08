@@ -26,7 +26,11 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<IEnumerable<Agendamento>> GetAllAsync(string nomeCandidato, string rg, DateTime? dataInicio, DateTime? dataFim)
         {
-            var query = _context.Agendamentos.AsQueryable();
+            var query = _context.Agendamentos
+                .Include(c => c.Candidato)
+                .Include(s => s.StatusAgendamento)
+                .Include(e => e.Empresa)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(nomeCandidato))
                 query = query.Where(x => x.Candidato.Nome.Contains(nomeCandidato));
@@ -34,12 +38,22 @@ namespace AsoFacil.InfraStructure.Repositories
             if (!string.IsNullOrEmpty(rg))
                 query = query.Where(x => x.Candidato.RG.Contains(rg));
 
+            if (dataInicio != null)
+                query = query.Where(x => x.DataHora >= dataInicio);
+
+            if (dataFim != null)
+                query = query.Where(x => x.DataHora <= dataFim);
+
             return await query.ToListAsync();
         }
 
         public async Task<Agendamento> GetByIdAsync(Guid id)
         {
-            return await _context.Agendamentos.FindAsync(id);
+            return await _context.Agendamentos
+                .Include(c => c.Candidato)
+                .Include(s => s.StatusAgendamento)
+                .Include(e => e.Empresa)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> InsertAsync(Agendamento entity)

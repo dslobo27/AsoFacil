@@ -14,6 +14,10 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.Property(x => x.Nome)
                 .HasColumnType("varchar")
                 .HasMaxLength(255);
+            
+            builder.Property(x => x.Email)
+                .HasColumnType("varchar")
+                .HasMaxLength(255);
 
             builder.Property(x => x.CRM)
                 .HasColumnType("varchar")
@@ -24,6 +28,12 @@ namespace AsoFacil.InfraStructure.Configurations
             builder.HasMany(x => x.Anamneses)
                 .WithOne(x => x.Medico)
                 .HasForeignKey(x => x.MedicoId);
+
+            builder.Property(x => x.EmpresaId);
+
+            builder.HasOne(x => x.Empresa)
+                .WithMany(x => x.Medicos)
+                .HasForeignKey(x => x.EmpresaId);
         }
     }
 }

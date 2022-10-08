@@ -27,7 +27,7 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<IEnumerable<Medico>> GetAllAsync(string crm, string nome)
         {
-            var query = _context.Medicos.AsQueryable();
+            var query = _context.Medicos.Include(x => x.Empresa).AsQueryable();
 
             if (!string.IsNullOrEmpty(crm))
                 query = query.Where(x => x.CRM.Contains(crm));
@@ -40,7 +40,7 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<Medico> GetByIdAsync(Guid id)
         {
-            return await _context.Medicos.FindAsync(id);
+            return await _context.Medicos.Include(x => x.Empresa).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> InsertAsync(Medico entity)

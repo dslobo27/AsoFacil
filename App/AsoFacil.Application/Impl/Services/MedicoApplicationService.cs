@@ -1,4 +1,5 @@
 ﻿using AsoFacil.Application.Contracts;
+using AsoFacil.Application.Models.Empresa;
 using AsoFacil.Application.Models.Medico;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
@@ -27,7 +28,7 @@ namespace AsoFacil.Application.Impl.Services
 
         public async Task<bool> CriarAsync(ManterMedicoModel model)
         {
-            var entity = new Medico(model.CRM, model.Nome, model.UsuarioId);
+            var entity = new Medico(model.CRM, model.Nome, model.Email, model.UsuarioId, model.EmpresaId.GetValueOrDefault());
             return await _domainService.InsertAsync(entity);
         }
 
@@ -68,7 +69,18 @@ namespace AsoFacil.Application.Impl.Services
                 Id = e.Id,
                 CRM = e.CRM,
                 Nome = e.Nome,
-                UsuarioId = e.UsuarioId
+                UsuarioId = e.UsuarioId,
+                Email = e.Email,
+                Empresa = new EmpresaModel
+                {
+                    Id = e.Empresa.Id,
+                    Ativa = e.Empresa.Ativa,
+                    CNPJ = e.Empresa.CNPJ,
+                    Email = e.Empresa.Email,
+                    FlagClinica = e.Empresa.FlagClinica,
+                    RazaoSocial = e.Empresa.RazaoSocial,
+                    SolicitacaoAtivacaoEmpresaId = e.Empresa.SolicitacaoAtivacaoEmpresaId
+                }
             };
         }
 

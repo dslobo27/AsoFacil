@@ -29,13 +29,22 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAsync([FromServices] IAgendamentoApplicationService service, [FromQuery] string nome, [FromQuery] string rg, [FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFim)
+        public async Task<IActionResult> GetAsync([FromServices] IAgendamentoApplicationService service, [FromQuery] string nome, [FromQuery] string rg, [FromQuery] string dtInicio, [FromQuery] string dtFim)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new TaskResult<List<AgendamentoModel>>(ModelState.GetErrors()));
 
             try
             {
+                DateTime? dataInicio = null;
+                DateTime? dataFim = null;
+
+                if (!string.IsNullOrEmpty(dtInicio))
+                    dataInicio = DateTime.Parse(dtInicio);
+
+                if (!string.IsNullOrEmpty(dtFim))
+                    dataFim = DateTime.Parse($"{dtFim} 23:59:59");
+
                 var result = await service.ObterAsync(nome, rg, dataInicio, dataFim);
                 return Ok(new TaskResult<IEnumerable<AgendamentoModel>>(result));
             }

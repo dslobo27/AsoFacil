@@ -18,5 +18,7 @@ namespace AsoFacil.Domain.Contracts.Repositories
         Task InsertAsync(Usuario usuario);
 
         Task<bool> UpdateAsync(Usuario usuario);
+
+        Task<Guid> GetByEmailAsync(string email);
     }
 }

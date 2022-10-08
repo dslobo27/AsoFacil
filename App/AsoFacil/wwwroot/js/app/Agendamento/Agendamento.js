@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var candidatoSelecionado = '';
+    var statusSelecionado = '';
+
     var oTable = $("#table-agendamentos").DataTable({
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -45,16 +48,19 @@
                 orderable: false,
                 data: "id",
                 render: function (data, type, full) {
-                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-nome=' + full.nome + ' data-id=' + data + ' href=""></a>';
+                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-statusId=' + full.statusAgendamento.id + ' data-candidatoId=' + full.candidatoId + ' data-id=' + data + ' href=""></a>';
                 }
             },
-            { data: "nome", "autowidth": true },
-            { data: "rg", "autowidth": true },
+            { data: "statusAgendamento.descricao", "autowidth": true },
+            { data: "candidato.rg", "autowidth": true },
+            { data: "candidato.nome", "autowidth": true },            
+            { data: "empresa.razaoSocial", "autowidth": true },
             {
-                orderable: false,
-                data: "id",
+                data: "dataHora",
+                "autowidth": true,
                 render: function (data, type, full) {
-                    return '<a title="Excluir" class="bi bi-trash btn-excluir text-dark" data-id=' + data + ' href=""></a>';
+                    [yyyy, mm, dd, hh, mi] = full.dataHora.split(/[/:\-T]/);
+                    return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
                 }
             }
         ]
@@ -63,15 +69,11 @@
     oTable.on('click', '.btn-editar', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let nome = $(this).data("nome");
-        let rg = $(this).data("rg");
-        let data = $(this).data("data");
-
+        candidatoSelecionado = $(this).data('candidatoid');
+        statusSelecionado = $(this).data('statusid');
+        
         let model = {
-            Id: id,
-            Nome: nome,
-            RG: rg,
-            Data: data
+            Id: id            
         };
 
         $.ajax({
@@ -106,10 +108,7 @@
         e.preventDefault();
 
         let model = {
-            Id: '',
-            Nome: '',
-            RG: '',
-            Data: ''
+            Id: ''
         };
 
         $.ajax({
@@ -133,6 +132,21 @@
         });
     });
 
+    $("#partial-modal").on('shown.bs.modal', function () {
+        $.get("/candidato/getasync/", function (data) {
+            $("#candidato").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#candidato").append('<option value=' + obj.id + ' ' + (obj.id == candidatoSelecionado ? 'selected' : '') + '>' + obj.nome + ' - [RG - ' + obj.rg + ']</option>');                
+            });
+        });
+        $.get("/statusagendamento/getasync/", function (data) {
+            $("#status").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#status").append('<option value=' + obj.id + ' ' + (obj.id == statusSelecionado ? 'selected' : '') + '>' + obj.descricao + '</option>');
+            });
+        });
+    });
+
     $('#btn-salvar').click(function (e) {
         e.preventDefault();
         var formValid = $('#form-cadastro').valid();
@@ -141,19 +155,22 @@
         }
 
         let id = $('#id').val();
-        let nome = $('#nome').val();
-        let rg = $('#rg').val();
-        let data = $('#data').val();
+        let candidato = $('#candidato').val();
+        let status = $('#status').val();
+        let data = $("#data").val();
+        let hora = $("#hora").val();
 
         let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
         let action = (id == null || id == '' || id == undefined) ? 'postasync' : 'putasync';
 
         let model = {
             Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
-            Nome: nome,
-            RG: rg,
-            Data: data
+            CandidatoId: candidato,
+            StatusAgendamentoId: status,
+            DataHora: new Date(data + ' ' + hora)
         };
+
+        console.log(model);
 
         $.ajax({
             type: type,
@@ -168,9 +185,6 @@
                 hideLoading();
                 if (taskResult.isSuccess) {
                     $('#id').val('');
-                    $('#nome').val('');
-                    $('#rg').val('');
-                    $('#data').val('');
                     window.location.reload();
                     return;
                 }

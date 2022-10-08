@@ -23,6 +23,7 @@ namespace AsoFacil.Domain.Entities
         public List<Candidato> Candidatos { get; set; }
         public List<Agendamento> Agendamentos { get; set; }
         public List<Usuario> Usuarios { get; set; }
+        public List<Medico> Medicos { get; set; }
 
         #endregion 
 

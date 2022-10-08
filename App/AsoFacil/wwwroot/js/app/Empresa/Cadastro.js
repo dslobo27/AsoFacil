@@ -12,11 +12,13 @@
         let cnpj = $('#cnpj').val();
         let razaoSocial = $('#razao-social').val();
         let email = $('#email').val();
+        let flagClinica = $("#flagClinica").is(':checked');
 
         let model = {
             CNPJ: cnpj,
             RazaoSocial: razaoSocial,
-            Email: email
+            Email: email,
+            FlagClinica: flagClinica
         };
 
         $.ajax({

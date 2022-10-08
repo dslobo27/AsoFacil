@@ -10,10 +10,12 @@ namespace AsoFacil.Domain.Services
     public class AgendamentoDomainService : IAgendamentoDomainService
     {
         private readonly IAgendamentoRepository _repository;
+        private readonly ICandidatoRepository _candidatoRepository;
 
-        public AgendamentoDomainService(IAgendamentoRepository repository)
+        public AgendamentoDomainService(IAgendamentoRepository repository, ICandidatoRepository candidatoRepository)
         {
             _repository = repository;
+            _candidatoRepository = candidatoRepository;
         }
 
         public async Task<bool> DeleteAsync(Agendamento entity)
@@ -33,6 +35,8 @@ namespace AsoFacil.Domain.Services
 
         public async Task<bool> InsertAsync(Agendamento entity)
         {
+            var candidato = await _candidatoRepository.GetByIdAsync(entity.CandidatoId);
+            entity.EmpresaId = candidato.EmpresaId;
             return await _repository.InsertAsync(entity);
         }
 

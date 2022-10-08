@@ -45,6 +45,14 @@ namespace AsoFacil.InfraStructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == usuarioId);
         }
 
+        public async Task<Guid> GetByEmailAsync(string email)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(x => x.Login == email);
+
+            return usuario.Id;
+        }
+
         public async Task InsertAsync(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
