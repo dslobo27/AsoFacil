@@ -28,8 +28,14 @@ namespace AsoFacil.Controllers
                 model.Nome = candidato.Nome;
                 model.RG = candidato.RG;
                 model.Email = candidato.Email;
+                model.OrgaoEmissor = candidato.OrgaoEmissor;
+                model.UF = candidato.UF;
+                model.CargoId = candidato.Cargo.Id;
+                model.EmpresaId = candidato.Empresa.Id;
+                model.DataNascimento = candidato.DataNascimento;
             }
 
+            ModelState.Clear();
             return PartialView("_Modal", model);
         }
 

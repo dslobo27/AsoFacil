@@ -13,8 +13,8 @@ namespace AsoFacil.Domain.Entities
         public string UF { get; set; }
         public string OrgaoEmissor { get; set; }
         public DateTime DataNascimento { get; set; }
-        public Guid DocumentoId { get; set; }
-        public Guid AnamneseId { get; set; }
+        public Guid? DocumentoId { get; set; }
+        public Guid? AnamneseId { get; set; }
         public Guid CargoId { get; set; }
         public Guid EmpresaId { get; set; }
 
@@ -32,12 +32,14 @@ namespace AsoFacil.Domain.Entities
 
         protected Candidato() 
         {
+
         }
 
         #endregion Navegação
 
         public Candidato(Guid? cargoId, DateTime? dataNascimento, string email, Guid empresaId, string nome)
         {
+            Id = Guid.NewGuid();
             CargoId = cargoId.GetValueOrDefault();
             DataNascimento = dataNascimento.GetValueOrDefault();
             Email = email;

@@ -38,7 +38,7 @@
                     $('#email').val('');
                     return;
                 }
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);

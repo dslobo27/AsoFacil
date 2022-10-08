@@ -32,8 +32,8 @@ namespace AsoFacil.InfraStructure.Configurations
                 .HasMaxLength(255);
 
             builder.Property(x => x.DataNascimento);
-            builder.Property(x => x.DocumentoId);
-            builder.Property(x => x.AnamneseId);
+            builder.Property(x => x.DocumentoId).IsRequired(false);
+            builder.Property(x => x.AnamneseId).IsRequired(false);
             builder.Property(x => x.CargoId);
             builder.Property(x => x.EmpresaId);
 

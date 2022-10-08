@@ -26,7 +26,10 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email)
         {
-            var query = _context.Candidatos.AsQueryable();
+            var query = _context.Candidatos
+                .Include(c => c.Cargo)
+                .Include(e => e.Empresa)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(nome))
                 query = query.Where(x => x.Nome.Contains(nome));
@@ -42,7 +45,10 @@ namespace AsoFacil.InfraStructure.Repositories
 
         public async Task<Candidato> GetByIdAsync(Guid id)
         {
-            return await _context.Candidatos.FindAsync(id);
+            return await _context.Candidatos
+                .Include(c => c.Cargo)
+                .Include(e => e.Empresa)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> InsertAsync(Candidato entity)

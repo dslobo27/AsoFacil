@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var empresaSelecionada = '';
+    var cargoSelecionado = '';
+
     var oTable = $("#table-candidatos").DataTable({
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -44,7 +47,7 @@
                 orderable: false,
                 data: "id",
                 render: function (data, type, full) {
-                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-nome=' + full.nome + ' data-id=' + data + ' href=""></a>';
+                    return '<a title="Editar" class="bi bi-pencil-square btn-editar text-dark" data-empresaId=' + full.empresa?.id + ' data-cargoId=' + full.cargo?.id + ' data-id=' + data + ' href=""></a>';
                 }
             },
             { data: "nome", "autowidth": true },
@@ -63,15 +66,14 @@
     oTable.on('click', '.btn-editar', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let nome = $(this).data("nome");
-        let rg = $(this).data("rg");
-        let email = $(this).data("email");
+        cargoSelecionado = $(this).data('cargoid');
+        empresaSelecionada = $(this).data('empresaid');
 
         let model = {
             Id: id,
-            Nome: nome,
-            RG: rg,
-            Email: email
+            Nome: '',
+            RG: '',
+            Email: ''
         };
 
         $.ajax({
@@ -133,6 +135,21 @@
         });
     });
 
+    $("#partial-modal").on('shown.bs.modal', function () {
+        $.get("/cargo/getasync/", function (data) {
+            $("#cargo").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#cargo").append('<option value=' + obj.id + ' ' + (obj.id == cargoSelecionado ? 'selected' : '') + '>' + obj.descricao + '</option > ');
+            });
+        });
+        $.get("/empresa/getasync/", function (data) {
+            $("#empresa").append('<option value="">Selecione</option>');
+            $.each(data, function (key, obj) {
+                $("#empresa").append('<option value=' + obj.id + ' ' + (obj.id == empresaSelecionada ? 'selected' : '') + '>' + obj.cnpj + ' - ' + obj.razaoSocial + '</option>');
+            });
+        });
+    })
+
     $('#btn-salvar').click(function (e) {
         e.preventDefault();
         var formValid = $('#form-cadastro').valid();
@@ -144,6 +161,11 @@
         let nome = $('#nome').val();
         let rg = $('#rg').val();
         let email = $('#email').val();
+        let dataNascimento = $("#data-nascimento").val();
+        let uf = $("#uf").val();
+        let orgaoEmissor = $("#orgao-emissor").val();
+        let cargoId = $("#cargo").val();
+        let empresaId = $("#empresa").val();
 
         let type = (id == null || id == '' || id == undefined) ? 'POST' : 'PUT';
         let action = (id == null || id == '' || id == undefined) ? 'postasync' : 'putasync';
@@ -152,7 +174,12 @@
             Id: (id == null || id == '' || id == undefined) ? '00000000-0000-0000-0000-000000000000' : id,
             Nome: nome,
             RG: rg,
-            Email: email
+            Email: email,
+            DataNascimento: dataNascimento,
+            UF: uf,
+            OrgaoEmissor: orgaoEmissor,
+            CargoId: cargoId,
+            EmpresaId: empresaId
         };
 
         $.ajax({
@@ -171,10 +198,13 @@
                     $('#nome').val('');
                     $('#rg').val('');
                     $('#email').val('');
+                    $('#uf').val('');
+                    $('#orgao-emissor').val('');
                     window.location.reload();
                     return;
                 }
-                alertify.error(taskResult.errors);
+                console.log(taskResult.errors)
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);
@@ -185,7 +215,7 @@
     $('#btn-confirmar').click(function (e) {
         e.preventDefault();
 
-        let cargoId = $('#id-exclusao').val();
+        let candidatoId = $('#id-exclusao').val();
 
         $.ajax({
             type: 'DELETE',
@@ -203,7 +233,7 @@
                     return;
                 }
                 hideLoading();
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);

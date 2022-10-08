@@ -167,7 +167,7 @@
                     window.location.reload();
                     return;
                 }
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);
@@ -197,7 +197,7 @@
                     return;
                 }
                 hideLoading();
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);

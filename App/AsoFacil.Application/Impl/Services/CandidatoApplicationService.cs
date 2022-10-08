@@ -1,5 +1,7 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Models.Candidato;
+using AsoFacil.Application.Models.Cargo;
+using AsoFacil.Application.Models.Empresa;
 using AsoFacil.Domain.Contracts.Services;
 using AsoFacil.Domain.Entities;
 using System;
@@ -69,16 +71,31 @@ namespace AsoFacil.Application.Impl.Services
             return new CandidatoModel
             {
                 Id = e.Id,
-                AnamneseId = e.AnamneseId,
+                AnamneseId = e.AnamneseId.GetValueOrDefault(),
                 CargoId = e.CargoId,
                 DataNascimento = e.DataNascimento,
-                DocumentoId = e.DocumentoId,
+                DocumentoId = e.DocumentoId.GetValueOrDefault(),
                 Email = e.Email,
                 EmpresaId = e.EmpresaId,
                 Nome = e.Nome,
                 OrgaoEmissor = e.OrgaoEmissor,
                 RG = e.RG,
-                UF = e.UF
+                UF = e.UF,
+                Cargo = new CargoModel
+                {
+                    Id = e.Cargo.Id,
+                    Descricao = e.Cargo.Descricao
+                },
+                Empresa = new EmpresaModel
+                {
+                    Id = e.Empresa.Id,
+                    CNPJ = e.Empresa.CNPJ,
+                    Ativa = e.Empresa.Ativa,
+                    Email = e.Empresa.Email,
+                    FlagClinica = e.Empresa.FlagClinica,
+                    RazaoSocial = e.Empresa.RazaoSocial,
+                    SolicitacaoAtivacaoEmpresaId = e.Empresa.SolicitacaoAtivacaoEmpresaId
+                }
             };
         }
 

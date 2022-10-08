@@ -1,0 +1,89 @@
+﻿@model AsoFacil.Models.Candidato.ManterCandidatoViewModel
+
+<form id="form-cadastro" name="form-cadastro" class="form">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" id="id" />
+    </div>
+    <div class="form-group">
+        <label for="nome" class="text-success">Nome</label><br>
+        <input type="text" asp-for="Nome" id="nome" class="form-control">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <label for="email" class="text-success">Email</label><br>
+                    <input type="email" asp-for="Email" id="email" class="form-control" style="width: 300px !important">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </td>
+                <td>
+                    <label for="data-nascimento" class="text-success">Data de nascimento</label><br>
+                    <input type="date" asp-for="DataNascimento" id="data-nascimento" class="form-control" style="width: 167px !important">
+                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+    <div class="form-group">
+        <table>
+            <tr>
+                <td>
+                    <label for="RG" class="text-success">RG</label><br>
+                    <input type="text" asp-for="RG" id="rg" class="form-control">
+                    <span asp-validation-for="RG" class="text-danger"></span>
+                </td>
+                <td>
+                    <label for="uf" class="text-success">UF</label><br>
+                    <select asp-for="UF" id="uf" class="form-control">
+                        <option value="">Selecione</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                    <span asp-validation-for="UF" class="text-danger"></span>
+                </td>
+                <td>
+                    <label for="orgao-emissor" class="text-success">Órgão emissor</label><br>
+                    <input type="text" asp-for="OrgaoEmissor" id="orgao-emissor" class="form-control">
+                    <span asp-validation-for="OrgaoEmissor" class="text-danger"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <label for="cargo" class="text-success">Cargo</label><br>
+        <select asp-for="CargoId" id="cargo" class="form-control"></select>
+        <span asp-validation-for="CargoId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="empresa" class="text-success">Empresa</label><br>
+        <select asp-for="EmpresaId" id="empresa" class="form-control"></select>
+        <span asp-validation-for="EmpresaId" class="text-danger"></span>
+    </div>
+</form>

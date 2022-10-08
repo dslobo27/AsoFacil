@@ -130,14 +130,12 @@
 
     $("#partial-modal").on('shown.bs.modal', function () {
         $.get("/tipousuario/getasync/", function (data) {
-            console.log(tipoUsuarioSelecionado);
             $("#tipo-usuario").append('<option value="">Selecione</option>');
             $.each(data, function (key, obj) {
                 $("#tipo-usuario").append('<option value=' + obj.id + ' ' + (obj.id == tipoUsuarioSelecionado ? 'selected' : '') + '>' + obj.codigo + ' - ' + obj.descricao + '</option > ');
             });
         });
         $.get("/empresa/getasync/", function (data) {
-            console.log(empresaSelecionada);
             $("#empresa").append('<option value="">Selecione</option>');
             $.each(data, function (key, obj) {
                 $("#empresa").append('<option value=' + obj.id + ' ' + (obj.id == empresaSelecionada ? 'selected' : '') + '>' + obj.cnpj + ' - ' + obj.razaoSocial + '</option>');
@@ -186,7 +184,7 @@
                     window.location.reload();
                     return;
                 }
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);
@@ -215,7 +213,7 @@
                     return;
                 }
                 hideLoading();
-                alertify.error(taskResult.errors);
+                alertify.error(taskResult.errors.join());
             },
             error: function (e) {
                 console.error(e);

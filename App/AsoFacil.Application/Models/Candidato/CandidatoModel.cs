@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AsoFacil.Application.Models.Cargo;
+using AsoFacil.Application.Models.Empresa;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +22,9 @@ namespace AsoFacil.Application.Models.Candidato
         public Guid AnamneseId { get; set; }
         public Guid CargoId { get; set; }
         public Guid EmpresaId { get; set; }
+
+        public CargoModel Cargo { get; set; }
+        public EmpresaModel Empresa { get; set; }
     }
 
     public class ManterCandidatoModel
