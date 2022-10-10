@@ -1,0 +1,386 @@
+﻿@model AsoFacil.Models.Anamnese.AnamneseViewModel
+
+<form id="form-cadastro" name="form-cadastro" class="form" method="post" asp-action="Post" asp-controller="CoreBusiness">
+    <input type="hidden" asp-for="Id" id="Id" />
+    <input type="hidden" asp-for="CandidatoId" id="CandidatoId" />
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiDoencaCoracao" id="PossuiDoencaCoracao" class="form-check-input text-success" /></span>
+                <label for="PossuiDoencaCoracao" class="text-success"><span>Possui doenca no coração?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaProblemaPsiquiatrico" id="ApresentaProblemaPsiquiatrico" class="form-check-input text-success" /></span>
+                <label for="ApresentaProblemaPsiquiatrico" class="text-success"><span>Apresenta problema psiquiátrico?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3 form-switch">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiHernia" id="PossuiHernia" class="form-check-input text-success" /></span>
+                <label for="PossuiHernia" class="text-success"><span>Possui hérnia?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaQuadroDepressao" id="ApresentaQuadroDepressao" class="form-check-input text-success" /></span>
+                <label for="ApresentaQuadroDepressao" class="text-success"><span>Apresenta quadro de depressao?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaQuadroInsonia" id="ApresentaQuadroInsonia" class="form-check-input text-success" /></span>
+                <label for="ApresentaQuadroInsonia" class="text-success"><span>Apresenta quadro de insonia?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiHepatite" id="PossuiHepatite" class="form-check-input text-success" /></span>
+                <label for="PossuiHepatite" class="text-success"><span>Possui hepatite?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaQuadroAnsiedade" id="ApresentaQuadroAnsiedade" class="form-check-input text-success" /></span>
+                <label for="ApresentaQuadroAnsiedade" class="text-success"><span>Apresenta quadro de ansiedade?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiDoencaRins" id="PossuiDoencaRins" class="form-check-input text-success" /></span>
+                <label for="PossuiDoencaRins" class="text-success"><span>Possui doença nos rins?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiDiabetes" id="PossuiDiabetes" class="form-check-input text-success" /></span>
+                <label for="PossuiDiabetes" class="text-success"><span>Possui diabetes?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaDoresCostas" id="ApresentaDoresCostas" class="form-check-input text-success" /></span>
+                <label for="ApresentaDoresCostas" class="text-success"><span>Apresenta dores nas costas?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaDoresOmbros" id="ApresentaDoresOmbros" class="form-check-input text-success" /></span>
+                <label for="ApresentaDoresOmbros" class="text-success"><span>Apresenta dores nos ombros?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaDoresPunhos" id="ApresentaDoresPunhos" class="form-check-input text-success" /></span>
+                <label for="ApresentaDoresPunhos" class="text-success"><span>Apresenta dores nos punhos?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="ApresentaDoresMaos" id="ApresentaDoresMaos" class="form-check-input text-success" /></span>
+                <label for="ApresentaDoresMaos" class="text-success"><span>Apresenta dores nas mãos?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="DiagnosticoCancer" id="DiagnosticoCancer" class="form-check-input text-success" /></span>
+                <label for="DiagnosticoCancer" class="text-success"><span>Apresenta diagnóstico de câncer?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="Bebe" id="Bebe" class="form-check-input text-success" /></span>
+                <label for="Bebe" class="text-success"><span>Bebe?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="Fuma" id="Fuma" class="form-check-input text-success" /></span>
+                <label for="Fuma" class="text-success"><span>Fuma?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="QuantosCigarrosDia" class="text-success">Quantos cigarros por dia?</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="number" asp-for="QuantosCigarrosDia" id="QuantosCigarrosDia" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PraticaAtividadeFisica" id="PraticaAtividadeFisica" class="form-check-input text-success" /></span>
+                <label for="PraticaAtividadeFisica" class="text-success"><span>Pratica atividade física?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoAtividadeFisica" class="text-success">Descrição da atividade física:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoAtividadeFisica" id="DescricaoAtividadeFisica" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="SofreuAlgumaFratura" id="SofreuAlgumaFratura" class="form-check-input text-success" /></span>
+                <label for="SofreuAlgumaFratura" class="text-success"><span>Sofreu alguma fratura?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoFaturaSofrida" class="text-success">Descrição da fatura sofrida:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoFaturaSofrida" id="DescricaoFaturaSofrida" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="EsteveInternado" id="EsteveInternado" class="form-check-input text-success" /></span>
+                <label for="EsteveInternado" class="text-success"><span>Esteve internado?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoMotivoInternacao" class="text-success">Descrição do motivo de internação:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoMotivoInternacao" id="DescricaoMotivoInternacao" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiProblemaAuditivo" id="PossuiProblemaAuditivo" class="form-check-input text-success" /></span>
+                <label for="PossuiProblemaAuditivo" class="text-success"><span>Possui problema auditivo?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoProblemaAuditivo" class="text-success">Descrição do problema auditivo:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoProblemaAuditivo" id="DescricaoProblemaAuditivo" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PossuiProblemaVisao" id="PossuiProblemaVisao" class="form-check-input text-success" /></span>
+                <label for="PossuiProblemaVisao" class="text-success"><span>Possui problema de visão?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoProblemaVisao" class="text-success">Descrição problema de visão:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoProblemaVisao" id="DescricaoProblemaVisao" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="JaEsteveAfastadoMaisQuinzeDias" id="JaEsteveAfastadoMaisQuinzeDias" class="form-check-input text-success" /></span>
+                <label for="JaEsteveAfastadoMaisQuinzeDias" class="text-success"><span>Já esteve afastado mais de quinze dias?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="MotivoAfastadoMaisQuinzeDias" class="text-success">Motivo pelo qual ficou afastado:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="MotivoAfastadoMaisQuinzeDias" id="MotivoAfastadoMaisQuinzeDias" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="RecebeIndenizacaoAcidenteOuDoencaOcupacional" id="RecebeIndenizacaoAcidenteOuDoencaOcupacional" class="form-check-input text-success" /></span>
+                <label for="RecebeIndenizacaoAcidenteOuDoencaOcupacional" class="text-success"><span>Recebe indenização por acidente ou doença ocupacional?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoMotivoRecebeIndenizacao" class="text-success">Motivo pelo qual recebe indenização:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoMotivoRecebeIndenizacao" id="DescricaoMotivoRecebeIndenizacao" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="JaPassouReabilitacaoProfissionalINSS" id="JaPassouReabilitacaoProfissionalINSS" class="form-check-input text-success" /></span>
+                <label for="JaPassouReabilitacaoProfissionalINSS" class="text-success"><span>Já passou por reabilitação profissional pelo INSS?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex">
+                <label for="DescricaoMotivoReabilitacaoProfissionalINSS" class="text-success">Motivo pelo qual passou por reabilitação profissional pelo INSS:</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-inline-flex">
+                <input type="text" asp-for="DescricaoMotivoReabilitacaoProfissionalINSS" id="DescricaoMotivoReabilitacaoProfissionalINSS" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="FezAlgumaCirurgia" id="FezAlgumaCirurgia" class="form-check-input text-success" /></span>
+                <label for="FezAlgumaCirurgia" class="text-success"><span>Fez alguma cirúrgia?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="JaSofreuAcidenteTrabalho" id="JaSofreuAcidenteTrabalho" class="form-check-input text-success" /></span>
+                <label for="JaSofreuAcidenteTrabalho" class="text-success"><span>Já sofreu acidente de trabalho?</span></label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PortadorDeficienciaVisual" id="PortadorDeficienciaVisual" class="form-check-input text-success" /></span>
+                <label for="PortadorDeficienciaVisual" class="text-success"><span>Portador de deficiência visual?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PortadorDeficienciaFisica" id="PortadorDeficienciaFisica" class="form-check-input text-success" /></span>
+                <label for="PortadorDeficienciaFisica" class="text-success"><span>Portador de deficiência física?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PortadorDeficienciaAuditiva" id="PortadorDeficienciaAuditiva" class="form-check-input text-success" /></span>
+                <label for="PortadorDeficienciaAuditiva" class="text-success"><span>Portador de deficiência auditiva?</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PortadorDeficienciaMental" id="PortadorDeficienciaMental" class="form-check-input text-success" /></span>
+                <label for="PortadorDeficienciaMental" class="text-success"><span>Portador de deficiência mental?</span></label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-switch">
+                <span><input type="checkbox" asp-for="PortadorDeficienciaMultipla" id="PortadorDeficienciaMultipla" class="form-check-input text-success" /></span>
+                <label for="PortadorDeficienciaMultipla" class="text-success"><span>Portador de deficiência múltipla?</span></label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="MedicoId" class="text-success">Médico</label><br>
+                <select asp-for="MedicoId" id="MedicoId" class="form-control"></select>
+                <span asp-validation-for="MedicoId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Local" class="text-success">Local</label><br>
+                <select asp-for="Local" id="Local" class="form-control">
+                    <option value="">Selecione</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="Data" class="text-success">Data</label><br>
+                <input type="date" asp-for="Data" id="Data" class="form-control">
+                <span asp-validation-for="Data" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="Apto" class="text-success">Situação</label><br>
+                <select asp-for="Apto" id="Apto" class="form-control">
+                    <option value="">Selecione</option>
+                    <option value="true">Apto</option>
+                    <option value="false">Inapto</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <label for="MotivoInapto" class="text-success">Motivo inapto?</label><br>
+                <textarea asp-for="MotivoInapto" id="MotivoInapto" class="form-control" rows="2" maxlength="255"></textarea>
+            </div>
+        </div>
+    </div>
+</form>

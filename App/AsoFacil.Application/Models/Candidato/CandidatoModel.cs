@@ -25,6 +25,7 @@ namespace AsoFacil.Application.Models.Candidato
 
         public CargoModel Cargo { get; set; }
         public EmpresaModel Empresa { get; set; }
+        public AnamneseModel Anamnese { get; set; }
     }
 
     public class ManterCandidatoModel

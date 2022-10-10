@@ -1,4 +1,5 @@
-﻿using AsoFacil.Models.Candidato;
+﻿using AsoFacil.Models.Anamnese;
+using AsoFacil.Models.Candidato;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,15 +29,23 @@ namespace AsoFacil.Controllers
                 model.Nome = candidato.Nome;
                 model.RG = candidato.RG;
                 model.Email = candidato.Email;
-                model.OrgaoEmissor = candidato.OrgaoEmissor;
-                model.UF = candidato.UF;
-                model.CargoId = candidato.Cargo.Id;
-                model.EmpresaId = candidato.Empresa.Id;
-                model.DataNascimento = candidato.DataNascimento;
             }
 
             ModelState.Clear();
             return PartialView("_Modal", model);
+        }
+
+        [HttpPost("candidato/modalanamnese")]
+        public IActionResult ModalAnamnese([FromBody] ManterCandidatoViewModel model)
+        {
+            var anamnese = new AnamneseViewModel();
+            if (model != null && model.Id != Guid.Empty)
+            {
+                anamnese = GetAnamneseByCandidatoIdAsync(model.Id).Result;
+            }
+
+            ModelState.Clear();
+            return PartialView("_ModalAnamnese", anamnese);
         }
 
         #endregion
@@ -57,6 +66,14 @@ namespace AsoFacil.Controllers
             var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/candidatos/v1/getbyidasync/{candidatoId}", null, TypeRequest.GetAsync, User);
             var candidato = JsonConvert.DeserializeObject<CandidatoViewModel>(taskResult?.Data.ToString());
             return candidato;
+        }
+
+        [HttpGet("candidato/getanamnesebycandidatoidasync")]
+        public async Task<AnamneseViewModel> GetAnamneseByCandidatoIdAsync(Guid candidatoId)
+        {
+            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/candidatos/v1/getanamnesebycandidatoidasync/{candidatoId}", null, TypeRequest.GetAsync, User);
+            var anamnese = JsonConvert.DeserializeObject<AnamneseViewModel>(taskResult?.Data.ToString());
+            return anamnese;
         }
 
         [HttpPost("candidato/postasync")]

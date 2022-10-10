@@ -65,6 +65,7 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync([FromServices] IAgendamentoApplicationService service, Guid id)
         {
             if (!ModelState.IsValid)

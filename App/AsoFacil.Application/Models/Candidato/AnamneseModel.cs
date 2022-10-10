@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace AsoFacil.Domain.Entities
+namespace AsoFacil.Application.Models.Candidato
 {
-    public class Anamnese
+    public class AnamneseModel
     {
+        public Guid? CandidatoId { get; set; }
         public Guid Id { get; set; }
 
         #region Perguntas
@@ -49,21 +50,13 @@ namespace AsoFacil.Domain.Entities
         public bool PortadorDeficienciaMental { get; set; }
         public bool PortadorDeficienciaMultipla { get; set; }
 
-        #endregion
+        #endregion Perguntas
 
-        public Guid MedicoId { get; set; }
+        public Guid? MedicoId { get; set; }
 
         public bool Apto { get; set; }
         public string MotivoInapto { get; set; }
         public string Local { get; set; }
-        public DateTime Data { get; set; }
-
-        public Medico Medico { get; set; }
-
-        public Candidato Candidato { get; set; }
-
-        public Anamnese()
-        {
-        }
+        public DateTime? Data { get; set; }
     }
 }

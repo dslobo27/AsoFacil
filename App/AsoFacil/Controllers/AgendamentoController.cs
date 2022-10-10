@@ -72,7 +72,7 @@ namespace AsoFacil.Controllers
             (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/candidatos/v1/getbyidasync/{model.CandidatoId}", null, TypeRequest.GetAsync, User);
             var candidato = JsonConvert.DeserializeObject<CandidatoViewModel>(taskResult?.Data.ToString());
 
-            await EnviarEmailAgendamento(model.DataHora, $"/Anamnese/candidato={candidato.Id}&agendamento={model.Id}", candidato.Email);
+            await EnviarEmailAgendamento(model.DataHora, $"CoreBusiness/Anamnese?candidato={candidato.Id}&agendamento={model.Id}", candidato.Email);
             return Json(taskResult);
         }
 

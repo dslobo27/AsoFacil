@@ -31,14 +31,40 @@ namespace AsoFacil.Domain.Services
             return await _repository.GetByIdAsync(id);
         }
 
+        public async Task<Anamnese> GetAnamneseByIdAsync(Guid id)
+        {
+            return await _repository.GetAnamneseByIdAsync(id);
+        }
+
+        public async Task<Anamnese> GetAnamneseByCandidatoIdAsync(Guid id)
+        {
+            return await _repository.GetAnamneseByCandidatoIdAsync(id);
+        }
+
         public async Task<bool> InsertAsync(Candidato entity)
         {
             return await _repository.InsertAsync(entity);
         }
 
+        public async Task<bool> InsertAnamneseAsync(Anamnese entity, Guid candidatoId)
+        {
+            entity.Id = Guid.NewGuid();
+            var candidato = await _repository.GetByIdAsync(candidatoId);
+            candidato.AnamneseId = entity.Id;
+
+            await _repository.InsertAnamneseAsync(entity);
+
+            return await _repository.UpdateAsync(candidato);
+        }
+
         public async Task<bool> UpdateAsync(Candidato entity)
         {
             return await _repository.UpdateAsync(entity);
+        }
+
+        public async Task<bool> UpdateAnamneseAsync(Anamnese entity)
+        {
+            return await _repository.UpdateAnamneseAsync(entity);
         }
     }
 }

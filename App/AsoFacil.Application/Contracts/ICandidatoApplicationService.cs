@@ -10,10 +10,13 @@ namespace AsoFacil.Application.Contracts
         Task<IEnumerable<CandidatoModel>> ObterAsync(string nome, string rg, string email);
 
         Task<CandidatoModel> ObterPorIdAsync(Guid id);
+        Task<AnamneseModel> ObterAnamnesePorCandidatoIdAsync(Guid id);
 
         Task<bool> AlterarAsync(ManterCandidatoModel model);
+        Task<bool> AlterarAnamneseAsync(AnamneseModel model);
 
         Task<bool> CriarAsync(ManterCandidatoModel model);
+        Task<bool> CriarAnamneseAsync(AnamneseModel model);
 
         Task<bool> ExcluirAsync(Guid id);
     }

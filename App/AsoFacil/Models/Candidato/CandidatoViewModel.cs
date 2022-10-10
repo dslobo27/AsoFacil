@@ -1,4 +1,5 @@
-﻿using AsoFacil.Models.Cargo;
+﻿using AsoFacil.Models.Anamnese;
+using AsoFacil.Models.Cargo;
 using AsoFacil.Models.Empresa;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -8,6 +9,7 @@ namespace AsoFacil.Models.Candidato
     public class CandidatoViewModel
     {
         public Guid Id { get; set; }
+        public Guid? AnamneseId { get; set; }
         public string Nome { get; set; }
 
         public string RG { get; set; }
@@ -18,6 +20,7 @@ namespace AsoFacil.Models.Candidato
         public DateTime DataNascimento { get; set; }
         public CargoViewModel Cargo { get; set; }
         public EmpresaViewModel Empresa { get; set; }
+        public AnamneseViewModel Anamnese { get; set; }
     }
 
     public class ManterCandidatoViewModel

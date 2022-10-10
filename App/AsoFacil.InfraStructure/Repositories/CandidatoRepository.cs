@@ -27,6 +27,8 @@ namespace AsoFacil.InfraStructure.Repositories
         public async Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email)
         {
             var query = _context.Candidatos
+                .Include(a => a.Anamnese)
+                    .ThenInclude(m => m.Medico)
                 .Include(c => c.Cargo)
                 .Include(e => e.Empresa)
                 .AsQueryable();
@@ -46,8 +48,24 @@ namespace AsoFacil.InfraStructure.Repositories
         public async Task<Candidato> GetByIdAsync(Guid id)
         {
             return await _context.Candidatos
+                .Include(a => a.Anamnese)
+                    .ThenInclude(m => m.Medico)
                 .Include(c => c.Cargo)
                 .Include(e => e.Empresa)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Anamnese> GetAnamneseByCandidatoIdAsync(Guid id)
+        {
+            return await _context.Anamneses
+                .Include(c => c.Candidato)
+                .FirstOrDefaultAsync(x => x.Candidato.Id == id);
+        }
+
+        public async Task<Anamnese> GetAnamneseByIdAsync(Guid id)
+        {
+            return await _context.Anamneses
+                .Include(c => c.Candidato)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -57,9 +75,21 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
+        public async Task<bool> InsertAnamneseAsync(Anamnese entity)
+        {
+            _context.Anamneses.Add(entity);
+            return await Commit();
+        }
+
         public async Task<bool> UpdateAsync(Candidato entity)
         {
             _context.Candidatos.Update(entity);
+            return await Commit();
+        }
+
+        public async Task<bool> UpdateAnamneseAsync(Anamnese entity)
+        {
+            _context.Anamneses.Update(entity);
             return await Commit();
         }
 

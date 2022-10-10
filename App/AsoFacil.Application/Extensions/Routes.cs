@@ -26,10 +26,13 @@
         #region Candidatos
 
         public const string POST_CANDIDATOS = "api/candidatos/v1/postasync";
+        public const string POST_ANAMNESE_CANDIDATOS = "api/candidatos/v1/anamnesepostasync";
+        public const string PUT_ANAMNESE_CANDIDATOS = "api/candidatos/v1/anamneseputasync";
         public const string PUT_CANDIDATOS = "api/candidatos/v1/putasync";
         public const string DELETE_CANDIDATOS = "api/candidatos/v1/deleteasync/{id}";
         public const string GET_CANDIDATOS = "api/candidatos/v1/getasync";
         public const string GETBYID_CANDIDATOS = "api/candidatos/v1/getbyidasync/{id}";
+        public const string GETANAMNESEBYID_CANDIDATOS = "api/candidatos/v1/getanamnesebycandidatoidasync/{id}";
 
         #endregion Candidatos
 

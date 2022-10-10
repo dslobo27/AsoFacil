@@ -56,6 +56,7 @@ namespace AsoFacil.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync([FromServices] ICandidatoApplicationService service, Guid id)
         {
             if (!ModelState.IsValid)
@@ -69,6 +70,34 @@ namespace AsoFacil.Presentation.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new TaskResult<CandidatoModel>($"{MessagesApi.Exception(entity, Routes.GETBYID_CANDIDATOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para obter anamnese de um candidato
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet(Routes.GETANAMNESEBYID_CANDIDATOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAnamneseByCandidatoIdAsync([FromServices] ICandidatoApplicationService service, Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<AnamneseModel>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.ObterAnamnesePorCandidatoIdAsync(id);
+                return Ok(new TaskResult<AnamneseModel>(result));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<AnamneseModel>($"{MessagesApi.Exception(entity, Routes.GETANAMNESEBYID_CANDIDATOS)} {ex.Message}"));
             }
         }
 
@@ -100,6 +129,68 @@ namespace AsoFacil.Presentation.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.POST_CANDIDATOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para cadastrar a anamnese do candidato/paciente
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost(Routes.POST_ANAMNESE_CANDIDATOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> AnamnesePostAsync([FromServices] ICandidatoApplicationService service, [FromBody] AnamneseModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.CriarAnamneseAsync(model);
+                return Ok(new TaskResult<string>(
+                    result ? MessagesApi.Sucess(entity, Routes.POST_ANAMNESE_CANDIDATOS)
+                           : MessagesApi.Error(entity, Routes.POST_ANAMNESE_CANDIDATOS), null)
+                    );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.POST_ANAMNESE_CANDIDATOS)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
+        /// Endpoint para alterar a anamnese do candidato/paciente
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut(Routes.PUT_ANAMNESE_CANDIDATOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> AnamnesePutAsync([FromServices] ICandidatoApplicationService service, [FromBody] AnamneseModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<string>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.AlterarAnamneseAsync(model);
+                return Ok(new TaskResult<string>(
+                    result ? MessagesApi.Sucess(entity, Routes.PUT_ANAMNESE_CANDIDATOS)
+                           : MessagesApi.Error(entity, Routes.PUT_ANAMNESE_CANDIDATOS), null)
+                    );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.PUT_ANAMNESE_CANDIDATOS)} {ex.Message}"));
             }
         }
 
