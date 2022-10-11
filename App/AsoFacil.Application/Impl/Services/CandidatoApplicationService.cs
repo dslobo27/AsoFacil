@@ -132,7 +132,7 @@ namespace AsoFacil.Application.Impl.Services
             entity.PortadorDeficienciaVisual = model.PortadorDeficienciaVisual;
             entity.PortadorDeficienciaMental = model.PortadorDeficienciaMental;
             entity.PortadorDeficienciaMultipla = model.PortadorDeficienciaMultipla;
-            
+
             return await _domainService.InsertAnamneseAsync(entity, model.CandidatoId.GetValueOrDefault());
         }
 
@@ -160,7 +160,69 @@ namespace AsoFacil.Application.Impl.Services
             return ConvertAnamneseToDto(entity);
         }
 
+        public async Task<ASOModel> ObterASOByCandidatoAnamneseIdAsync(Guid candidatoId, Guid anamneseId)
+        {
+            var anamnese = await _domainService.GetAnamneseByCandidatoIdAsync(candidatoId);
+            var candidato = await _domainService.GetByIdAsync(candidatoId);
+
+            return ConvertASOToDto(anamnese, candidato);
+        }
+
         #region private
+
+        private static ASOModel ConvertASOToDto(Anamnese anamnese, Candidato candidato)
+        {
+            return new ASOModel
+            {
+                Nome = candidato.Nome.ToUpper(),
+                Documento = $"{Convert.ToUInt64(candidato.RG).ToString(@"00\.000\.000\-0")} - {candidato.OrgaoEmissor.ToUpper()}/{candidato.UF.ToUpper()}",
+                Cargo = candidato.Cargo.Descricao,
+                Email = candidato.Email,
+                DataNascimento = candidato.DataNascimento.ToString("dd/MM/yyyy"),
+                CNPJ = Convert.ToUInt64(candidato.Empresa.CNPJ).ToString(@"000\.000\.000\-00"),
+                RazaoSocial = candidato.Empresa.RazaoSocial.ToUpper(),
+                Medico = anamnese.Medico.Nome.ToUpper(),
+                MotivoInapto = anamnese.MotivoInapto.ToUpper(),
+                Data = anamnese.Data.ToString("dd/MM/yyyy"),
+                Status = anamnese.Apto ? "APTO" : "INAPTO",
+                Local = ObterLocal(anamnese.Local).ToUpper()
+            };
+        }
+
+        private static string ObterLocal(string sigla)
+        {
+            var dic = new Dictionary<string, string>();
+
+            dic.Add("AC", "Acre");
+            dic.Add("AL", "Alagoas");
+            dic.Add("AP", "Amapá");
+            dic.Add("AM", "Amazonas");
+            dic.Add("BA", "Bahia");
+            dic.Add("CE", "Ceará");
+            dic.Add("DF", "Distrito Federal");
+            dic.Add("ES", "Espírito Santo");
+            dic.Add("GO", "Goiás");
+            dic.Add("MA", "Maranhão");
+            dic.Add("MT", "Mato Grosso");
+            dic.Add("MS", "Mato Grosso do Sul");
+            dic.Add("MG", "Minas Gerais");
+            dic.Add("PA", "Pará");
+            dic.Add("PB", "Paraíba");
+            dic.Add("PR", "Paraná");
+            dic.Add("PE", "Pernambuco");
+            dic.Add("PI", "Piauí");
+            dic.Add("RJ", "Rio de Janeiro");
+            dic.Add("RN", "Rio Grande do Norte");
+            dic.Add("RS", "Rio Grande do Sul");
+            dic.Add("RO", "Rondônia");
+            dic.Add("RR", "Roraima");
+            dic.Add("SC", "Santa Catarina");
+            dic.Add("SP", "São Paulo");
+            dic.Add("SE", "Sergipe");
+            dic.Add("TO", "Tocantins");
+
+            return dic[sigla];
+        }
 
         private static List<CandidatoModel> ConvertToDto(IEnumerable<Candidato> entities)
         {
@@ -204,7 +266,7 @@ namespace AsoFacil.Application.Impl.Services
                 },
                 Anamnese = new AnamneseModel
                 {
-                     MedicoId = e.Anamnese?.Medico?.Id
+                    MedicoId = e.Anamnese?.Medico?.Id
                 }
             };
         }

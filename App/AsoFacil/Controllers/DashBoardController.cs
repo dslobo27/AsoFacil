@@ -22,7 +22,7 @@ namespace AsoFacil.Controllers
             _emailService = emailService;
         }
 
-        public IActionResult Index()
+        public IActionResult Cadastro()
         {
             return View();
         }

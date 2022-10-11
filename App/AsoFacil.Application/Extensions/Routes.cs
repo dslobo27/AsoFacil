@@ -33,6 +33,7 @@
         public const string GET_CANDIDATOS = "api/candidatos/v1/getasync";
         public const string GETBYID_CANDIDATOS = "api/candidatos/v1/getbyidasync/{id}";
         public const string GETANAMNESEBYID_CANDIDATOS = "api/candidatos/v1/getanamnesebycandidatoidasync/{id}";
+        public const string GETASOBYID_CANDIDATO_ANAMNESE = "api/candidatos/v1/getasobycandidatoanamneseidasync/{candidatoId}/{anamneseId}";
 
         #endregion Candidatos
 

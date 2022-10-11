@@ -12,7 +12,6 @@ namespace AsoFacil.Domain.Contracts.Services
         Task<Candidato> GetByIdAsync(Guid id);
         Task<Anamnese> GetAnamneseByIdAsync(Guid id);
         Task<Anamnese> GetAnamneseByCandidatoIdAsync(Guid id);
-
         Task<bool> InsertAsync(Candidato entity);
         Task<bool> InsertAnamneseAsync(Anamnese entity, Guid candidatoId);
 

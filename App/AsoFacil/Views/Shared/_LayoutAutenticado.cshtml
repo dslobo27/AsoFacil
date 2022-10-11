@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-multiselect-master/dist/css/bootstrap-multiselect.min.css" />
     @*<link rel="stylesheet" href="~/lib/multi-checkbox-select/css/multi-checkbox-select.css" />*@
-    
+
     <link rel="stylesheet" href="~/css/site.css" />
 
     <!-- Template Main CSS File -->
@@ -38,7 +38,7 @@
         div.dataTables_processing > div:last-child > div {
             background: #28a745 !important;
         }
-</style>
+    </style>
 </head>
 
 <body>
@@ -93,7 +93,14 @@
                             if (listaCadastrosBasicos.Contains(item))
                                 continue;
 
-                            <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á','a').Replace('é', 'e')" asp-action="Cadastro">@item</a></li>
+                            if (item.Equals("Dashboards"))
+                            {
+                                <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á', 'a').Replace('é', 'e')" asp-action="Cadastro">Dashboard</a></li>
+                            }
+                            else
+                            {
+                                <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á', 'a').Replace('é', 'e')" asp-action="Cadastro">@item</a></li>
+                            }
                         }
                     }
                     <li><a class="btn btn-primary" asp-controller="Conta" asp-action="Logout" id="btn-logout">Sair</a></li>

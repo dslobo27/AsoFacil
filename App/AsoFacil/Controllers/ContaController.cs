@@ -119,7 +119,7 @@ namespace AsoFacil.Controllers
             string urlRedirecionamento = codigoTipoUsuario switch
             {
                 "EMPRESA_ADMIN" => "/Agendamento/Cadastro",
-                "ASOFACIL_ADMIN" => "/Dashboard/Index",
+                "ASOFACIL_ADMIN" => "/Dashboard/Cadastro",
                 "EMPRESA_OPR" => "/Agendamento/Cadastro",
                 "CLINICA_ADMIN" => "/Agendamento/Cadastro",
                 "CLINICA_OPR" => "/Agendamento/Cadastro",

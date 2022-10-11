@@ -102,6 +102,33 @@ namespace AsoFacil.Presentation.Controllers
         }
 
         /// <summary>
+        /// Endpoint para obter anamnese de um candidato
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet(Routes.GETASOBYID_CANDIDATO_ANAMNESE)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetASOByCandidatoAnamneseIdAsync([FromServices] ICandidatoApplicationService service, Guid candidatoId, Guid anamneseId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<ASOModel>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.ObterASOByCandidatoAnamneseIdAsync(candidatoId, anamneseId);
+                return Ok(new TaskResult<ASOModel>(result));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<ASOModel>($"{MessagesApi.Exception(entity, Routes.GETASOBYID_CANDIDATO_ANAMNESE)} {ex.Message}"));
+            }
+        }
+
+        /// <summary>
         /// Endpoint para cadastrar um candidato/paciente
         /// </summary>
         /// <param name="service"></param>

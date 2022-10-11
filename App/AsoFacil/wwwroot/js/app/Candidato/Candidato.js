@@ -59,7 +59,7 @@
                 data: "id",
                 render: function (data, type, full) {
                     if (full.anamnese?.medicoId != null && full.anamnese?.medicoId != '00000000-0000-0000-0000-000000000000' && full.anamnese?.medicoId != undefined)
-                        return '<a title="Baixar ASO" class="bi bi-file-earmark-pdf btn-baixar-aso text-dark" data-id=' + full.anamnese?.medicoId + ' href=""></a>';
+                        return '<a title="Baixar ASO" class="bi bi-file-earmark-pdf btn-baixar-aso text-dark" data-anamneseId=' + full.anamneseId + ' data-candidatoId=' + data + ' data-id=' + full.anamnese?.medicoId + ' href=""></a>';
 
                     return '';
                 }
@@ -69,7 +69,7 @@
                 data: "id",
                 render: function (data, type, full) {
                     if (full.anamneseId != null && full.anamneseId != '00000000-0000-0000-0000-000000000000' && full.anamneseId != undefined)
-                        return '<a title="Editar Anamnese" class="bi bi-clipboard-check btn-editar-anamnese text-dark" data-candidatoId=' + full.candidatoId + ' data-medicoId=' + full.anamnese.medico?.id + ' data-id=' + data + ' href=""></a>';
+                        return '<a title="Editar Anamnese" class="bi bi-clipboard-check btn-editar-anamnese text-dark" data-anamneseId=' + full.anamneseId + ' data-candidatoId=' + full.candidatoId + ' data-medicoId=' + full.anamnese.medico?.id + ' data-id=' + data + ' href=""></a>';
 
                     return '';
                 }
@@ -121,8 +121,7 @@
     oTable.on('click', '.btn-editar-anamnese', function (e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let candidatoId = $(this).data("candidatoid");
-        
+                
         let model = {
             Id: id
         };
@@ -153,6 +152,15 @@
         let id = $(this).data("id");
         $('#id-exclusao').val(id);
         $("#modal-excluir").modal('show');
+    });
+
+    oTable.on('click', '.btn-baixar-aso', function (e){
+        e.preventDefault();
+        let candidatoId = $(this).data("candidatoid");
+        let anamneseId = $(this).data("anamneseid");
+        console.log(candidatoId, anamneseId);
+        window.open('/aso?candidato=' + candidatoId + '&anamnese=' + anamneseId, '_blank'); 
+        //window.location = newUrl;
     });
 
     $('#btn-criar').click(function (e) {

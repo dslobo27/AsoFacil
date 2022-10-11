@@ -11,6 +11,7 @@ namespace AsoFacil.Application.Contracts
 
         Task<CandidatoModel> ObterPorIdAsync(Guid id);
         Task<AnamneseModel> ObterAnamnesePorCandidatoIdAsync(Guid id);
+        Task<ASOModel> ObterASOByCandidatoAnamneseIdAsync(Guid candidatoId, Guid anamneseId);
 
         Task<bool> AlterarAsync(ManterCandidatoModel model);
         Task<bool> AlterarAnamneseAsync(AnamneseModel model);

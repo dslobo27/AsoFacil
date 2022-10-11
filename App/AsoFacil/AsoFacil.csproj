@@ -189,6 +189,13 @@
     <PackageReference Include="AlertifyJS" Version="1.13.1" />
     <PackageReference Include="jQuery.Validation" Version="1.19.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\aso\" />
   </ItemGroup>
 
 </Project>
