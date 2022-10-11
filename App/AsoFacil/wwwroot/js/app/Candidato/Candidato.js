@@ -158,9 +158,9 @@
         e.preventDefault();
         let candidatoId = $(this).data("candidatoid");
         let anamneseId = $(this).data("anamneseid");
-        console.log(candidatoId, anamneseId);
-        window.open('/aso?candidato=' + candidatoId + '&anamnese=' + anamneseId, '_blank'); 
-        //window.location = newUrl;
+        let url = '/aso?candidato=' + candidatoId + '&anamnese=' + anamneseId;
+        //window.open('/aso?candidato=' + candidatoId + '&anamnese=' + anamneseId, '_blank'); 
+        window.location = url;
     });
 
     $('#btn-criar').click(function (e) {
