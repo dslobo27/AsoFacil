@@ -50,6 +50,14 @@ namespace AsoFacil.Controllers
 
         #region Actions
 
+        [HttpGet("medico/getfordropdownasync")]
+        public async Task<IEnumerable<MedicoViewModel>> GetForDropdownAsync()
+        {
+            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi($"/api/medicos/v1/getfordropdownasync", null, TypeRequest.GetAsync, User);
+            var medicos = JsonConvert.DeserializeObject<List<MedicoViewModel>>(taskResult?.Data.ToString());
+            return medicos;
+        }
+
         [HttpGet("medico/getasync")]
         public async Task<IEnumerable<MedicoViewModel>> GetAsync([FromQuery] string crm, [FromQuery] string nome)
         {

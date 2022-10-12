@@ -7,7 +7,7 @@ namespace AsoFacil.Application.Contracts
 {
     public interface ICandidatoApplicationService
     {
-        Task<IEnumerable<CandidatoModel>> ObterAsync(string nome, string rg, string email);
+        Task<IEnumerable<CandidatoModel>> ObterAsync(string nome, string rg, string email, Guid empresaId);
 
         Task<CandidatoModel> ObterPorIdAsync(Guid id);
         Task<AnamneseModel> ObterAnamnesePorCandidatoIdAsync(Guid id);

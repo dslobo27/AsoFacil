@@ -64,7 +64,8 @@ namespace AsoFacil.Application.Impl.Services
                         CNPJ = usuario.Empresa.CNPJ,
                         Email = usuario.Empresa.Email,
                         RazaoSocial = usuario.Empresa.RazaoSocial,
-                        SolicitacaoAtivacaoEmpresaId = usuario.Empresa.SolicitacaoAtivacaoEmpresaId
+                        SolicitacaoAtivacaoEmpresaId = usuario.Empresa.SolicitacaoAtivacaoEmpresaId,
+                        FlagClinica = usuario.Empresa.FlagClinica
                     }
                 };
             }                
@@ -72,9 +73,9 @@ namespace AsoFacil.Application.Impl.Services
             return model;
         }
 
-        public async Task<IEnumerable<UsuarioModel>> ObterAsync(string email)
+        public async Task<IEnumerable<UsuarioModel>> ObterAsync(string email, Guid empresaId)
         {
-            var usuarios = await _usuarioDomainService.GetAllAsync(email);
+            var usuarios = await _usuarioDomainService.GetAllAsync(email, empresaId);
             return ConvertToDto(usuarios);
         }
 

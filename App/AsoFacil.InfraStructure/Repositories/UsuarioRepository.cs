@@ -24,7 +24,7 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
-        public async Task<IEnumerable<Usuario>> GetAllAsync(string email)
+        public async Task<IEnumerable<Usuario>> GetAllAsync(string email, Guid empresaId)
         {
             var query = _context.Usuarios
                 .Include(u => u.Empresa)
@@ -33,6 +33,9 @@ namespace AsoFacil.InfraStructure.Repositories
 
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(x => x.Login.Contains(email));
+
+            if (empresaId != default)
+                query = query.Where(x => x.EmpresaId == empresaId);
 
             return await query.ToListAsync();
         }

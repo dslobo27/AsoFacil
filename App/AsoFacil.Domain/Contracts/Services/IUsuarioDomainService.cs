@@ -13,7 +13,7 @@ namespace AsoFacil.Domain.Contracts.Services
 
         Task<bool> DeleteAsync(Usuario usuario);
 
-        Task<IEnumerable<Usuario>> GetAllAsync(string email);
+        Task<IEnumerable<Usuario>> GetAllAsync(string email, Guid empresaId);
 
         Task<Usuario> Login(string login, string senha);
 

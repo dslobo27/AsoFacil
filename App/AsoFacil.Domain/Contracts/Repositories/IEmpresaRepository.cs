@@ -9,7 +9,7 @@ namespace AsoFacil.Domain.Contracts.Repositories
     {
         Task<bool> DeleteAsync(Empresa empresa);
 
-        Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial);
+        Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial, Guid empresaId);
 
         Task<Empresa> GetByIdAsync(Guid empresaId);
 

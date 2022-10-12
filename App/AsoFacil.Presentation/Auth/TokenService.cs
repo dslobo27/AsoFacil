@@ -15,7 +15,9 @@ namespace AsoFacil.Presentation.Auth
             var key = Encoding.ASCII.GetBytes(Config.JwtKey);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.PrimarySid, model.Id.ToString())
+                new Claim(ClaimTypes.PrimarySid, model.Id.ToString()),
+                new Claim("COD_TIPO_USUARIO", model.TipoUsuario.Codigo),
+                new Claim("EMPRESA_ID", model.Empresa.Id.ToString()),
             };
             var tokenDescriptor = new SecurityTokenDescriptor
             {

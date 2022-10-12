@@ -7,7 +7,7 @@ namespace AsoFacil.Application.Contracts
 {
     public interface IMedicoApplicationService
     {
-        Task<IEnumerable<MedicoModel>> ObterAsync(string crm, string nome);
+        Task<IEnumerable<MedicoModel>> ObterAsync(string crm, string nome, Guid empresaId);
 
         Task<MedicoModel> ObterPorIdAsync(Guid id);
 

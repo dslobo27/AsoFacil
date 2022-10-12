@@ -7,8 +7,46 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <section id="features" class="features">
+                    <div data-aos="fade-up">
+                        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="col-lg-3 col-md-4">
+                                <label>Total de empresas</label>
+                                <div class="icon-box">
+                                    <i class="bi bi-building" style="color: #ffbb2c;"></i>
+                                    <h2><label id="total-empresas">0</label></h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+                                <label>Total de candidatos</label>
+                                <div class="icon-box">
+                                    <i class="bi bi-person-square" style="color: #5578ff;"></i>
+                                    <h2><label id="total-candidatos">0</label></h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+                                <label>Total de agendamentos</label>
+                                <div class="icon-box">
+                                    <i class="bi bi-calendar3" style="color: #e80368;"></i>
+                                    <h2><label id="total-agendamentos">0</label></h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+                                <label>Total de solicitações</label>
+                                <div class="icon-box">
+                                    <i class="bi bi-ui-checks-grid" style="color: #e361ff;"></i>
+                                    <h2><label id="total-solicitacoes">0</label></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" data-aos="fade-up">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" style="background-color: #ffffff !important">
                         <h6>Solicitações de ativação pendentes</h6>
                     </div>
                     <div class="card-body">
@@ -33,4 +71,5 @@
 
 @section Scripts {
     <script src="~/js/app/Dashboard/SolicitacaoAtivacaoEmpresa.js"></script>
+    <script src="~/js/app/Dashboard/Totalizador.js"></script>
 }

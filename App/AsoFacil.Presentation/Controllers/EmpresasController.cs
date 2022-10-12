@@ -1,6 +1,7 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Empresa;
+using AsoFacil.Presentation.Controllers.MultiTenant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace AsoFacil.Presentation.Controllers
 {
     [Authorize]
     [ApiController]
-    public class EmpresasController : Controller
+    public class EmpresasController : MultiTenantController
     {
         private const string entity = "Empresa";
 
@@ -65,8 +66,8 @@ namespace AsoFacil.Presentation.Controllers
                 return BadRequest(new TaskResult<List<EmpresaModel>>(ModelState.GetErrors()));
 
             try
-            {
-                var empresas = await service.ObterAsync(cnpj, razaoSocial);
+            {   
+                var empresas = await service.ObterAsync(cnpj, razaoSocial, empresaId);
                 return Ok(new TaskResult<IEnumerable<EmpresaModel>>(empresas));
             }
             catch (Exception ex)
@@ -130,7 +131,7 @@ namespace AsoFacil.Presentation.Controllers
             {
                 return StatusCode(500, new TaskResult<string>($"{MessagesApi.Exception(entity, Routes.PUT_EMPRESAS)} {ex.Message}"));
             }
-        }        
+        }
 
         /// <summary>
         /// Endpoint para excluir uma empresas
@@ -152,7 +153,7 @@ namespace AsoFacil.Presentation.Controllers
             {
                 var result = await service.ExcluirAsync(id);
                 return Ok(new TaskResult<string>(
-                    result ? MessagesApi.Sucess(entity, Routes.DELETE_EMPRESAS, EntityGender.Feminino) 
+                    result ? MessagesApi.Sucess(entity, Routes.DELETE_EMPRESAS, EntityGender.Feminino)
                            : MessagesApi.Error(entity, Routes.DELETE_EMPRESAS, EntityGender.Feminino), null)
                     );
             }

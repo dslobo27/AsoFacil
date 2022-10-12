@@ -43,6 +43,7 @@
         public const string PUT_MEDICOS = "api/medicos/v1/putasync";
         public const string DELETE_MEDICOS = "api/medicos/v1/deleteasync/{id}";
         public const string GET_MEDICOS = "api/medicos/v1/getasync";
+        public const string GETFOR_MEDICOS = "api/medicos/v1/getfordropdownasync";
         public const string GETBYID_MEDICOS = "api/medicos/v1/getbyidasync/{id}";
 
         #endregion Médicos

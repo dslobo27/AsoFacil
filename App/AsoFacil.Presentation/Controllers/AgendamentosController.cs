@@ -1,6 +1,7 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Agendamento;
+using AsoFacil.Presentation.Controllers.MultiTenant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace AsoFacil.Presentation.Controllers
 {
     [Authorize]
     [ApiController]
-    public class AgendamentosController : Controller
+    public class AgendamentosController : MultiTenantController
     {
         private const string entity = "Agendamento";
 
@@ -45,7 +46,7 @@ namespace AsoFacil.Presentation.Controllers
                 if (!string.IsNullOrEmpty(dtFim))
                     dataFim = DateTime.Parse($"{dtFim} 23:59:59");
 
-                var result = await service.ObterAsync(nome, rg, dataInicio, dataFim);
+                var result = await service.ObterAsync(nome, rg, dataInicio, dataFim, empresaId);
                 return Ok(new TaskResult<IEnumerable<AgendamentoModel>>(result));
             }
             catch (Exception ex)

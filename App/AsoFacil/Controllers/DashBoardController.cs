@@ -1,5 +1,6 @@
 ﻿using AsoFacil.Helpers.Email;
 using AsoFacil.Models.Conta;
+using AsoFacil.Models.Dashboard;
 using AsoFacil.Models.SolicitacaoAtivacaoEmpresa;
 using AsoFacil.Models.TipoUsuario;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,14 @@ namespace AsoFacil.Controllers
         public IActionResult Cadastro()
         {
             return View();
+        }
+
+        [HttpGet("dashboard/totalizadores")]
+        public async Task<TotalizadorViewModel> GetTotalizadoresAsync()
+        {
+            var (_, taskResult) = await CreateAndMakeAuthenticatedRequestToApi("/api/totalizadores/v1/getasync", null, TypeRequest.GetAsync, User);
+            var totalizador = JsonConvert.DeserializeObject<TotalizadorViewModel>(taskResult?.Data.ToString());
+            return totalizador;
         }
 
         [HttpGet("dashboard/solicitacoesativacoesempresas")]

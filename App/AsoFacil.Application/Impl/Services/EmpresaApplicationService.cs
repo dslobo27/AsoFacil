@@ -50,9 +50,9 @@ namespace AsoFacil.Application.Impl.Services
             return await _empresaDomainService.DeleteAsync(empresa);
         }
 
-        public async Task<IEnumerable<EmpresaModel>> ObterAsync(string cnpj, string razaoSocial)
+        public async Task<IEnumerable<EmpresaModel>> ObterAsync(string cnpj, string razaoSocial, Guid empresaId)
         {
-            var empresas = await _empresaDomainService.GetAllAsync(cnpj, razaoSocial);
+            var empresas = await _empresaDomainService.GetAllAsync(cnpj, razaoSocial, empresaId);
             return ConvertToDto(empresas);
         }
 

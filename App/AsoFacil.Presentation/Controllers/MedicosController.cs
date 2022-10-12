@@ -1,6 +1,7 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Medico;
+using AsoFacil.Presentation.Controllers.MultiTenant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,37 @@ namespace AsoFacil.Presentation.Controllers
 {
     [Authorize]
     [ApiController]
-    public class MedicosController : Controller
+    public class MedicosController : MultiTenantController
     {
         private const string entity = "Médico";
+
+        /// <summary>
+        /// Endpoint para obter todos os médicos
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="crm"></param>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        [HttpGet(Routes.GETFOR_MEDICOS)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAsync([FromServices] IMedicoApplicationService service)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new TaskResult<List<MedicoModel>>(ModelState.GetErrors()));
+
+            try
+            {
+                var result = await service.ObterAsync(string.Empty, string.Empty, Guid.Empty);
+                return Ok(new TaskResult<IEnumerable<MedicoModel>>(result));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new TaskResult<List<MedicoModel>>($"{MessagesApi.Exception(string.Format("{0}{1}", entity, "s"), Routes.GET_MEDICOS)} {ex.Message}"));
+            }
+        }
 
         /// <summary>
         /// Endpoint para obter todos os médicos
@@ -35,7 +64,7 @@ namespace AsoFacil.Presentation.Controllers
 
             try
             {
-                var result = await service.ObterAsync(crm, nome);
+                var result = await service.ObterAsync(crm, nome, empresaId);
                 return Ok(new TaskResult<IEnumerable<MedicoModel>>(result));
             }
             catch (Exception ex)

@@ -142,9 +142,9 @@ namespace AsoFacil.Application.Impl.Services
             return await _domainService.DeleteAsync(entity);
         }
 
-        public async Task<IEnumerable<CandidatoModel>> ObterAsync(string nome, string rg, string email)
+        public async Task<IEnumerable<CandidatoModel>> ObterAsync(string nome, string rg, string email, Guid empresaId)
         {
-            var entities = await _domainService.GetAllAsync(nome, rg, email);
+            var entities = await _domainService.GetAllAsync(nome, rg, email, empresaId);
             return ConvertToDto(entities);
         }
 

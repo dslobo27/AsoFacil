@@ -38,9 +38,9 @@ namespace AsoFacil.Application.Impl.Services
             return await _domainService.DeleteAsync(entity);
         }
 
-        public async Task<IEnumerable<MedicoModel>> ObterAsync(string crm, string nome)
+        public async Task<IEnumerable<MedicoModel>> ObterAsync(string crm, string nome, Guid empresaId)
         {
-            var entities = await _domainService.GetAllAsync(crm, nome);
+            var entities = await _domainService.GetAllAsync(crm, nome, empresaId);
             return ConvertToDto(entities);
         }
 

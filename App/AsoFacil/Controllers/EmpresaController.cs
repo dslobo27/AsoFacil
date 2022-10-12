@@ -33,12 +33,29 @@ namespace AsoFacil.Controllers
 
         public IActionResult EditarCadastro()
         {
-            return View("EditarCadastro");
+            var identity = (ClaimsIdentity)User.Identity;
+            var empresaId = identity.Claims.FirstOrDefault(x => x.Type.Equals("EmpresaId")).Value;
+
+            var model = GetByIdAsync(Guid.Parse(empresaId)).Result;
+
+            return View("EditarCadastro", model);
         }
 
         public IActionResult ListarCadastro()
         {
             return View("ListarCadastro");
+        }
+
+
+        public IActionResult AtualizarCadastro(EmpresaViewModel model)
+        {
+            var manterEmpresa = new ManterEmpresaViewModel();
+            manterEmpresa.Id = model.Id;
+            manterEmpresa.CNPJ = model.CNPJ;
+            manterEmpresa.RazaoSocial = model.RazaoSocial;
+            manterEmpresa.Email = model.Email;
+            PutAsync(manterEmpresa).ConfigureAwait(false);
+            return View("EditarCadastro", model);
         }
 
         [HttpPost("empresa/modal")]

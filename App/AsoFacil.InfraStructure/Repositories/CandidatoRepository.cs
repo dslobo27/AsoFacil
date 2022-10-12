@@ -24,7 +24,7 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
-        public async Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email)
+        public async Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email, Guid empresaId)
         {
             var query = _context.Candidatos
                 .Include(a => a.Anamnese)
@@ -41,6 +41,9 @@ namespace AsoFacil.InfraStructure.Repositories
 
             if (!string.IsNullOrEmpty(email))
                 query = query.Where(x => x.Email.Contains(email));
+
+            if (empresaId != default)
+                query = query.Where(x => x.EmpresaId == empresaId);
 
             return await query.ToListAsync();
         }

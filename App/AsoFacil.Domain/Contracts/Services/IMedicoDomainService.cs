@@ -7,7 +7,7 @@ namespace AsoFacil.Domain.Contracts.Services
 {
     public interface IMedicoDomainService
     {
-        Task<IEnumerable<Medico>> GetAllAsync(string crm, string nome);
+        Task<IEnumerable<Medico>> GetAllAsync(string crm, string nome, Guid empresaId);
 
         Task<Medico> GetByIdAsync(Guid id);
 

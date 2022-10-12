@@ -7,7 +7,7 @@ namespace AsoFacil.Application.Contracts
 {
     public interface IAgendamentoApplicationService
     {
-        Task<IEnumerable<AgendamentoModel>> ObterAsync(string nome, string rg, DateTime? dataInicio, DateTime? dataFim);
+        Task<IEnumerable<AgendamentoModel>> ObterAsync(string nome, string rg, DateTime? dataInicio, DateTime? dataFim, Guid empresaId);
 
         Task<AgendamentoModel> ObterPorIdAsync(Guid id);
 

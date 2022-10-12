@@ -7,7 +7,7 @@ namespace AsoFacil.Application.Contracts
 {
     public interface IUsuarioApplicationService
     {
-        Task<IEnumerable<UsuarioModel>> ObterAsync(string email);
+        Task<IEnumerable<UsuarioModel>> ObterAsync(string email, Guid empresaId);
 
         Task<UsuarioModel> ObterPorIdAsync(Guid usuarioId);
 

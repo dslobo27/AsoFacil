@@ -7,7 +7,7 @@ namespace AsoFacil.Domain.Contracts.Services
 {
     public interface IAgendamentoDomainService
     {
-        Task<IEnumerable<Agendamento>> GetAllAsync(string nomeCandidato, string rg, DateTime? dataInicio, DateTime? dataFim);
+        Task<IEnumerable<Agendamento>> GetAllAsync(string nomeCandidato, string rg, DateTime? dataInicio, DateTime? dataFim, Guid empresaId);
 
         Task<Agendamento> GetByIdAsync(Guid id);
 

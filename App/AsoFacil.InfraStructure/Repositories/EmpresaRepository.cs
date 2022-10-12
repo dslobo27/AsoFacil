@@ -24,7 +24,7 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial)
+        public async Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial, Guid empresaId)
         {
             var query = _context.Empresas.AsQueryable();
 
@@ -35,6 +35,9 @@ namespace AsoFacil.InfraStructure.Repositories
                 query = query.Where(x => x.RazaoSocial.Contains(razaoSocial));
 
             query = query.Where(x => x.Ativa == true);
+
+            if (empresaId != default)
+                query = query.Where(x => x.Id == empresaId);
 
             return await query.ToListAsync();
         }

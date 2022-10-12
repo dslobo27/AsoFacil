@@ -97,6 +97,17 @@
                             {
                                 <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á', 'a').Replace('é', 'e')" asp-action="Cadastro">Dashboard</a></li>
                             }
+                            else if (item.Equals("Médicos"))
+                            {
+                                var flagClinica = User.Claims.FirstOrDefault(x => x.Type == "ehClinica").Value;
+                                var codigoTipoUsuario = User.Claims.FirstOrDefault(x => x.Type == "CodigoTipoUsuario").Value;
+                                var ehClinica = bool.Parse(flagClinica);
+
+                                if ((!ehClinica) && (codigoTipoUsuario != "ASOFACIL_ADMIN"))
+                                    continue;
+
+                                <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á', 'a').Replace('é', 'e')" asp-action="Cadastro">@item</a></li>
+                            }
                             else
                             {
                                 <li><a class="link-menu" asp-controller="@item.Remove(item.Length - 1).Replace('á', 'a').Replace('é', 'e')" asp-action="Cadastro">@item</a></li>

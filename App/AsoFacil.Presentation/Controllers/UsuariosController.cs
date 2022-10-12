@@ -2,6 +2,7 @@
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Usuario;
 using AsoFacil.Presentation.Auth;
+using AsoFacil.Presentation.Controllers.MultiTenant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace AsoFacil.Presentation.Controllers
 {
     [ApiController]
-    public class UsuariosController : Controller
+    public class UsuariosController : MultiTenantController
     {
         private const string entity = "Usuário";
 
@@ -99,7 +100,7 @@ namespace AsoFacil.Presentation.Controllers
 
             try
             {
-                var usuarios = await service.ObterAsync(email);
+                var usuarios = await service.ObterAsync(email, empresaId);
                 return Ok(new TaskResult<IEnumerable<UsuarioModel>>(usuarios));
             }
             catch (Exception ex)

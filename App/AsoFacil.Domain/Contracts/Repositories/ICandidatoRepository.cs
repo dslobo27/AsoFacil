@@ -7,7 +7,7 @@ namespace AsoFacil.Domain.Contracts.Repositories
 {
     public interface ICandidatoRepository
     {
-        Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email);
+        Task<IEnumerable<Candidato>> GetAllAsync(string nome, string rg, string email, Guid empresaId);
 
         Task<Candidato> GetByIdAsync(Guid id);
         Task<Anamnese> GetAnamneseByIdAsync(Guid id);

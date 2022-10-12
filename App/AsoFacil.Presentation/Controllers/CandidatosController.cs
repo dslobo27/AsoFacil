@@ -1,6 +1,7 @@
 ﻿using AsoFacil.Application.Contracts;
 using AsoFacil.Application.Extensions;
 using AsoFacil.Application.Models.Candidato;
+using AsoFacil.Presentation.Controllers.MultiTenant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace AsoFacil.Presentation.Controllers
 {
     [Authorize]
     [ApiController]
-    public class CandidatosController : Controller
+    public class CandidatosController : MultiTenantController
     {
         private const string entity = "Candidato";
 
@@ -36,7 +37,7 @@ namespace AsoFacil.Presentation.Controllers
 
             try
             {
-                var result = await service.ObterAsync(nome, rg, email);
+                var result = await service.ObterAsync(nome, rg, email, empresaId);
                 return Ok(new TaskResult<IEnumerable<CandidatoModel>>(result));
             }
             catch (Exception ex)

@@ -25,7 +25,7 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
-        public async Task<IEnumerable<Medico>> GetAllAsync(string crm, string nome)
+        public async Task<IEnumerable<Medico>> GetAllAsync(string crm, string nome, Guid empresaId)
         {
             var query = _context.Medicos.Include(x => x.Empresa).AsQueryable();
 
@@ -34,6 +34,9 @@ namespace AsoFacil.InfraStructure.Repositories
 
             if (!string.IsNullOrEmpty(nome))
                 query = query.Where(x => x.Nome.Contains(nome));
+
+            if (empresaId != default)
+                query = query.Where(x => x.EmpresaId == empresaId);
 
             return await query.ToListAsync();
         }

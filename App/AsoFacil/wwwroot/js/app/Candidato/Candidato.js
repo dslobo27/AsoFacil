@@ -210,7 +210,7 @@
     });
 
     $("#partial-modal-anamnese").on('shown.bs.modal', function () {
-        $.get("/medico/getasync/", function (data) {
+        $.get("/medico/getfordropdownasync/", function (data) {
             $("#MedicoId").append('<option value="">Selecione</option>');
             $.each(data, function (key, obj) {
                 $("#MedicoId").append('<option value=' + obj.id + ' ' + (obj.id == medicoSelecionado ? 'selected' : '') + '>' + obj.crm + ' - ' + obj.nome + '</option>');

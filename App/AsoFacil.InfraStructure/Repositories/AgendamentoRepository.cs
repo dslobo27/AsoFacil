@@ -24,7 +24,7 @@ namespace AsoFacil.InfraStructure.Repositories
             return await Commit();
         }
 
-        public async Task<IEnumerable<Agendamento>> GetAllAsync(string nomeCandidato, string rg, DateTime? dataInicio, DateTime? dataFim)
+        public async Task<IEnumerable<Agendamento>> GetAllAsync(string nomeCandidato, string rg, DateTime? dataInicio, DateTime? dataFim, Guid empresaId)
         {
             var query = _context.Agendamentos
                 .Include(c => c.Candidato)
@@ -43,6 +43,9 @@ namespace AsoFacil.InfraStructure.Repositories
 
             if (dataFim != null)
                 query = query.Where(x => x.DataHora <= dataFim);
+
+            if (empresaId != default)
+                query = query.Where(x => x.EmpresaId == empresaId);
 
             return await query.ToListAsync();
         }

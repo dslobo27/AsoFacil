@@ -10,7 +10,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post" id="cadastroEmpresaForm" name="cadastroEmpresaForm">
+                        <form method="post" id="cadastroEmpresaForm" name="cadastroEmpresaForm" asp-controller="Empresa" asp-action="AtualizarCadastro">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="Ativa" />
+                            <input type="hidden" asp-for="FlagClinica" />
                             <div class="form-group">
                                 <label for="cnpj" class="text-success">CNPJ</label><br>
                                 <input type="text" asp-for="CNPJ" class="form-control" data-mask="00.000.000/0000-00">

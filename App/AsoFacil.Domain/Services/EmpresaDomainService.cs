@@ -25,9 +25,9 @@ namespace AsoFacil.Domain.Services
             return await _empresaRepository.DeleteAsync(empresa);
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial)
+        public async Task<IEnumerable<Empresa>> GetAllAsync(string cnpj, string razaoSocial, Guid empresaId)
         {
-            return await _empresaRepository.GetAllAsync(cnpj, razaoSocial);
+            return await _empresaRepository.GetAllAsync(cnpj, razaoSocial, empresaId);
         }
 
         public async Task<Empresa> GetByIdAsync(Guid empresaId)

@@ -75,6 +75,7 @@ namespace AsoFacil.Controllers
                     new Claim("CodigoTipoUsuario", user.TipoUsuario.Codigo),
                     new Claim("MenuSistema", user.TipoUsuario.MenuSistema),
                     new Claim("EmpresaId", user.Empresa.Id.ToString()),
+                    new Claim("ehClinica", user.Empresa.FlagClinica.ToString()),
                     new Claim("CNPJ", user.Empresa.CNPJ),
                     new Claim("Email", user.Empresa.Email),
                     new Claim("LembrarDeMim", model.LembrarDeMim ? "S" : "N")
