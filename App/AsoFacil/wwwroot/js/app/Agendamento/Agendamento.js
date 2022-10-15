@@ -62,8 +62,21 @@
                     [yyyy, mm, dd, hh, mi] = full.dataHora.split(/[/:\-T]/);
                     return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
                 }
+            },
+            {
+                data: "id",
+                "autowidth": true,
+                render: function (data, type, full) {
+                    return '<a title="link para preenchimento da anamnese do candidato" class="bi bi-link-45deg btn-link text-dark" data-url="/CoreBusiness/Anamnese?candidato=' + full.candidatoId + '&agendamento=' + data + '" href=""></a>';
+                }
             }
         ]
+    });
+
+    oTable.on('click', '.btn-link', function (e) {
+        e.preventDefault();
+        let url = $(this).data("url");
+        window.open(url, "_blank");
     });
 
     oTable.on('click', '.btn-editar', function (e) {

@@ -47,4 +47,9 @@
             }
         });
     });
+
+    $('#btn-voltar').click(function (e) {
+        e.preventDefault();
+        window.location.href = '/Conta/Index';
+    });
 });
