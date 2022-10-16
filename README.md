@@ -16,3 +16,6 @@ https://drive.google.com/file/d/1DCsTCoTh94IMXjCuPA1zXFqPfHSlkoY6/view?usp=shari
 
 # Vídeo Apresentação de Funcionalidade [Etapa 2]
 https://drive.google.com/file/d/1zIqW3CKjhGVVR-7nAp-_7aY938vZyZSF/view?usp=sharing
+
+# Vídeo Apresentação do Sistema [Etapa 3]
+https://drive.google.com/file/d/1VO7H_tbWUKpCvMGIkfV7v8T7XywggVuf/view?usp=sharing
